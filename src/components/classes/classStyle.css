@@ -1,0 +1,42 @@
+*{
+    text-align: center;
+}
+.choosClass{
+    display: flex;
+    text-align: center;
+}
+.picC1{
+    width: 80%;
+    height:45vh;
+    /* margin-top: 10%; */
+
+
+}
+.picC3{
+    width: 90%;
+    height:55vh;
+
+
+}
+
+
+.label{
+
+font-size: 250%;
+color:dodgerblue ;
+
+}
+.smulllabel{
+    font-size: 150%;
+    color:dodgerblue ;
+}
+.smulllabel2{
+    font-size: 150%;
+    padding-top: 10%;
+    color:dodgerblue ;
+}
+.misgeret{
+    width:95%;
+    height:58vh;
+   
+}

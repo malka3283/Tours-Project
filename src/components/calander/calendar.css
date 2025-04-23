@@ -1,0 +1,93 @@
+*{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+
+.day {
+    width: 12%;
+    margin: 0.5%;
+    text-align: center;
+    border: 2px solid black;
+    overflow: auto;
+    height: 10vh;
+}
+
+.today {
+    width: 12%;
+    margin: 0.5%;
+    text-align: center;
+    border: 2px solid rgb(70, 131, 180);
+    background-color:rgba(70, 131, 180, 0.26);
+    overflow: auto;
+    height: 10vh;
+}
+
+.dadDays {
+    direction: rtl;
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.main {
+    width: 100%;
+}
+
+.calen{
+    width: 100%;
+}
+
+.dadOfDay{
+    direction: rtl;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    height: 2%;
+    justify-content: center;
+}
+
+.daysName{
+    width: 12%;
+    margin: 0.5%;
+    text-align: center;
+    font-size: xx-large;
+    text-shadow: 2px 2px rgb(90, 89, 89);
+    padding-top: 1%;
+}
+
+.monthDay{
+    background-color:rgba(58, 67, 75, 0.26);
+    overflow: auto;
+    height: 10vh;
+
+}
+                    
+.fSize{
+    font-size: medium;
+    border-bottom: 2px solid black;
+    color:steelblue ;
+}
+
+.fSize1{
+    font-size: xx-large;
+    border-bottom: 2px solid black;
+    color:steelblue ;
+}
+
+.ev{
+    font-size: large;
+margin-top: 8%;
+}
+
+
+
+.nextMonth{
+    display: flex;
+}
+
+.todayFlight{
+    background-color: blueviolet;
+}
