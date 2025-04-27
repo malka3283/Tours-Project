@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 
 import './calendar.css'
 import { loct } from "../../redux/slices/user/userSlice";
+import { useNavigate } from "react-router-dom";
 
 export const Calendar = () => {
 
@@ -14,6 +15,7 @@ export const Calendar = () => {
     const [isMonth, setIsMonth] = useState(false);
     
     const flightsDetailsArr = useSelector(state => state.flights.flightsDetailsArr);
+    const classes = useSelector(state => state.flights.classes);
 
     const date = new Date()
     const dates = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"]
@@ -61,12 +63,10 @@ export const Calendar = () => {
         dispatch(loct("/calendar"));
     }, [])
 
-const ggg=(date,dd)=>{
-//console.log(date);
-var ddd=new Date(date)
-console.log(ddd.toLocaleDateString());
-console.log(dd);
-}
+    const navigate = useNavigate();
+
+
+
 
     return <div className="main">   
         <div className="nextMonth">
@@ -84,13 +84,14 @@ console.log(dd);
             <div className="dadDays">
                 {week.map(d => <div
                     className={`${d === date.toLocaleDateString() ? "today" : "day"}  ${isMonth && parseInt(d.substring(0, 2)) !== monthOver.getMonth() + 1 ? "monthDay" : ""} `}>
-
+                  <div className="fSize" >{d}</div>
                     {flightsDetailsArr?.length > 0 && flightsDetailsArr.map(dFlights =>{return <div
                                         className={`${new Date(dFlights.date).toLocaleDateString() === d ? "todayFlight" : ""} `}>
-                                            {ggg(dFlights.date,d)}
+                                            
+                    {new Date(dFlights.date).toLocaleDateString() === d && <button onClick={() =>  navigate(`/flightDetail/${classes}/${dFlights.id}/${1}`)}>{dFlights.time}</button>}
                     </div>})}
                         
-                    <div className="fSize" >{d}</div>
+                  
                 </div>)}
 
             </div>

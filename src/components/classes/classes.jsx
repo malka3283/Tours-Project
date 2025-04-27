@@ -26,7 +26,7 @@ export const Classes = () => {
             <div className='misgeret'>
                 <div className='smulllabel2'>מחלקה ראשונה</div>
                 <div onClick={() => { 
-                    dispatch(chooseClass(1))
+                    dispatch(chooseClass("ראשונה"))
                     navigate('/flights')
                    } }><img src="מחלקה ראשונה סופי.png" className='picC1'/></div>
             </div>
@@ -35,14 +35,14 @@ export const Classes = () => {
 
             <div className='misgeret'>
                 <div className='smulllabel'>מחלקת תיירים</div>
-                <div onClick={() => {dispatch(chooseClass(3))
+                <div onClick={() => {dispatch(chooseClass("תיירים"))
                                         navigate('/flights')
                 }}><img src="רגילה.png"  className='picC3'/></div>
             </div>
             
             <div className='misgeret'>
                 <div className='smulllabel2'>מחלקת עסקים</div>
-                <div onClick={() => {dispatch(chooseClass(2))
+                <div onClick={() => {dispatch(chooseClass("עסקים"))
                                         navigate('/flights')
                 }}><img src="עסקים.png"  className='picC1'/></div>
             </div>

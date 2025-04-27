@@ -2,22 +2,26 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { loct } from "../../redux/slices/user/userSlice"
 import { getClassToFlightbyClassthisFlightIdThunk } from "../../redux/slices/flight/getClassToFlightbyClassthisFlightIdThunk"
-import { plusOrMinusnumbertickets } from "../../redux/slices/flight/flightsSlice"
+import { useParams } from "react-router-dom"
+import { minusnumbertickets } from "../../redux/slices/flight/flightsSlice"
 
 
 export const FlightDetails = () => {
 
+    const params = useParams();
+
 const dispatch = useDispatch()
 
 const yourClassToFlight = useSelector(  state => state.flights.yourClassToFlight)
-const thisYourChousFlight = useSelector(  state => state.flights.thisYourChousFlight)
-const thisYourChooseThisFlight = useSelector(  state => state.flights.thisYourChooseThisFlight)
+const numSeats = useSelector(  state => state.flights.numSeats)
 
 
-useEffect(()=>{
+useEffect(() => {
     dispatch(loct("/flightDetail"));
-    dispatch(getClassToFlightbyClassthisFlightIdThunk({classs: thisYourChousFlight.classs, thisflightId: thisYourChooseThisFlight.id}))
-},[])
+    debugger
+    console.log("1");
+    dispatch(getClassToFlightbyClassthisFlightIdThunk({classs: params.classs, thisflightId: params.id}))
+}, [])
 
 return <div>
     {yourClassToFlight.sold === 0 && <div>🤍🤍🤍🤍🤍</div>}
@@ -26,18 +30,17 @@ return <div>
     {yourClassToFlight.sold > 10 && <div>❤❤❤🤍🤍</div>}
     {yourClassToFlight.sold > 15 && <div>❤❤❤❤🤍</div>}
     {yourClassToFlight.sold === yourClassToFlight.numOfSeats && <div>❤❤❤❤❤</div>}
-    <label>טיסה מ {thisYourChousFlight.src} </label>
-    <label> ל {thisYourChousFlight.des} </label>
-    <div>{thisYourChooseThisFlight.date} תאריך </div>
-    <div>{thisYourChooseThisFlight.time} שעה </div>
-    <div>{thisYourChousFlight.classs} שעה </div>
+    <label>טיסה מ {yourClassToFlight.thisflight.flight.sourceNavigation.destination} </label>
+    <label>טיסה מ {yourClassToFlight.thisflight.flight.destinationNavigation.destination} </label>
+    <div>{yourClassToFlight.thisflight.date} תאריך </div>
+    <div>{yourClassToFlight.thisflight.time} שעה </div>
     <div> {yourClassToFlight.price}  מחיר הטיסה</div>
     <div>{yourClassToFlight.weightLoad}  משקל מותר  </div>
-    <div>{thisYourChooseThisFlight.priceToOverLoad} מחיר למשקל עודף </div>
+    <div>{yourClassToFlight.thisflight.priceToOverLoad} מחיר למשקל עודף </div>
     <div>
-        <button onClick={() => dispatch(plusOrMinusnumbertickets(-1))}>+</button>
-        <label>{thisYourChousFlight.numSeats}</label>
-        <button>-</button>
+        <button onClick={() => dispatch(minusnumbertickets())}>+</button>
+        <label>{numSeats}</label>
+        <button onClick={() => dispatch(minusnumbertickets())}>-</button>
     </div>
     
 

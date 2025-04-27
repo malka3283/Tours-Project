@@ -3,26 +3,26 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { Calendar } from "../calander/calendar";
 import './flights.css'
-import { getFlightDetailsById } from "../../redux/slices/flight/flightsSlice";
+import { getThisFlightByFlightIdThunk } from "../../redux/slices/flight/getThisFlightByFlightIdThunk";
+import { loct } from "../../redux/slices/user/userSlice";
 
 export const FullFlight = () => {
     
     const params = useParams();
 
-    const FullFlight = useSelector(state => state.flights.FullFlight);
-    // const src = useSelector(state => state.flights.src);
-    // const des = useSelector(state => state.flights.des);
 
     const dispatch = useDispatch();
 
+    const flightsDetailsArr = useSelector(state => state.flights.flightsDetailsArr);
+
     useEffect(() => {
-        dispatch(getFlightDetailsById(params.id))
+        dispatch(getThisFlightByFlightIdThunk(params.id))
     }, [])
 
 return <div>
     <div>
-        {/* <div>{FullFlight}</div>
-        <div>{des}</div> */}
+        <label>{flightsDetailsArr[0]?.flight?.sourceNavigation.destination}</label>
+        <label>{flightsDetailsArr[0]?.flight?.destinationNavigation.destination}</label>
         <div className="divOfCalendar">
         <Calendar />
         </div>

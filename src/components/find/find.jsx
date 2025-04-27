@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux"
 import { loct } from '../../redux/slices/user/userSlice';
 import { getThisFlightBySrcdesdateThunk } from '../../redux/slices/flight/getThisFlightBySrcdesdateThunk';
-import { savaYourChooseFlight, savaYourChooseFlightDetails } from '../../redux/slices/flight/flightsSlice';
+import { savaNumSeats, savaYourChooseFlight, savaYourChooseFlightDetails } from '../../redux/slices/flight/flightsSlice';
 import { useNavigate } from 'react-router-dom';
 import { getAllDestinationThunk } from '../../redux/slices/flight/getAllDestinationThunk';
 
@@ -18,9 +18,6 @@ export const Find = () => {
         dispatch(loct("/find"));
         if(destinitions.length === 0)
         dispatch(getAllDestinationThunk())
-        if(destinitions.length === 0)
-            dispatch(getAllDestinationThunk())
-        console.log(destinitions);
      }, [])
 
      const nowFind = () => {
@@ -28,9 +25,8 @@ export const Find = () => {
 
      }
      const chooseCorrectTime = (f) => {
-        dispatch(savaYourChooseFlight(flt))
-        dispatch(savaYourChooseFlightDetails(f))
-        navigate("/flightDetail")
+      dispatch(savaNumSeats(flt.numSeats))
+        navigate(`/flightDetail/${flt.classs}/${f.id}/${flt.numSeats}`)
 
      }
 

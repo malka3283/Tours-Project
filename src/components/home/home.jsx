@@ -33,6 +33,7 @@ export const Home = () => {
             <div><img src="לוגו חדש.png" className='piclogo' /></div>
             <button className="btnMenu" >מבצעים</button>
             <button className="btnMenu" onClick={() => { navigate(`/chooseClass`) }}>טיסות</button>
+            <button className="btnMenu" onClick={() => { navigate(`/handle`) }}>מנהל</button>
         </div>
 
         <div>

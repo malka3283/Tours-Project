@@ -10,24 +10,25 @@ import { addDestantionThunk } from "./addDestantionThunk";
 import { addFlightThunk } from "./addFlightThunk";
 import { getThisFlightBySrcdesdateThunk } from "./getThisFlightBySrcdesdateThunk";
 import { getClassToFlightbyClassthisFlightIdThunk } from "./getClassToFlightbyClassthisFlightIdThunk";
+import { getThisFlightByFlightIdThunk } from "./getThisFlightByFlightIdThunk";
+import { getAllThisFlightThunk } from "./getAllThisFlightThunk";
 
 const INITIAL_STATE = {
     flightsArr: [],
     flightsDetailsArr: [],
     FullFlight: [],
+    AllThisFlight: [],
     classToFlight: [],
     destinitions: [],
     thisFlight: [],
-    thisYourChousFlight: {},
-    thisYourChooseThisFlight: {},
     yourClassToFlight: {},
     loading: false,
     error: '',
+    numSeats: 0,
     status: false,
-    class: 0,
+    classes: "",
     isAddFlight: 0,
-    // des: 0,
-    // src: 0,
+
 }
 
 export const flightsSlice = createSlice({
@@ -37,12 +38,9 @@ export const flightsSlice = createSlice({
     reducers: {
      
             chooseClass: (state, action) => {
-                state.class = action.payload;
+                state.classes = action.payload;
             },
-            // saveDesAndSrc: (state, action) => {
-            //     state.des = action.payload.des;
-            //     state.src = action.payload.src;
-            // }
+
             getFlightDetailsById: (state, action) => {
                 console.log(state.flightsArr);
                 state.FullFlight = state.flightsArr.filter(x => x.id === action.payload) 
@@ -51,14 +49,19 @@ export const flightsSlice = createSlice({
             savaYourChooseFlight: (state, action) => {
                 state.thisYourChousFlight = action.payload;
             },
+            savaNumSeats: (state, action) => {
+                state.numSeats = action.payload;
+            },
             savaYourChooseFlightDetails: (state, action) => {
                 state.thisYourChooseThisFlight = action.payload;
                 console.log(action.payload);
             },
-            plusOrMinusnumbertickets: (state, action) => {
-                state.thisYourChousFlight.numSeats += action.payload;
+            plusnumbertickets: (state) => {
+                state.numSeats += 1;
             },
-        
+            minusnumbertickets: (state) => {
+                state.numSeats -= 1;
+            },
     },
         extraReducers: (builder) => {
 
@@ -121,6 +124,7 @@ export const flightsSlice = createSlice({
 
             builder.addCase(getAllDestinationThunk.fulfilled, (state, action) => {
                 state.destinitions = action.payload;
+                console.log(state.destinitions);
             })
 
             builder.addCase(getAllDestinationThunk.rejected, (state) => {
@@ -165,10 +169,35 @@ export const flightsSlice = createSlice({
 
             builder.addCase(getClassToFlightbyClassthisFlightIdThunk.fulfilled, (state, action) => {
                 state.yourClassToFlight = action.payload
+                console.log(state.yourClassToFlight)
             })
 
             builder.addCase(getClassToFlightbyClassthisFlightIdThunk.rejected, (state) => {
             })
+
+            
+            //getThisFlightByFlightIdThunk
+            builder.addCase(getThisFlightByFlightIdThunk.pending, (state) => {
+            })
+
+            builder.addCase(getThisFlightByFlightIdThunk.fulfilled, (state, action) => {
+                state.flightsDetailsArr = action.payload;
+            })
+
+            builder.addCase(getThisFlightByFlightIdThunk.rejected, (state) => {
+            })
+
+            //getAllThisFlightThunk
+            builder.addCase(getAllThisFlightThunk.pending, (state) => {
+            })
+
+            builder.addCase(getAllThisFlightThunk.fulfilled, (state, action) => {
+                state.AllThisFlight = action.payload;
+            })
+
+            builder.addCase(getAllThisFlightThunk.rejected, (state) => {
+            })
+                           
                         
             
           
@@ -176,4 +205,4 @@ export const flightsSlice = createSlice({
 
     
 });
-export const { chooseClass, getFlightDetailsById, savaYourChooseFlight, savaYourChooseFlightDetails, plusOrMinusnumbertickets} = flightsSlice.actions;
+export const { chooseClass, getFlightDetailsById, savaYourChooseFlight, savaYourChooseFlightDetails, minusnumbertickets, plusnumbertickets, savaNumSeats} = flightsSlice.actions;

@@ -23,19 +23,6 @@ export const Flights = () => {
     const ClassToFlightThunk = useSelector(state => state.flights.ClassToFlightThunk);
 
 
-   const openDialogHandele = (f) => {
-    setFlight(f)
-    sethandle(true)
-   }
-
-   const addFlight = () => {
-
-   }
-
-   const closeEdit=()=>{
-    sethandle(false)
-
-   }
 
     useEffect(()=>{
       dispatch(loct("/flights"));
@@ -46,16 +33,12 @@ export const Flights = () => {
         <div className="allFlight">
        {flightsArr?.length > 0 && flightsArr?.map(f =>{
         return <div className="flight" onClick={() =>  {
-          // dispatch(saveDesAndSrc({src: f.nameS, des: f.nameD}))
-          dispatch(getFlightDetailsById(f.id))
-          navigate(`/flightDetails/${f.id}`) 
+          navigate(`/fullFlight/${f.id}`) 
         }}>
-       <button onClick={() => addFlight}>הוספת טיסה</button>
-      <label>{f.nameS} </label>
-      <label>{f.nameD} </label>
+      <label>{f.sourceNavigation.destination} </label>
+      <label>{f.destinationNavigation.destination} </label>
       </div>})}
       </div>
 
-      {handle && <Handle flight={flight}></Handle>}
     </div>
 }
