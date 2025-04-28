@@ -15,16 +15,16 @@ import { getAllThisFlightThunk } from "./getAllThisFlightThunk";
 
 const INITIAL_STATE = {
     flightsArr: [],
+    orders: [],
     flightsDetailsArr: [],
     FullFlight: [],
     AllThisFlight: [],
     classToFlight: [],
     destinitions: [],
     thisFlight: [],
-    yourClassToFlight: {},
+    yourClassToFlight: null,
     loading: false,
     error: '',
-    numSeats: 0,
     status: false,
     classes: "",
     isAddFlight: 0,
@@ -49,19 +49,14 @@ export const flightsSlice = createSlice({
             savaYourChooseFlight: (state, action) => {
                 state.thisYourChousFlight = action.payload;
             },
-            savaNumSeats: (state, action) => {
-                state.numSeats = action.payload;
+            savaClassToFlight: (state, action) => {
+               state.orders.push(action.payload)
             },
             savaYourChooseFlightDetails: (state, action) => {
                 state.thisYourChooseThisFlight = action.payload;
                 console.log(action.payload);
             },
-            plusnumbertickets: (state) => {
-                state.numSeats += 1;
-            },
-            minusnumbertickets: (state) => {
-                state.numSeats -= 1;
-            },
+           
     },
         extraReducers: (builder) => {
 
@@ -78,7 +73,7 @@ export const flightsSlice = createSlice({
             })
 
             
-            //GetAllClassToFlight - no use
+            //GetAllClassToFlight
             builder.addCase(getAllClassToFlightThunk.pending, (state) => {
             })
 
@@ -205,4 +200,4 @@ export const flightsSlice = createSlice({
 
     
 });
-export const { chooseClass, getFlightDetailsById, savaYourChooseFlight, savaYourChooseFlightDetails, minusnumbertickets, plusnumbertickets, savaNumSeats} = flightsSlice.actions;
+export const { chooseClass, getFlightDetailsById, savaYourChooseFlight, savaYourChooseFlightDetails} = flightsSlice.actions;

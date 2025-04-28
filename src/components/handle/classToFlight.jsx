@@ -3,22 +3,24 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { loct } from "../../redux/slices/user/userSlice";
 import { getAllThisFlightThunk } from "../../redux/slices/flight/getAllThisFlightThunk";
+import { getAllClassToFlightThunk } from "../../redux/slices/flight/getAllClassToFlightThunk";
 
 
 export const ClassToFlight = () => {
 
     const dispatch = useDispatch()
 
-    const flightsArr = useSelector(state => state.flights.AllThisFlight)
+    const classToFlight = useSelector(state => state.flights.classToFlight)
 
     useEffect(()=>{
         dispatch(loct("/AllClassToFlight"));
-        dispatch(getAllThisFlightThunk());
+  
+        dispatch(getAllClassToFlightThunk());
       },[])
 
     return <div>
 
-    <table>
+<table>
             <thead>
                 <tr>
                     <th>
@@ -27,27 +29,19 @@ export const ClassToFlight = () => {
                     <th>
                         יעד
                     </th>
-                    <th>
-                        תאריך
-                    </th>
-                    <th>
-                        שעה
-                    </th>
-                    <th>
-                        מחיר למשקל עודף
-                    </th>
-
                 </tr>
             </thead>
 
 <tbody>
-{flightsArr?.map(f => <tr key={f.id}
+{classToFlight?.map(f => <tr key={f.id}
                    >
-                           <td>{f.flight.sourceNavigation.destination}</td>
-                    <td>{f.flight.destinationNavigation.destination}</td>
-                    <td>{f.date}</td>
-                    <td>{f.time}</td>
-                    <td>{f.priceToOverLoad}</td>
+                           <td>{f.class.description}</td>
+                    <td>{f.thisflight.flight.destinationNavigation.destination}</td>
+                    <td>{f.thisflight.flight.sourceNavigation.destination}</td>
+                    <td>{f.weightLoad}</td>
+                    <td>{f.thisflight.priceToOverLoad}</td>
+                    <td>{f.price}</td>
+                    
                 </tr>)}
 
 </tbody>

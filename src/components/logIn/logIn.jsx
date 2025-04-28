@@ -15,19 +15,24 @@ export const LogIn = () => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.users.userWithoutOutId)
+    const userName = useSelector(state => state.users.user)
     const status = useSelector(state => state.users.status)
     const loction = useSelector(state => state.users.loction)
-    const statusFlag = useSelector(state => state.users.statusFlag)
 
     const [thisUser, setUser] = useState(user);
 
 
     useEffect(() => {
+        debugger
         if (status)
             navigate(`/logOn`)
-        if (!status && statusFlag)
-            navigate(`/home`)
+
     }, [status])
+
+    useEffect(() => {
+            navigate(`/home`)
+
+    }, [userName])
 
 
     const check = () => {
@@ -42,7 +47,7 @@ export const LogIn = () => {
 
     const connect = () => {
         dispatch(logIn(thisUser));
-
+        debugger
         dispatch(logInUserThunk({ name: thisUser.firstName, lastName: thisUser.lastName, pass: thisUser.password }));
         if (status)
             navigate(`/logOn`)

@@ -4,12 +4,11 @@ import { addUserThunk } from "./addUserThunk";
 
 const INITIAL_STATE = {
     userWithoutOutId: { firstName: '', lastName: '', email: '', phone: '', password: '' },
-    user: { firstName: '', lastName: '', email: '', phone: '', password: '' },
+    user: null,
     loading: false,
     error: '',
     status: false,
-    loction: "",
-    statusFlag: false,
+    loction: ""
 }
 
 
@@ -35,7 +34,6 @@ export const userSlice = createSlice({
         })
 
         builder.addCase(logInUserThunk.fulfilled, (state, action) => {
-            state.statusFlag = true
             if (action.payload === null)
                 state.status = true;
             else
