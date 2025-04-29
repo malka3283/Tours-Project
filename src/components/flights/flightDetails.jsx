@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { loct } from "../../redux/slices/user/userSlice"
 import { getClassToFlightbyClassthisFlightIdThunk } from "../../redux/slices/flight/getClassToFlightbyClassthisFlightIdThunk"
 import { useParams } from "react-router-dom"
+import { savaClassToFlight } from "../../redux/slices/flight/flightsSlice"
 
 export const FlightDetails = () => {
 
@@ -18,7 +19,7 @@ export const FlightDetails = () => {
 
 
     useEffect(() => {
-        dispatch(loct("/flightDetail"));
+        dispatch(loct(`/flightDetail/${params.classs}/${params.id}/${params.numberOfSeats}`));
         dispatch(getClassToFlightbyClassthisFlightIdThunk({ classs: params.classs, thisflightId: params.id }))
         setNOS(parseInt(params.numberOfSeats))
     }, [])

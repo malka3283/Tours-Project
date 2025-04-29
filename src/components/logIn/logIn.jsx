@@ -17,6 +17,8 @@ export const LogIn = () => {
     const user = useSelector(state => state.users.userWithoutOutId)
     const userName = useSelector(state => state.users.user)
     const status = useSelector(state => state.users.status)
+    const statusUser = useSelector(state => state.users.statusUser)
+
     const loction = useSelector(state => state.users.loction)
 
     const [thisUser, setUser] = useState(user);
@@ -30,9 +32,9 @@ export const LogIn = () => {
     }, [status])
 
     useEffect(() => {
-            navigate(`/home`)
-
-    }, [userName])
+        if(userName !== null)
+            navigate(`/about`)
+    }, [statusUser])
 
 
     const check = () => {

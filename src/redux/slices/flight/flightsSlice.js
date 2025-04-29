@@ -22,7 +22,7 @@ const INITIAL_STATE = {
     classToFlight: [],
     destinitions: [],
     thisFlight: [],
-    yourClassToFlight: null,
+    yourClassToFlight: {},
     loading: false,
     error: '',
     status: false,
@@ -200,4 +200,4 @@ export const flightsSlice = createSlice({
 
     
 });
-export const { chooseClass, getFlightDetailsById, savaYourChooseFlight, savaYourChooseFlightDetails} = flightsSlice.actions;
+export const { chooseClass, getFlightDetailsById, savaYourChooseFlight, savaYourChooseFlightDetails, savaClassToFlight} = flightsSlice.actions;

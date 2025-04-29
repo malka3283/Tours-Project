@@ -31,8 +31,8 @@ export const Home = () => {
     return <div>
         {user && <div>{user.firstName}</div>}
         <div className="menu">
-            <button className="btnMenu" onClick={() => { navigate(`/logIn`) }}>להתחברות</button>
-                {/* <img src="אדם שחור.png" className="picPerson" /> */}
+            <button className="btnMenu" onClick={() => {debugger
+                 navigate('/logIn') }}>להתחברות</button>
             <button className="btnMenu" onClick={() => { navigate(`/find`) }}>חיפוש טיסה אוטומטי</button>
             <div><img src="לוגו חדש.png" className='piclogo' /></div>
             <button className="btnMenu" >מבצעים</button>

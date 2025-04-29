@@ -25,7 +25,6 @@ export const Find = () => {
 
      }
      const chooseCorrectTime = (f) => {
-      dispatch(savaNumSeats(flt.numSeats))
         navigate(`/flightDetail/${flt.classs}/${f.id}/${flt.numSeats}`)
 
      }

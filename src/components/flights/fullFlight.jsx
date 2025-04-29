@@ -16,6 +16,8 @@ export const FullFlight = () => {
     const flightsDetailsArr = useSelector(state => state.flights.flightsDetailsArr);
 
     useEffect(() => {
+        dispatch(loct(`/fullFlight/${params.id}`));
+
         dispatch(getThisFlightByFlightIdThunk(params.id))
     }, [])
 

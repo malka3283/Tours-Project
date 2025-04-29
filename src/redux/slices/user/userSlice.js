@@ -8,6 +8,7 @@ const INITIAL_STATE = {
     loading: false,
     error: '',
     status: false,
+    statusUser: false,
     loction: ""
 }
 
@@ -34,10 +35,13 @@ export const userSlice = createSlice({
         })
 
         builder.addCase(logInUserThunk.fulfilled, (state, action) => {
+            debugger
             if (action.payload === null)
                 state.status = true;
-            else
+            else{
                 state.user = action.payload;
+                state.statusUser = true;
+            }
         })
 
         builder.addCase(logInUserThunk.rejected, (state) => {
