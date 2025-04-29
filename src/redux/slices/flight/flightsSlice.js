@@ -12,9 +12,11 @@ import { getThisFlightBySrcdesdateThunk } from "./getThisFlightBySrcdesdateThunk
 import { getClassToFlightbyClassthisFlightIdThunk } from "./getClassToFlightbyClassthisFlightIdThunk";
 import { getThisFlightByFlightIdThunk } from "./getThisFlightByFlightIdThunk";
 import { getAllThisFlightThunk } from "./getAllThisFlightThunk";
+import { getAllFlightsWhisHanacahThunk } from "./getAllFlightsWhisHanacahThunk";
 
 const INITIAL_STATE = {
     flightsArr: [],
+    flightsWhisHanachaArr: [],
     orders: [],
     flightsDetailsArr: [],
     FullFlight: [],
@@ -22,7 +24,7 @@ const INITIAL_STATE = {
     classToFlight: [],
     destinitions: [],
     thisFlight: [],
-    yourClassToFlight: {},
+    yourClassToFlight: null,
     loading: false,
     error: '',
     status: false,
@@ -51,6 +53,7 @@ export const flightsSlice = createSlice({
             },
             savaClassToFlight: (state, action) => {
                state.orders.push(action.payload)
+               console.log(state.orders);
             },
             savaYourChooseFlightDetails: (state, action) => {
                 state.thisYourChooseThisFlight = action.payload;
@@ -191,6 +194,17 @@ export const flightsSlice = createSlice({
             })
 
             builder.addCase(getAllThisFlightThunk.rejected, (state) => {
+            })
+
+            //getAllFlightsWhisHanacahThunk
+            builder.addCase(getAllFlightsWhisHanacahThunk.pending, (state) => {
+            })
+
+            builder.addCase(getAllFlightsWhisHanacahThunk.fulfilled, (state, action) => {
+                state.flightsWhisHanachaArr = action.payload;
+            })
+
+            builder.addCase(getAllFlightsWhisHanacahThunk.rejected, (state) => {
             })
                            
                         

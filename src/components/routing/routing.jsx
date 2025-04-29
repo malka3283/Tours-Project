@@ -16,6 +16,8 @@ import { Flight } from "../handle/flight"
 import { ThisFlight } from "../handle/thisFlight"
 import { ClassToFlight } from "../handle/classToFlight"
 import { Handle } from "../handle/handle"
+import { Cart } from "../cart/cart"
+import { FlightsWhisHanach } from "../flights/flightsWhisHanach"
 
 
 export const Routing = () => {
@@ -33,11 +35,13 @@ export const Routing = () => {
         <Route path={'/find'} element={<Find/>}></Route>
         <Route path={'/handle'} element={<Handle/>}></Route>
         <Route path={'/AllDestination'} element={<Destnation/>}></Route>
+        <Route path={'/flightsWhisHanach'} element={<FlightsWhisHanach/>}></Route>
         <Route path={'/Allflight'} element={<Flight/>}></Route>
         <Route path={'/AllThisFlight/:id'} element={<ThisFlight/>}></Route>
         <Route path={'/AllClassToFlight/:id'} element={<ClassToFlight/>}></Route>
         <Route path={'/fullFlight/:id'} element={<FullFlight/>}></Route>
         <Route path={'/flightDetail/:classs/:id/:numberOfSeats'} element={<FlightDetails/>}></Route>
+        <Route path={'/cart'} element={<Cart/>}></Route>
         <Route path={''} element={<Navigate to="about"></Navigate>}></Route>
     </Routes>
     </>

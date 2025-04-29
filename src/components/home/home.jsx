@@ -31,11 +31,12 @@ export const Home = () => {
     return <div>
         {user && <div>{user.firstName}</div>}
         <div className="menu">
-            <button className="btnMenu" onClick={() => {debugger
+            <button className="btnMenu" onClick={() => {
                  navigate('/logIn') }}>להתחברות</button>
+                             <button className="btnMenu" onClick={() => { navigate(`/cart`) }}>סל</button>
             <button className="btnMenu" onClick={() => { navigate(`/find`) }}>חיפוש טיסה אוטומטי</button>
             <div><img src="לוגו חדש.png" className='piclogo' /></div>
-            <button className="btnMenu" >מבצעים</button>
+            <button className="btnMenu" onClick={() => { navigate(`/flightsWhisHanach`) }} >מבצעים</button>
             <button className="btnMenu" onClick={() => { navigate(`/chooseClass`) }}>טיסות</button>
             <button className="btnMenu" onClick={() => { navigate(`/handle`) }}>מנהל</button>
         </div>

@@ -88,7 +88,9 @@ export const Calendar = () => {
                     {flightsDetailsArr?.length > 0 && flightsDetailsArr.map(dFlights =>{return <div
                                         className={`${new Date(dFlights.date).toLocaleDateString() === d ? "todayFlight" : ""} `}>
                                             
-                    {new Date(dFlights.date).toLocaleDateString() === d && <button onClick={() =>  navigate(`/flightDetail/${classes}/${dFlights.id}/${1}`)}>{dFlights.time}</button>}
+                    {new Date(dFlights.date).toLocaleDateString() === d && <button onClick={() =>  { 
+                        debugger
+                        navigate(`/flightDetail/${classes}/${dFlights.id}/${1}`)}}>{dFlights.time}</button>}
                     </div>})}
                         
                   

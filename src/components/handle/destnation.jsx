@@ -20,8 +20,15 @@ return <div>
 <table>
             <thead>
                 <tr>
+                <th>
+                    <button>🚮</button>
+                        
+                    </th>
                     <th>
                         שם
+                    </th>
+                    <th>
+                        תמונה
                     </th>
                 </tr>
             </thead>
@@ -29,6 +36,7 @@ return <div>
 <tbody>
 {destinitions?.map(d => <tr key={d.id}
                    >
+                    <td>{d.destination}</td>
                     <td>{d.destination}</td>
                     
                 </tr>)}
