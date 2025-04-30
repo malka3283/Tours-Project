@@ -13,7 +13,6 @@ export const FlightDetails = () => {
 
     const [nOS, setNOS] = useState(0)
     const [overWight, setOverWight] = useState(0)
-    const [flt, setFlt] = useState({yourClassToFlight: {}, nOS: 0, overWight: 0})
 
     const yourClassToFlight = useSelector(state => state.flights.yourClassToFlight)
 
@@ -25,10 +24,11 @@ export const FlightDetails = () => {
     }, [])
 
     const addToCart = () => {
-        setFlt(prev => ({ ...prev, yourClassToFlight: yourClassToFlight }))
-        setFlt(prev => ({ ...prev, nOS: nOS }))
-        setFlt(prev => ({ ...prev, overWight: overWight }))
-        debugger
+        var flt = {src: yourClassToFlight.thisflight.flight.sourceNavigation.destination, des: yourClassToFlight.thisflight.flight.destinationNavigation.destination, 
+            date: yourClassToFlight.thisflight.date, time: yourClassToFlight.thisflight.time, id: yourClassToFlight.id, 
+            price: yourClassToFlight.price - yourClassToFlight.hanacha, priceToOverLoad: yourClassToFlight.thisflight.priceToOverLoad, 
+            nOS: nOS, overWight: overWight
+        }
         dispatch(savaClassToFlight(flt))
     }
 
@@ -48,9 +48,9 @@ export const FlightDetails = () => {
                 <div>{yourClassToFlight.weightLoad}  משקל מותר  </div>
                 <div> {yourClassToFlight.price - yourClassToFlight.hanacha}  מחיר הטיסה</div>
                 <div>{yourClassToFlight.thisflight.priceToOverLoad} מחיר למשקל עודף </div>
-
-
-
+                <div className="product-text">{yourClassToFlight.thisflight.flight.destinationNavigation.path.name}</div>
+                <img className="img" src={`/pic/Products/${yourClassToFlight.thisflight.flight.destinationNavigation.path.url}.png`} alt={`${yourClassToFlight.thisflight.flight.destinationNavigation.path.url}`}></img>
+               
                 {yourClassToFlight.numberOfSeats - yourClassToFlight.sold !== 0 && <div>
                     <button onClick={() => {
                         { nOS < yourClassToFlight.numberOfSeats && setNOS(1 + nOS) }
@@ -81,6 +81,10 @@ export const FlightDetails = () => {
                         </div>
                         <div>{(yourClassToFlight.price - yourClassToFlight.hanacha) * nOS + yourClassToFlight.thisflight.priceToOverLoad * overWight} סהכ </div>
                         {nOS >= 1 && <button onClick={() => addToCart()}>הוספה לסל</button>}
+
+                        <div className="product-text">{yourClassToFlight.thisflight.flight.destinationNavigation.path.name}</div>
+
+
                     </div>}
                 </div>
 

@@ -1,16 +1,44 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { loct } from "../../redux/slices/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Update } from "@mui/icons-material";
+import { deleteOrder } from "../../redux/slices/flight/flightsSlice";
 
 export const Cart = () => {
 
     const dispatch = useDispatch()
 
     const order = useSelector(state => state.flights.orders)
+    const [price, setPrice] = useState(0)
 
     useEffect(() => {
+        let p = 0;
         dispatch(loct("/cart"));
+        order.forEach(element => {
+            p +=  element.price * element.nOS + element.overWight * element.priceToOverLoad
+        });
+        setPrice(p)
     }, [])
+
+    useEffect(() => {
+        let p = 0;
+        order.forEach(element => {
+            p +=  element.price * element.nOS + element.overWight * element.priceToOverLoad
+        });
+        setPrice(p)
+    }, price)
+
+    const updateNOs = (o) => {
+        
+        }
+
+    const deleteO = (o) => {
+    dispatch(deleteOrder(o))
+    }
+
+    const updateOverWight = (o) => {
+    
+    }
 
     return <div>
 
@@ -37,6 +65,9 @@ export const Cart = () => {
                         כמות כרטיסים
                     </th>
                     <th>
+                        מחיר למשקל עודף
+                    </th>
+                    <th>
                         משקל עודף
                     </th>
                     <th>
@@ -48,20 +79,24 @@ export const Cart = () => {
             <tbody>
                 {order?.map(o => <tr key={o.id}
                 >
-                    <td>🚮</td>
-                    {o.yourClassToFlight && <div>
-                    <td>{o.yourClassToFlight}</td>
-                       <td>{o.yourClassToFlight.flight.sourceNavigation.destination}</td> 
-                    <td>{o.yourClassToFlight.thisflight.date} - {o.thisflight.time}</td>
-                    <td>{o.yourClassToFlight.price - o.yourClassToFlight.hanacha}</td>
-                    <td>{o.nOS}</td>
-                    <td>{o.overWight}</td>
-                    <td>{o.nOS * (o.yourClassToFlight.price - o.yourClassToFlight.hanacha) + o.overWight * o.yourClassToFlight.thisflight.priceToOverLoad}</td>
-</div> }
+                    <td onClick={() => deleteO(o)}>להסרה</td>
+                    <td>{o.src}</td>
+                       <td>{o.des}</td> 
+                    <td>{o.date} - {o.time}</td>
+                    <td>{o.price}</td>
+                    <td><input type="number" defaultValue={o.nOS} onClick={() => updateNOs(o)}/></td>
+                    <td><input type="number" defaultValue={o.overWight} onClick={() => updateOverWight(o)}/></td>
+                    <td>{o.nOS * (o.price) + o.overWight * o.priceToOverLoad}</td>
+
                 </tr>)}
 
             </tbody>
         </table>
+        <div>
+            <label>מחיר לתשלום</label>
+            <label>{price}</label>
+            <div>למעבר לתשלום</div>
+        </div>
 
     </div>
 }

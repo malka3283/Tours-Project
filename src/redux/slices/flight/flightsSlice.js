@@ -59,6 +59,16 @@ export const flightsSlice = createSlice({
                 state.thisYourChooseThisFlight = action.payload;
                 console.log(action.payload);
             },
+            deleteOrder: (state, action) => {
+                state.orders.splice(action.payload)
+            },
+            changeNOS: (state, action) => {
+                let o = state.orders.find(x => x.id === action.payload.id)
+                o.overWight = action.payload.overWight
+            },
+            changeWight: (state, action) => {
+                state.orders.splice(action.payload)
+            },
            
     },
         extraReducers: (builder) => {
@@ -214,4 +224,4 @@ export const flightsSlice = createSlice({
 
     
 });
-export const { chooseClass, getFlightDetailsById, savaYourChooseFlight, savaYourChooseFlightDetails, savaClassToFlight} = flightsSlice.actions;
+export const { chooseClass, getFlightDetailsById, savaYourChooseFlight, savaYourChooseFlightDetails, savaClassToFlight, deleteOrder} = flightsSlice.actions;
