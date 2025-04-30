@@ -61,7 +61,8 @@ export const flightsSlice = createSlice({
                 console.log(action.payload);
             },
             deleteOrder: (state, action) => {
-                state.orders.splice(action.payload)
+                let i = state.orders.indexOf(action.payload)
+                state.orders.splice(i, 1)
             },
             changeNOS: (state, action) => {
                 let o = state.orders.find(x => x.id === action.payload.id)

@@ -58,6 +58,7 @@ export const FlightDetails = () => {
                 {yourClassToFlight.sold === yourClassToFlight.numOfSeats && <div>❤❤❤❤❤</div>}
                 <label>טיסה מ {yourClassToFlight.thisflight.flight.sourceNavigation.destination} </label>
                 <label>טיסה מ {yourClassToFlight.thisflight.flight.destinationNavigation.destination} </label>
+                <div><img src={`/תמונות מדינות/${yourClassToFlight.thisflight.flight.destinationNavigation.path}.png`} alt={yourClassToFlight.thisflight.flight.destinationNavigation.path}></img></div>
                 <div>{yourClassToFlight.thisflight.date} תאריך </div>
                 <div>{yourClassToFlight.thisflight.time} שעה </div>
                 <div>מחלקה: {params.classs}  </div>
@@ -65,8 +66,6 @@ export const FlightDetails = () => {
                 <div> {yourClassToFlight.price - yourClassToFlight.hanacha}  מחיר הטיסה</div>
                 <div>{yourClassToFlight.thisflight.priceToOverLoad} מחיר למשקל עודף </div>
                 <div className="product-text">{yourClassToFlight.thisflight.flight.destinationNavigation.path.name}</div>
-                <img className="img" src={`/pic/Products/${yourClassToFlight.thisflight.flight.destinationNavigation.path.url}.png`} alt={`${yourClassToFlight.thisflight.flight.destinationNavigation.path.url}`}></img>
-               
                 {yourClassToFlight.numberOfSeats - yourClassToFlight.sold !== 0 && <div>
                     <button onClick={() => {
                         { nOS < yourClassToFlight.numberOfSeats && setNOS(1 + nOS) }

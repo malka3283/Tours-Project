@@ -37,6 +37,8 @@ export const Flights = () => {
         }}>
       <label>{f.sourceNavigation.destination} </label>
       <label>{f.destinationNavigation.destination} </label>
+      <div><img src={`/תמונות מדינות/${f.destinationNavigation.path}.png`} alt={f.destinationNavigation.path}></img></div>
+
       </div>})}
       </div>
 
