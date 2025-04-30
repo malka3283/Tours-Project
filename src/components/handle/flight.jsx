@@ -40,40 +40,21 @@ export const Flight = () => {
 return <div>
 
 <button onClick={() => setAdd(true)}>הוסף טיסה</button>
-<table>
-            <thead>
-                <tr>
-                <th>
-                        
-                    </th>
-                    <th>
-                        מקור
-                    </th>
-                    <th>
-                        יעד
-                    </th>
-                    <th>
-                        משך טיסה
-                    </th>
-                </tr>
-            </thead>
 
-<tbody>
-{flightsArr?.map(f => <tr key={f.id}
+{flightsArr?.map(f => <div key={f.id}
                    >
-                    <td><button>🚮</button></td>
+                    <button>🚮</button>
                     {/* <td><button onClick={() => {
                         setFlt(f)
                         setAdd(true)
                     }}>💨</button></td> */}
-                           <td>{f.sourceNavigation.destination}</td>
-                    <td>{f.destinationNavigation.destination}</td>
-                    <td>{f.timeOfFlight}</td>
+                    <h1>{f.sourceNavigation.destination} - {f.sourceNavigation.destination}</h1>
+                    <div><img src={`/תמונות מדינות/${f.sourceNavigation.destination}.png`} alt={f.sourceNavigation.destination}></img></div>
+                    <div>משך זמן טיסה: {f.timeOfFlight}</div>
                     
-                </tr>)}
+                </div>)}
 
-</tbody>
-        </table>
+
 
         {add && <AddFlight  addFlight={addFlight} update={update} close={close} flit={flit}/>}
 
