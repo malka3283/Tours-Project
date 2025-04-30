@@ -12,7 +12,7 @@ export const AddThisFlight = (props) => {
 
 
     const dispatch = useDispatch()
-    const[tflt, setTFlt] = useState({priceToOverLoad: 0, time: '', data: '', flightId: 0})
+    const[tflt, setTFlt] = useState({priceToOverLoad: 0, time: '', data: '', flightId: 0, flight: {source: "", destination: "", timeOfFlight: 0, sold: 0, destinationNavigation:{}, sourceNavigation: {}}})
     const[tf, setTf] = useState("")
     const[val, setVal] = useState("")
 
@@ -24,7 +24,7 @@ export const AddThisFlight = (props) => {
         dispatch(getAllFlightThunk())
         setTFlt(thisFlt)
         refDailog.current.showModal();
-        setVal(thisFlt.sourceNavigation.destination + thisFlt.destinationNavigation.destination);
+        // setVal(thisFlt.sourceNavigation.destination + thisFlt.destinationNavigation.destination);
     }, [])
 
 
@@ -33,7 +33,7 @@ export const AddThisFlight = (props) => {
         <button onClick={() => close()}>❌</button>
 
        {thisFlt.time !== "" && <div>עריכת טיסה ספצפית</div>}
-       {thisFlt.time === "" && <div>הוספת טיסה טיסה ספציפית</div>}
+       {thisFlt.time === "" && <div>הוספת טיסה ספציפית</div>}
 
        <div>פרטי טיסה</div>
        {thisFlt.time === "" && <input type="text"  list='src' onChange={(e) => setTf(e.target.value)}/>}
@@ -66,7 +66,7 @@ export const AddThisFlight = (props) => {
                     disabled={tflt.time === "" && thisFlt.date === ""  && thisFlt.priceToOverLoad === ""  && thisFlt.time === "" && setTf != ""}
                 >אישור</button>}
                 
-                {thisFlt.time === " " && <button onClick={() => {
+                {thisFlt.time === "" && <button onClick={() => {
                     let i = tf.indexOf("-")
                     let src = tf.substring(0, i-1)
                     let des = tf.substring(i-1)

@@ -5,18 +5,11 @@ import { getAllFlightThunk } from "../../redux/slices/flight/getAllFlightThunk";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { getAllDestinationThunk } from "../../redux/slices/flight/getAllDestinationThunk";
+import { loct } from "../../redux/slices/user/userSlice";
 
 
 
 export const Home = () => {
-
-
-
-
-
-
-
-
     
     const navigate = useNavigate();
 
@@ -26,6 +19,8 @@ export const Home = () => {
 
 
     useEffect(() => {
+        dispatch(loct("/about"));
+
     }, [])
 
     return <div>

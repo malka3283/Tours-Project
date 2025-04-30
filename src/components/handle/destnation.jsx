@@ -40,41 +40,22 @@ return <div>
 
 
 <button onClick={() => {setAdd(true)}}>הוספת יעד</button>
-<table>
-            <thead>
-                <tr>
-                <th>
-                        
-                    </th>
-                    <th>
-                        
-                        </th>
-                    <th>
-                        שם
-                    </th>
-                    <th>
-                        תמונה
-                    </th>
-                </tr>
-            </thead>
 
-<tbody>
-{destinitions?.map(d => <tr key={d.id}
+<div>יעדים</div>
+
+{destinitions?.map(d => <div key={d.id}
                    >
-                    <th>
-                    <td><button>🚮</button></td>
-                        
-                    <td><button onClick={() => {
+                    <h1>{d.destination}</h1>
+                    <div><img src={`/תמונות מדינות/${d.path}.png`} alt={d.path}></img></div>
+                    <button>🚮</button>
+                    <button onClick={() => {
                         setDes(d)
                         setAdd(true)
-                    }}>📨</button></td>
-                    <td>{d.destination}</td>
-                    <td><img src={`/תמונות מדינות/${d.path}.png`} alt={d.path}></img></td>
-                    </th>
-                </tr>)}
+                    }}>📨</button>
 
-</tbody>
-        </table>
+                </div>)}
+
+
 
 {add && <AddDestination addDestination={addDes} updateDestination={updateDes} close={close} des={des}/>}
 
