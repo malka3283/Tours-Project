@@ -3,6 +3,7 @@ import { loct } from "../../redux/slices/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Update } from "@mui/icons-material";
 import { deleteOrder } from "../../redux/slices/flight/flightsSlice";
+import { useNavigate } from "react-router-dom";
 
 export const Cart = () => {
 
@@ -10,6 +11,8 @@ export const Cart = () => {
 
     const order = useSelector(state => state.flights.orders)
     const [price, setPrice] = useState(0)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         let p = 0;
