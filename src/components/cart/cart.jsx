@@ -11,6 +11,8 @@ export const Cart = () => {
 
     const order = useSelector(state => state.flights.orders)
     const [price, setPrice] = useState(0)
+    const userName = useSelector(state => state.users.user)
+
 
     const navigate = useNavigate()
 
@@ -43,9 +45,18 @@ export const Cart = () => {
     
     }
 
+    const Payment = () => {
+        if(userName === null)
+            navigate('/logIn')
+        else
+        navigate('/pay')
+    }
+
     return <div>
+         {order.length === 0 && <div>הסל ריק</div>}
+        {order.length > 0 &&
 
-
+<div>
         <table>
             <thead>
                 <tr>
@@ -98,8 +109,10 @@ export const Cart = () => {
         <div>
             <label>מחיר לתשלום</label>
             <label>{price}</label>
-            <div>למעבר לתשלום</div>
+            <button onClick={() => Payment()}>למעבר לתשלום</button>
         </div>
+        </div>}
+        
 
     </div>
 }

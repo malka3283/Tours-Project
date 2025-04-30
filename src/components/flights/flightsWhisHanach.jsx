@@ -40,13 +40,13 @@ export const FlightsWhisHanach = () => {
                 </div>
                 <div>
                 <label>מחלקה:</label>
-                    <label>{f.classs.class}</label>
+                    <label>{f.class.description}</label>
                 </div>
                 <div>
                     <label>מחיר אחרי ההנחה:</label>
                     <label>{f.price - f.hanacha}</label></div>
                 <div>
-                    <label>מחיר אחרי ההנחה:</label>
+                    <label>מחיר לפני ההנחה:</label>
                     <label>{f.price}</label>
                 </div>
                 <button onClick={() => navigate(`/flightDetail/${f.class.description}/${f.thisflightId}/${1}`)}>לצפיה</button>

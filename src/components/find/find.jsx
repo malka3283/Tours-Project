@@ -11,7 +11,9 @@ export const Find = () => {
     const[flt, setFlt] = useState({});
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     const thisFlightsArr = useSelector(state => state.flights.thisFlight)
+    const find = useSelector(state => state.flights.find)
     const destinitions = useSelector(state => state.flights.destinitions)
 
     useEffect(() => {
@@ -34,11 +36,12 @@ export const Find = () => {
             <div className='divOfinp'><input type="text" list='dest' className="findbutten" onChange={(e) => setFlt(prev => ({ ...prev, src: e.target.value }))} /><div>מקור</div></div>
             <div className='divOfinp'> <input type="text" list='dest' className="findbutten" onChange={(e) => setFlt(prev => ({ ...prev, des: e.target.value }))}/><div>יעד</div></div>
             <div className='divOfinp'> <input type="date" className="findbutten" onChange={(e) => setFlt(prev => ({ ...prev, date: e.target.value }))}/><div>תאריך</div></div>
-            <div className='divOfinp'> <input type="text" className="findbutten" onChange={(e) => setFlt(prev => ({ ...prev, classs: e.target.value }))}/><div>מחלקה</div></div>
+            <div className='divOfinp'> <input type="text"   list='class' className="findbutten" onChange={(e) => setFlt(prev => ({ ...prev, classs: e.target.value }))}/><div>מחלקה</div></div>
             <div className='divOfinp'><input type="text" className="findbutten" placeholder='💺' onChange={(e) => setFlt(prev => ({ ...prev, numSeats: e.target.value }))}/><div>מספר מקומות</div></div>
             <button className='divOfinp' onClick={() => nowFind()}>אישור</button>
         </div>
 
+{(thisFlightsArr.length === 0 && find) && <div>אין תוצאות מתאימות</div>}
         <datalist id='dest'>
              { destinitions?.length > 0 && destinitions?.map(d => {
                 <option>{d.destination}</option>
@@ -51,10 +54,13 @@ export const Find = () => {
         <option>עסקים</option>
                 <option>ראשונה</option>
                 </datalist>
+
+                
         {thisFlightsArr?.length > 0 && thisFlightsArr?.map(f =>{
         return <div >
          
        <button onClick={() => chooseCorrectTime(f)}>{f.time}</button>
+      
       </div>})}
 
 

@@ -33,7 +33,7 @@ export const LogIn = () => {
 
     useEffect(() => {
         if(userName !== null)
-            navigate(`/about`)
+            navigate(loction)
     }, [statusUser])
 
 

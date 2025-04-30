@@ -35,6 +35,7 @@ export const Home = () => {
                  navigate('/logIn') }}>להתחברות</button>
         {user && <div>
             <div>{user.firstName}שלום ל</div>
+            <div onClick={() => }>📖</div>
         {user.isManager === 1 && <button>🧙‍♀️</button>}
             </div>}</div>
         <div className="menu">

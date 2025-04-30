@@ -27,6 +27,7 @@ export const LogOn = () => {
 
      const connect = () => {
         dispatch(addUserThunk(thisUser));
+        navigate(loction)
      }
 
      const refDailog = useRef();

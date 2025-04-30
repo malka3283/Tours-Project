@@ -13,7 +13,7 @@ export const FlightDetails = () => {
 
     const [nOS, setNOS] = useState(0)
     const [overWight, setOverWight] = useState(0)
-    const [flag1, setFlag1] = useState(0)
+    const [flag1, setFlag1] = useState(false)
 
 
     const yourClassToFlight = useSelector(state => state.flights.yourClassToFlight)
@@ -28,20 +28,23 @@ export const FlightDetails = () => {
     }, [])
 
     const addToCart = () => {
-        let flag = true;
-        order.array.forEach(element => {
-            if(order.id === yourClassToFlight.id)
-                flag = false;
+        let flag = false;
+        debugger
+        order.forEach(element => {
+            if(element.id === yourClassToFlight.id)
+                flag = true;
         });
-        if(flag)
+        if(!flag){
         var flt = {src: yourClassToFlight.thisflight.flight.sourceNavigation.destination, des: yourClassToFlight.thisflight.flight.destinationNavigation.destination, 
             date: yourClassToFlight.thisflight.date, time: yourClassToFlight.thisflight.time, id: yourClassToFlight.id, 
             price: yourClassToFlight.price - yourClassToFlight.hanacha, priceToOverLoad: yourClassToFlight.thisflight.priceToOverLoad, 
             nOS: nOS, overWight: overWight
         }
+        dispatch(savaClassToFlight(flt))
+    }
         else 
         setFlag1(true);
-        dispatch(savaClassToFlight(flt))
+        
     }
 
     return <div>
@@ -57,7 +60,7 @@ export const FlightDetails = () => {
                 <label>טיסה מ {yourClassToFlight.thisflight.flight.destinationNavigation.destination} </label>
                 <div>{yourClassToFlight.thisflight.date} תאריך </div>
                 <div>{yourClassToFlight.thisflight.time} שעה </div>
-                <div>{params.classs} מחלקה </div>
+                <div>מחלקה: {params.classs}  </div>
                 <div>{yourClassToFlight.weightLoad}  משקל מותר  </div>
                 <div> {yourClassToFlight.price - yourClassToFlight.hanacha}  מחיר הטיסה</div>
                 <div>{yourClassToFlight.thisflight.priceToOverLoad} מחיר למשקל עודף </div>
@@ -94,8 +97,9 @@ export const FlightDetails = () => {
                         </div>
                         <div>{(yourClassToFlight.price - yourClassToFlight.hanacha) * nOS + yourClassToFlight.thisflight.priceToOverLoad * overWight} סהכ </div>
                         {nOS >= 1 && <button onClick={() => addToCart()}>הוספה לסל</button>}
-                        {flag1 && <div>טיסה זו כבר קיימת בסל</div>}
+
                         <button onClick={() => navigate(`/cart`)}>למעבר לסל</button>
+                        {flag1 && <div>טיסה זו כבר קיימת בסל</div>}
 
                         {/* <div className="product-text">{yourClassToFlight.thisflight.flight.destinationNavigation.path.name}</div> */}
 

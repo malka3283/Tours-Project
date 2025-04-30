@@ -24,6 +24,8 @@ const INITIAL_STATE = {
     classToFlight: [],
     destinitions: [],
     thisFlight: [],
+    ordersInPass: [],
+    find: false,
     yourClassToFlight: null,
     loading: false,
     error: '',
@@ -44,16 +46,13 @@ export const flightsSlice = createSlice({
             },
 
             getFlightDetailsById: (state, action) => {
-                console.log(state.flightsArr);
                 state.FullFlight = state.flightsArr.filter(x => x.id === action.payload) 
-                console.log(state.FullFlight);
                 },
             savaYourChooseFlight: (state, action) => {
                 state.thisYourChousFlight = action.payload;
             },
             savaClassToFlight: (state, action) => {
                state.orders.push(action.payload)
-               console.log(state.orders);
             },
             savaYourChooseFlightDetails: (state, action) => {
                 state.thisYourChooseThisFlight = action.payload;
@@ -162,13 +161,16 @@ export const flightsSlice = createSlice({
 
             //GetBySrcDesDateThisFlight
             builder.addCase(getThisFlightBySrcdesdateThunk.pending, (state) => {
+                state.find = false;
             })
 
             builder.addCase(getThisFlightBySrcdesdateThunk.fulfilled, (state, action) => {
                 state.thisFlight = action.payload
+
             })
 
             builder.addCase(getThisFlightBySrcdesdateThunk.rejected, (state) => {
+                state.find = true;
             })
 
             //getClassToFlightbyClassthisFlightId
