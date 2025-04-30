@@ -2,15 +2,16 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux"
 import { loct } from '../../redux/slices/user/userSlice';
 import { getThisFlightBySrcdesdateThunk } from '../../redux/slices/flight/getThisFlightBySrcdesdateThunk';
-import { savaNumSeats, savaYourChooseFlight, savaYourChooseFlightDetails } from '../../redux/slices/flight/flightsSlice';
-import { useNavigate } from 'react-router-dom';
 import { getAllDestinationThunk } from '../../redux/slices/flight/getAllDestinationThunk';
+import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom";
+
 
 export const Find = () => {
     
     const[flt, setFlt] = useState({});
-    const navigate = useNavigate();
     const dispatch = useDispatch();
+
+     let navigate = useNavigate();
 
     const thisFlightsArr = useSelector(state => state.flights.thisFlight)
     const find = useSelector(state => state.flights.find)

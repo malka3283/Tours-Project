@@ -4,6 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const updateDestinationThunk = createAsyncThunk('updateDestinationThunk',
 
     async (des) => {
+        debugger
         const response = await fetch("http://localhost:5041/api/Destinition/update",
             {
               method: 'PUT',

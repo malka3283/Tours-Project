@@ -6,77 +6,83 @@ import { addFlightThunk } from "../../redux/slices/flight/addFlightThunk";
 import { useNavigate } from "react-router-dom";
 
 
-export const AddFlight = () => {
+export const AddFlight = (props) => {
 
-    const[flt, setFlt] = useState({Source: "", Destination: "", TimeOfFlight: 0})
-    const[des, setDes] = useState("")
-    const[src, setsrc] = useState("")
-    const[con, setCon] = useState(false)
+    const {addFlight, update, close, flit} = props
 
-    
-    const dispatch = useDispatch();
+    const destinitions = useSelector(state => state.flights.destinitions)
+
+
+    const dispatch = useDispatch()
+    const[flt, setFlt] = useState({source: "", destination: "", timeOfFlight: 0, sold: 0, destinationNavigation:{}, sourceNavigation: {}})
+
 
     const refDailog = useRef();
 
-    const destinitions = useSelector(state => state.flights.destinitions);
-    const navigate = useNavigate();
-
-
     useEffect(() => {
+        debugger
+        setFlt(flit)
         refDailog.current.showModal();
-        dispatch(getAllDestinationThunk());
-    },[])
+    }, [])
 
-    const confirm = () => {
-        let d = destinitions.find(x => x.Destination === flt.Destination)
-        if(!d)
-            setDes(flt.Destination)
-        let s = destinitions.find(x => x.Source === flt.Source)
-        if(!s)
-            setsrc(flt.Destination)
-        if(s && d)
-             AddNewFlight();
-    }
 
-    const addDes = () => {
-        var desArr = []
-        if(des)
-            desArr.add(des)
-        if(src)
-            desArr.add(src)
-        dispatch(addDestantionThunk(desArr))
-        AddNewFlight();
+    return <dialog  ref={refDailog}>
+
+        <button onClick={() => close()}>❌</button>
+
+       {flit.source !== "" && <div>עריכת טיסה</div>}
+       {flit.source === "" && <div>הוספת טיסה</div>}
+
+       <div>מקור</div>
+       {flit.source === "" && <input type="text"  list='src' onChange={(e) => setFlt(prev => ({ ...prev, source: e.target.value }))}/>}
+       {flit.source !== "" && <input type="text"  value={flt.sourceNavigation.destination}/>}
+
         
-    }
+        <datalist id='src'>
+             {destinitions?.map(d => {
+                return <option>{d.destination}</option>
+             })}        </datalist>
 
-    const AddNewFlight = () => {
-        let num = dispatch(addFlightThunk({flt}))
-        if(num === 0)
-            navigate('/flights')
-        else
-          setCon(true)
-    }
+        <div>יעד</div>
+       {flit.source === "" && <input type="text"  list='dest' onChange={(e) =>setFlt(prev => ({ ...prev, destination: e.target.value }))}/>}
+       {flit.source !== "" && <input type="text"  value={flt.destinationNavigation.destination}/>}
 
-    return <dialog  ref={refDailog} >
-        <button onClick={() =>  navigate('/flights')}>❌</button>
-        <label>הכנס טיסת מקור</label>
-        <input type="text" onChange={(e) => { setFlt(prev => ({ ...prev, Source: e.target.value })) }}/>
-        <label>הכנס טיסת יעד</label>
-        <input type="text" onChange={(e) => { setFlt(prev => ({ ...prev, Destination: e.target.value })) }}/>
-        <label>הכנס זמן טיסה</label>
-        <input type="text" onChange={(e) => { setFlt(prev => ({ ...prev, TimeOfFlight: e.target.value })) }}/>
-        <button onClick={() => confirm}>אישור</button>
-        {(src || des) && <div>
-            <label>"היעד/ים"</label>
-            {src && <label>{src}</label>}
-            {des && <label>{des}</label>}
-            <label>"לא קיימים ברשימת היעדים האם אתה מעונין להוסיף אותם"</label>
-            <button onClick={() => addDes}>לאישור</button>
-        </div>}
-        {con && <div>
-            <label>האם אתה מעונין לעדכן פרטי טיסה ליעד שהוספת</label>
-            <button onClick={() =>  navigate('/addFlightDetail')}>לאישור</button>
-            </div>}
+        <datalist id='dest'>
+             {destinitions?.map(d => {
+               return <option>{d.destination}</option>
+             })}
+             
+        </datalist>
+        
+        <div>זמן טיסה בדקות</div>
+        {flit.source === "" && <input type="number"  onChange={(e) => setFlt(prev => ({ ...prev, timeOfFlight: e.target.value }))}/>}
+        {flit.source !== "" && <input type="number"  defaultValue={flt.timeOfFlight}/>}
+
+
+        
+        
+        {flit.source !== "" && <button onClick={() => {
+            update(flt)
+        }}
+         disabled={flt.source === "" && flt.destination === "" && flt.timeOfFlight === 0}
+        >אישור</button>
+}
+
+        {flit.source === "" && <button onClick={() => {
+            let f = flt;
+            destinitions.forEach(d => {
+                if(d.destination === f.destination)
+                    f.destination = d.id
+            });
+            destinitions.forEach(d => {
+                if(d.destination === f.source)
+                    f.source = d.id
+            });
+            addFlight(flt)
+        }}
+         disabled={flt.source === "" && flt.destination === "" && flt.timeOfFlight === 0}
+        >אישור</button>
+}
+
     </dialog>
-
 }

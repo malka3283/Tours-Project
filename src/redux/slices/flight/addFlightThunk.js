@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const addFlightThunk = createAsyncThunk('fetchAddFlightThunk',
     async(flight) => {
+        debugger
         const response = await fetch("https://localhost:5041/api/Flight/Add",
             {
                 method: 'POST',
