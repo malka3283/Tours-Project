@@ -44,8 +44,8 @@ export const Find = () => {
 
 {(thisFlightsArr.length === 0 && find) && <div>אין תוצאות מתאימות</div>}
         <datalist id='dest'>
-             { destinitions?.length > 0 && destinitions?.map(d => {
-                <option>{d.destination}</option>
+             {destinitions?.map(d => {
+                return <option>{d.destination}</option>
              })}
              
         </datalist>

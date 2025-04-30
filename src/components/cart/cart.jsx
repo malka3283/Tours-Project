@@ -93,7 +93,7 @@ export const Cart = () => {
             <tbody>
                 {order?.map(o => <tr key={o.id}
                 >
-                    <td onClick={() => deleteO(o)}>להסרה</td>
+                    <td onClick={() => deleteO(o)}>הסרה</td>
                     <td>{o.src}</td>
                        <td>{o.des}</td> 
                     <td>{o.date} - {o.time}</td>

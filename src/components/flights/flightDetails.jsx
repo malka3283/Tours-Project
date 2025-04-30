@@ -49,24 +49,23 @@ export const FlightDetails = () => {
 
     return <div>
         {yourClassToFlight !== null &&
-            <div>
+            <div>{yourClassToFlight.numberOfSeats - yourClassToFlight.sold === 0 && <div>❤❤❤❤❤</div>}
+            {yourClassToFlight.numberOfSeats - yourClassToFlight.sold > 0 && <div>
                 {yourClassToFlight.sold === 0 && <div>🤍🤍🤍🤍🤍</div>}
                 {yourClassToFlight.sold > 0 && <div>❤🤍🤍🤍🤍</div>}
                 {yourClassToFlight.sold > 5 && <div>❤❤🤍🤍🤍</div>}
                 {yourClassToFlight.sold > 10 && <div>❤❤❤🤍🤍</div>}
-                {yourClassToFlight.sold > 15 && <div>❤❤❤❤🤍</div>}
-                {yourClassToFlight.sold === yourClassToFlight.numOfSeats && <div>❤❤❤❤❤</div>}
+                {yourClassToFlight.sold > 10 && <div>❤❤❤❤🤍</div>}</div>}
                 <label>טיסה מ {yourClassToFlight.thisflight.flight.sourceNavigation.destination} </label>
                 <label>טיסה מ {yourClassToFlight.thisflight.flight.destinationNavigation.destination} </label>
+                <div><img src={`/תמונות מדינות/${yourClassToFlight.thisflight.flight.destinationNavigation.path}.png`} alt={yourClassToFlight.thisflight.flight.destinationNavigation.path}></img></div>
                 <div>{yourClassToFlight.thisflight.date} תאריך </div>
                 <div>{yourClassToFlight.thisflight.time} שעה </div>
                 <div>מחלקה: {params.classs}  </div>
                 <div>{yourClassToFlight.weightLoad}  משקל מותר  </div>
                 <div> {yourClassToFlight.price - yourClassToFlight.hanacha}  מחיר הטיסה</div>
                 <div>{yourClassToFlight.thisflight.priceToOverLoad} מחיר למשקל עודף </div>
-                <div className="product-text">{yourClassToFlight.thisflight.flight.destinationNavigation.path.name}</div>
-                <img className="img" src={`/pic/Products/${yourClassToFlight.thisflight.flight.destinationNavigation.path.url}.png`} alt={`${yourClassToFlight.thisflight.flight.destinationNavigation.path.url}`}></img>
-               
+                <div className="product-text">{yourClassToFlight.thisflight.flight.destinationNavigation.path.name}</div>               
                 {yourClassToFlight.numberOfSeats - yourClassToFlight.sold !== 0 && <div>
                     <button onClick={() => {
                         { nOS < yourClassToFlight.numberOfSeats && setNOS(1 + nOS) }
@@ -83,7 +82,7 @@ export const FlightDetails = () => {
                     <label>{yourClassToFlight.numberOfSeats - yourClassToFlight.sold}</label>
 
                     {yourClassToFlight.numberOfSeats - yourClassToFlight.sold === 0 && <div>
-                        <div>הכרטיסים אזלו</div></div>}
+                        <h1>הכרטיסים אזלו</h1></div>}
 
                     {yourClassToFlight.numberOfSeats - yourClassToFlight.sold > 0 && <div>
                         <div>

@@ -49,7 +49,7 @@ return <div>
                         setAdd(true)
                     }}>💨</button></td> */}
                     <h1>{f.sourceNavigation.destination} - {f.sourceNavigation.destination}</h1>
-                    <div><img src={`/תמונות מדינות/${f.sourceNavigation.destination}.png`} alt={f.sourceNavigation.destination}></img></div>
+                    <div><img src={`/תמונות מדינות/${f.sourceNavigation.path}.png`} alt={f.sourceNavigation.path}></img></div>
                     <div>משך זמן טיסה: {f.timeOfFlight}</div>
                     
                 </div>)}

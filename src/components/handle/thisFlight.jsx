@@ -43,7 +43,7 @@ export const ThisFlight = () => {
 {flightsArr?.map(f => <div key={f.id}
                    >
                     <h1>{f.flight.sourceNavigation.destination} - {f.flight.destinationNavigation.destination}</h1>
-                    <div><img src={`/תמונות מדינות/${f.flight.sourceNavigation.destination}.png`} alt={f.flight.sourceNavigation.destination}></img></div>
+                    <div><img src={`/תמונות מדינות/${f.flight.sourceNavigation.path}.png`} alt={f.flight.sourceNavigation.path}></img></div>
                     <div>תאריך: {f.date}</div>
                     <div>שעה: {f.time}</div>
                     <div>מחיר למשקל עודף: {f.priceToOverLoad}</div>
