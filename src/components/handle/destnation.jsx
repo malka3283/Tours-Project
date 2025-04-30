@@ -4,12 +4,14 @@ import { loct } from "../../redux/slices/user/userSlice";
 import { getAllDestinationThunk } from "../../redux/slices/flight/getAllDestinationThunk";
 import { useSelector } from "react-redux";
 import { AddDestination } from "./addDestination";
+import { addDestantionThunk } from "../../redux/slices/flight/addDestantionThunk";
+import { updateDestinationThunk } from "../../redux/slices/flight/updateDestinationThunk";
 
 export const Destnation = () => {
 
     const dispatch = useDispatch()
     const [add, setAdd] = useState(false)
-    const [des, setDes] = useState(null)
+    const [des, setDes] = useState({path: "", destinition: ""})
 
     const destinitions = useSelector(state => state.flights.destinitions)
 
@@ -19,13 +21,16 @@ export const Destnation = () => {
       },[])
       
       const addDes = (addDes) => {
-        
+        dispatch(addDestantionThunk(addDes))
+        close()
       }
       const updateDes = (updateDes) => {
-
+        dispatch(updateDestinationThunk(updateDes))
+        close()
       }
 
       const close = () => {
+        setDes({path: "", destinition: ""})
             setAdd(false)
       }
 
@@ -42,6 +47,9 @@ return <div>
                         
                     </th>
                     <th>
+                        
+                        </th>
+                    <th>
                         שם
                     </th>
                     <th>
@@ -56,7 +64,10 @@ return <div>
                     <th>
                     <td><button>🚮</button></td>
                         
-                    
+                    <td><button onClick={() => {
+                        setDes(d)
+                        setAdd(true)
+                    }}>📨</button></td>
                     <td>{d.destination}</td>
                     <td><img src={`/תמונות מדינות/${d.path}.png`} alt={d.path}></img></td>
                     </th>
