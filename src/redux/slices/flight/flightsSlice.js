@@ -13,6 +13,7 @@ import { getClassToFlightbyClassthisFlightIdThunk } from "./getClassToFlightbyCl
 import { getThisFlightByFlightIdThunk } from "./getThisFlightByFlightIdThunk";
 import { getAllThisFlightThunk } from "./getAllThisFlightThunk";
 import { getAllFlightsWhisHanacahThunk } from "./getAllFlightsWhisHanacahThunk";
+import { updateDestinationThunk } from "./updateDestinationThunk";
 
 const INITIAL_STATE = {
     flightsArr: [],
@@ -217,6 +218,28 @@ export const flightsSlice = createSlice({
             })
 
             builder.addCase(getAllFlightsWhisHanacahThunk.rejected, (state) => {
+            })
+
+            //updateDestination
+            builder.addCase(updateDestinationThunk.pending, (state) => {
+            })
+
+            builder.addCase(updateDestinationThunk.fulfilled, (state, action) => {
+                state.destinitions = action.payload;
+            })
+
+            builder.addCase(updateDestinationThunk.rejected, (state) => {
+            })
+
+            //addDestination
+            builder.addCase(addDestantionThunk.pending, (state) => {
+            })
+
+            builder.addCase(addDestantionThunk.fulfilled, (state, action) => {
+                state.destinitions = action.payload;
+            })
+
+            builder.addCase(addDestantionThunk.rejected, (state) => {
             })
                            
                         

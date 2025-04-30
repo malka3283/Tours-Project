@@ -8,8 +8,8 @@ import { Classes } from "../classes/classes"
 import { Calendar } from "../calander/calendar"
 import { Find } from "../find/find"
 import { FullFlight } from "../flights/fullFlight"
-import { AddFlightDetail } from "../flights/addFlightDetail"
-import { AddFlight } from "../flights/addFlight"
+import { AddFlightDetail } from "../handle/addFlightDetail"
+import { AddFlight } from "../handle/addFlight"
 import { FlightDetails } from "../flights/flightDetails"
 import { Destnation } from "../handle/destnation"
 import { Flight } from "../handle/flight"
@@ -18,6 +18,7 @@ import { ClassToFlight } from "../handle/classToFlight"
 import { Handle } from "../handle/handle"
 import { Cart } from "../cart/cart"
 import { FlightsWhisHanach } from "../flights/flightsWhisHanach"
+import { OrderDetail } from "../orderDetail/orderDetail"
 
 
 export const Routing = () => {
@@ -39,6 +40,7 @@ export const Routing = () => {
         <Route path={'/Allflight'} element={<Flight/>}></Route>
         <Route path={'/AllThisFlight/:id'} element={<ThisFlight/>}></Route>
         <Route path={'/AllClassToFlight/:id'} element={<ClassToFlight/>}></Route>
+        <Route path={'/orderDetail'} element={<OrderDetail />}></Route>
         <Route path={'/fullFlight/:id'} element={<FullFlight/>}></Route>
         <Route path={'/flightDetail/:classs/:id/:numberOfSeats'} element={<FlightDetails/>}></Route>
         <Route path={'/cart'} element={<Cart/>}></Route>

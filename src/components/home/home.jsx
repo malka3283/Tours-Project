@@ -35,8 +35,8 @@ export const Home = () => {
                  navigate('/logIn') }}>להתחברות</button>
         {user && <div>
             <div>{user.firstName}שלום ל</div>
-            <div onClick={() => }>📖</div>
-        {user.isManager === 1 && <button>🧙‍♀️</button>}
+            <div onClick={() =>  navigate(`/orderDetail`)}>📖</div>
+        {user.isManager === 1 && <button onClick={() => navigate(`/handle`)}>🧙‍♀️</button>}
             </div>}</div>
         <div className="menu">
             <button className="btnMenu" onClick={() => { navigate(`/find`) }}>חיפוש טיסה אוטומטי</button>
