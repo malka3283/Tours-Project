@@ -43,7 +43,14 @@ export const Find = () => {
              { destinitions?.length > 0 && destinitions?.map(d => {
                 <option>{d.destination}</option>
              })}
+             
         </datalist>
+
+        <datalist id='class'>
+        <option>תיירים</option>
+        <option>עסקים</option>
+                <option>ראשונה</option>
+                </datalist>
         {thisFlightsArr?.length > 0 && thisFlightsArr?.map(f =>{
         return <div >
          

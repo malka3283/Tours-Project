@@ -18,43 +18,41 @@ export const FlightsWhisHanach = () => {
     }, [])
 
     return <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        מקור
-                    </th>
-                    <th>
-                        יעד
-                    </th>
-                    <th>
-                        תאריך
-                    </th>
-                    <th>
-                        שעה
-                    </th>
-                    <th>
-                        מחיר
-                    </th>
-                    <th>
-                        במקום 
-                    </th>
-                </tr>
-            </thead>
 
-<tbody>
-{flightsWhisHanachaArr?.map(f => <tr key={f.id}>
-                           <td>{f.thisflight.flight.sourceNavigation.destination}</td>
-                    <td>{f.thisflight.flight.destinationNavigation.destination}</td>
-                    <td>{f.thisflight.date}</td>
-                    <td>{f.thisflight.time}</td>
-                    <td>{f.price - f.hanacha}</td>
-                    <td>{f.price}</td>
-                    <button onClick={() => navigate(`/flightDetail/${f.class.description}/${f.thisflightId}/${1}`)}>לצפיה</button>
-                </tr>)}
+        {flightsWhisHanachaArr?.map(f => <div key={f.id}>
+            <div> 
+                <label>מקור:</label>
+                <label>{f.thisflight.flight.sourceNavigation.destination} </label>
+            </div>
+            <div> 
+                <label>יעד:</label>
+                <label>{f.thisflight.flight.destinationNavigation.destination}</label>
+            </div>
+            <div>
+                <label>תמונה</label></div>
+                <div>
+                    <label>תאריך:</label>
+                    <label>{f.thisflight.date}</label>
+                </div>
+                <div>
+                    <label>שעה:</label>
+                    <label>{f.thisflight.time}</label>
+                </div>
+                <div>
+                <label>מחלקה:</label>
+                    <label>{f.classs.class}</label>
+                </div>
+                <div>
+                    <label>מחיר אחרי ההנחה:</label>
+                    <label>{f.price - f.hanacha}</label></div>
+                <div>
+                    <label>מחיר אחרי ההנחה:</label>
+                    <label>{f.price}</label>
+                </div>
+                <button onClick={() => navigate(`/flightDetail/${f.class.description}/${f.thisflightId}/${1}`)}>לצפיה</button>
+            </div>)}
 
-</tbody>
-        </table>
 
-    </div>
+
+        </div>
 }

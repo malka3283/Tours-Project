@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { loct } from "../../redux/slices/user/userSlice"
 import { getClassToFlightbyClassthisFlightIdThunk } from "../../redux/slices/flight/getClassToFlightbyClassthisFlightIdThunk"
-import { useParams } from "react-router-dom"
+import { Navigate, useNavigate, useParams } from "react-router-dom"
 import { savaClassToFlight } from "../../redux/slices/flight/flightsSlice"
 
 export const FlightDetails = () => {
@@ -13,8 +13,12 @@ export const FlightDetails = () => {
 
     const [nOS, setNOS] = useState(0)
     const [overWight, setOverWight] = useState(0)
+    const [flag1, setFlag1] = useState(0)
+
 
     const yourClassToFlight = useSelector(state => state.flights.yourClassToFlight)
+    const order = useSelector(state => state.flights.orders)
+    const navigate = useNavigate()
 
 
     useEffect(() => {
@@ -24,11 +28,19 @@ export const FlightDetails = () => {
     }, [])
 
     const addToCart = () => {
+        let flag = true;
+        order.array.forEach(element => {
+            if(order.id === yourClassToFlight.id)
+                flag = false;
+        });
+        if(flag)
         var flt = {src: yourClassToFlight.thisflight.flight.sourceNavigation.destination, des: yourClassToFlight.thisflight.flight.destinationNavigation.destination, 
             date: yourClassToFlight.thisflight.date, time: yourClassToFlight.thisflight.time, id: yourClassToFlight.id, 
             price: yourClassToFlight.price - yourClassToFlight.hanacha, priceToOverLoad: yourClassToFlight.thisflight.priceToOverLoad, 
             nOS: nOS, overWight: overWight
         }
+        else 
+        setFlag1(true);
         dispatch(savaClassToFlight(flt))
     }
 
@@ -45,6 +57,7 @@ export const FlightDetails = () => {
                 <label>טיסה מ {yourClassToFlight.thisflight.flight.destinationNavigation.destination} </label>
                 <div>{yourClassToFlight.thisflight.date} תאריך </div>
                 <div>{yourClassToFlight.thisflight.time} שעה </div>
+                <div>{params.classs} מחלקה </div>
                 <div>{yourClassToFlight.weightLoad}  משקל מותר  </div>
                 <div> {yourClassToFlight.price - yourClassToFlight.hanacha}  מחיר הטיסה</div>
                 <div>{yourClassToFlight.thisflight.priceToOverLoad} מחיר למשקל עודף </div>
@@ -81,8 +94,10 @@ export const FlightDetails = () => {
                         </div>
                         <div>{(yourClassToFlight.price - yourClassToFlight.hanacha) * nOS + yourClassToFlight.thisflight.priceToOverLoad * overWight} סהכ </div>
                         {nOS >= 1 && <button onClick={() => addToCart()}>הוספה לסל</button>}
+                        {flag1 && <div>טיסה זו כבר קיימת בסל</div>}
+                        <button onClick={() => navigate(`/cart`)}>למעבר לסל</button>
 
-                        <div className="product-text">{yourClassToFlight.thisflight.flight.destinationNavigation.path.name}</div>
+                        {/* <div className="product-text">{yourClassToFlight.thisflight.flight.destinationNavigation.path.name}</div> */}
 
 
                     </div>}
