@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { loct } from "../../redux/slices/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Update } from "@mui/icons-material";
-import { deleteOrder } from "../../redux/slices/flight/flightsSlice";
+import { deleteOrder, savePriceToPay } from "../../redux/slices/flight/flightsSlice";
 import { useNavigate } from "react-router-dom";
 
 export const Cart = () => {
@@ -10,6 +10,7 @@ export const Cart = () => {
     const dispatch = useDispatch()
 
     const order = useSelector(state => state.flights.orders)
+
     const [price, setPrice] = useState(0)
     const userName = useSelector(state => state.users.user)
 
@@ -46,10 +47,12 @@ export const Cart = () => {
     }
 
     const Payment = () => {
+        dispatch(savePriceToPay(price))
         if(userName === null)
             navigate('/logIn')
-        else
+        else{
         navigate('/pay')
+    }
     }
 
     return <div>
@@ -109,8 +112,9 @@ export const Cart = () => {
         <div>
             <label>מחיר לתשלום</label>
             <label>{price}</label>
+            </div>
             <button onClick={() => Payment()}>למעבר לתשלום</button>
-        </div>
+        
         </div>}
         
 

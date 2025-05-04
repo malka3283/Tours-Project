@@ -15,6 +15,7 @@ import { getAllThisFlightThunk } from "./getAllThisFlightThunk";
 import { getAllFlightsWhisHanacahThunk } from "./getAllFlightsWhisHanacahThunk";
 import { updateDestinationThunk } from "./updateDestinationThunk";
 import { addThisFlightThunk } from "./addThisFlightThunk";
+import { addOrderThunk } from "./addOrderThunk";
 
 const INITIAL_STATE = {
     flightsArr: [],
@@ -29,6 +30,7 @@ const INITIAL_STATE = {
     ordersInPass: [],
     find: false,
     yourClassToFlight: null,
+    price: 0,
     loading: false,
     error: '',
     status: false,
@@ -70,6 +72,9 @@ export const flightsSlice = createSlice({
             },
             changeWight: (state, action) => {
                 state.orders.splice(action.payload)
+            },
+            savePriceToPay: (state, action) => {
+                state.price = action.payload
             },
            
     },
@@ -244,6 +249,18 @@ export const flightsSlice = createSlice({
 
             builder.addCase(addThisFlightThunk.rejected, (state) => {
             })
+
+            //addOrder
+            builder.addCase(addOrderThunk.pending, (state) => {
+            })
+
+            builder.addCase(addOrderThunk.fulfilled, (state, action) => {
+                state.price = 0
+                state.orders = []
+            })
+
+            builder.addCase(addOrderThunk.rejected, (state) => {
+            })
                            
                         
             
@@ -252,4 +269,4 @@ export const flightsSlice = createSlice({
 
     
 });
-export const { chooseClass, getFlightDetailsById, savaYourChooseFlight, savaYourChooseFlightDetails, savaClassToFlight, deleteOrder} = flightsSlice.actions;
+export const { chooseClass, getFlightDetailsById, savaYourChooseFlight, savaYourChooseFlightDetails, savaClassToFlight, deleteOrder, savePriceToPay} = flightsSlice.actions;
