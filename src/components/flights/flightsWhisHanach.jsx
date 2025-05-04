@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllFlightsWhisHanacahThunk } from "../../redux/slices/flight/getAllFlightsWhisHanacahThunk";
 import { useNavigate } from "react-router-dom";
 
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import StarIcon from '@mui/icons-material/Star';
+
 export const FlightsWhisHanach = () => {
 
     const dispatch = useDispatch();
@@ -38,11 +41,19 @@ export const FlightsWhisHanach = () => {
                     <label>{f.class.description}</label>
                 </div>
                 <div>
-                    <label>מחיר אחרי ההנחה:</label>
+                    <label>מחיר</label>
                     <label>{f.price - f.hanacha}</label></div>
                 <div>
-                    <label>מחיר לפני ההנחה:</label>
+                    <label>במקום</label>
                     <label>{f.price}</label>
+                </div>
+                <div>
+                {f.sold === f.numOfSeats && <div><StarIcon /> <StarIcon /> <StarIcon /> <StarIcon /> <StarIcon /></div>}
+                {(f.sold !== f.numOfSeats && f.sold === 0) && <div><StarOutlineIcon/><StarOutlineIcon/><StarOutlineIcon/><StarOutlineIcon/><StarOutlineIcon/></div>}
+                {(f.sold !== f.numOfSeats && f.sold > 0) && <div><StarIcon /><StarOutlineIcon/><StarOutlineIcon/><StarOutlineIcon/><StarOutlineIcon/></div>}
+                {(f.sold !== f.numOfSeats && f.sold > 5) && <div><StarIcon /><StarIcon /><StarOutlineIcon/><StarOutlineIcon/><StarOutlineIcon/></div>}
+                {(f.sold !== f.numOfSeats && f.sold > 10) && <div><StarIcon /><StarIcon /><StarIcon /><StarOutlineIcon/><StarOutlineIcon/></div>}
+                {(f.sold !== f.numOfSeats && f.sold > 15) && <div><StarIcon /><StarIcon /><StarIcon /><StarIcon /><StarOutlineIcon/></div>}
                 </div>
                 <button onClick={() => navigate(`/flightDetail/${f.class.description}/${f.thisflightId}/${1}`)}>לצפיה</button>
             </div>)}

@@ -6,6 +6,8 @@ import { Navigate, useNavigate, useParams } from "react-router-dom"
 import { savaClassToFlight } from "../../redux/slices/flight/flightsSlice"
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import StarIcon from '@mui/icons-material/Star';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
 
 export const FlightDetails = () => {
 
@@ -52,12 +54,13 @@ export const FlightDetails = () => {
     return <div>
         {yourClassToFlight !== null &&
             <div>
-                {yourClassToFlight.sold === 0 && <div>🤍🤍🤍🤍🤍</div>}
-                {yourClassToFlight.sold > 0 && <div>❤🤍🤍🤍🤍</div>}
-                {yourClassToFlight.sold > 5 && <div>❤❤🤍🤍🤍</div>}
-                {yourClassToFlight.sold > 10 && <div>❤❤❤🤍🤍</div>}
-                {yourClassToFlight.sold > 15 && <div>❤❤❤❤🤍</div>}
-                {yourClassToFlight.sold === yourClassToFlight.numOfSeats && <div>❤❤❤❤❤</div>}
+                {yourClassToFlight.sold === yourClassToFlight.numOfSeats && <div><StarIcon /> <StarIcon /> <StarIcon /> <StarIcon /> <StarIcon /></div>}
+                {(yourClassToFlight.sold !== yourClassToFlight.numOfSeats && yourClassToFlight.sold === 0) && <div><StarOutlineIcon/><StarOutlineIcon/><StarOutlineIcon/><StarOutlineIcon/><StarOutlineIcon/></div>}
+                {(yourClassToFlight.sold !== yourClassToFlight.numOfSeats && yourClassToFlight.sold > 0) && <div><StarIcon /><StarOutlineIcon/><StarOutlineIcon/><StarOutlineIcon/><StarOutlineIcon/></div>}
+                {(yourClassToFlight.sold !== yourClassToFlight.numOfSeats && yourClassToFlight.sold > 5) && <div><StarIcon /><StarIcon /><StarOutlineIcon/><StarOutlineIcon/><StarOutlineIcon/></div>}
+                {(yourClassToFlight.sold !== yourClassToFlight.numOfSeats && yourClassToFlight.sold > 10) && <div><StarIcon /><StarIcon /><StarIcon /><StarOutlineIcon/><StarOutlineIcon/></div>}
+                {(yourClassToFlight.sold !== yourClassToFlight.numOfSeats && yourClassToFlight.sold > 15) && <div><StarIcon /><StarIcon /><StarIcon /><StarIcon /><StarOutlineIcon/></div>}
+                
                 <label>טיסה מ {yourClassToFlight.thisflight.flight.sourceNavigation.destination} </label>
                 <label>טיסה מ {yourClassToFlight.thisflight.flight.destinationNavigation.destination} </label>
                 <div><img src={`/תמונות מדינות/${yourClassToFlight.thisflight.flight.destinationNavigation.path}.png`} alt={yourClassToFlight.thisflight.flight.destinationNavigation.path}></img></div>

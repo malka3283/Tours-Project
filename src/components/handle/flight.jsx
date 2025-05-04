@@ -56,18 +56,18 @@ return <div>
             </thead>
 
 <tbody>
-{flightsArr?.map(f => <אר key={f.id}
+{flightsArr?.map(f => <tr key={f.id}
                    >
                     <th>🚮</th>
-                    <td><button onClick={() => {
+                    <th><button onClick={() => {
                         setFlt(f)
                         setAdd(true)
-                    }}>לערוך</button></td>
+                    }}>לערוך</button></th>
                     <th>{f.sourceNavigation.destination}</th> 
                     <th> {f.sourceNavigation.destination}</th>
                     <th>משך זמן טיסה: {f.timeOfFlight}</th>
                     
-                </אר>)}
+                </tr>)}
 
 </tbody>
         </table>
