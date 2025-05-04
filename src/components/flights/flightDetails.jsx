@@ -5,6 +5,8 @@ import { getClassToFlightbyClassthisFlightIdThunk } from "../../redux/slices/fli
 import { Navigate, useNavigate, useParams } from "react-router-dom"
 import { savaClassToFlight } from "../../redux/slices/flight/flightsSlice"
 
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+
 export const FlightDetails = () => {
 
     const params = useParams();
@@ -95,7 +97,7 @@ export const FlightDetails = () => {
 
                         </div>
                         <div>{(yourClassToFlight.price - yourClassToFlight.hanacha) * nOS + yourClassToFlight.thisflight.priceToOverLoad * overWight} סהכ </div>
-                        {nOS >= 1 && <button onClick={() => addToCart()}>הוספה לסל</button>}
+                        {nOS >= 1 && <button onClick={() => addToCart()}><AddShoppingCartIcon/></button>}
 
                         <button onClick={() => navigate(`/cart`)}>למעבר לסל</button>
                         {flag1 && <div>טיסה זו כבר קיימת בסל</div>}

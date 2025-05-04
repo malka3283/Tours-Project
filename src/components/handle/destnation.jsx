@@ -43,17 +43,35 @@ return <div>
 
 <div>יעדים</div>
 
-{destinitions?.map(d => <div key={d.id}
+<table>
+<thead>
+                <tr>
+                    <th>
+                        יעד
+                    </th>
+                    <th>
+                        תמונה
+                    </th>
+                </tr>
+            </thead>
+
+<tbody>
+{destinitions?.map(d => <tr key={d.id}
                    >
-                    <h1>{d.destination}</h1>
-                    <div><img src={`/תמונות מדינות/${d.path}.png`} alt={d.path}></img></div>
-                    <button>🚮</button>
+                    <th>{d.destination}</th>
+                    <th><img src={`/תמונות מדינות/${d.path}.png`} alt={d.path}></img></th>
+                    <th>🚮</th>
                     <button onClick={() => {
                         setDes(d)
                         setAdd(true)
-                    }}>📨</button>
+                    }}>עריכה</button>
 
-                </div>)}
+                </tr>)}
+
+</tbody>
+        </table>
+
+
 
 
 

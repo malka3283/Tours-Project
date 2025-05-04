@@ -7,7 +7,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { getAllDestinationThunk } from "../../redux/slices/flight/getAllDestinationThunk";
 import { loct } from "../../redux/slices/user/userSlice";
 
-
+import PersonIcon from '@mui/icons-material/Person';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export const Home = () => {
     
@@ -25,13 +27,13 @@ export const Home = () => {
 
     return <div>
         <div> 
-                 <button className="btnMenu" onClick={() => { navigate(`/cart`) }}>🛒</button>
+                 <button className="btnMenu" onClick={() => { navigate(`/cart`) }}><ShoppingCartIcon/></button>
                  <button className="btnMenu" onClick={() => {
-                 navigate('/logIn') }}>להתחברות</button>
+                 navigate('/logIn') }}><PersonIcon/></button>
         {user && <div>
             <div>{user.firstName}שלום ל</div>
             <div onClick={() =>  navigate(`/orderDetail`)}>📖</div>
-        {user.isManager === 1 && <button onClick={() => navigate(`/handle`)}>🧙‍♀️</button>}
+        {user.isManager === 1 && <button onClick={() => navigate(`/handle`)}><ManageAccountsIcon/></button>}
             </div>}</div>
         <div className="menu">
             <button className="btnMenu" onClick={() => { navigate(`/find`) }}>חיפוש טיסה אוטומטי</button>

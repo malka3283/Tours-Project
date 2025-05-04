@@ -20,26 +20,21 @@ export const FlightsWhisHanach = () => {
     return <div>
 
         {flightsWhisHanachaArr?.map(f => <div key={f.id}>
-            <div> 
-                <label>מקור:</label>
-                <label>{f.thisflight.flight.sourceNavigation.destination} </label>
-            </div>
-            <div> 
-                <label>יעד:</label>
-                <label>{f.thisflight.flight.destinationNavigation.destination}</label>
-            </div>
             <div>
-                <label>תמונה</label></div>
+
+                <label>{f.thisflight.flight.sourceNavigation.destination} - {f.thisflight.flight.destinationNavigation.destination}</label>
                 <div>
-                    <label>תאריך:</label>
-                    <label>{f.thisflight.date}</label>
+                    <th><img src={`/תמונות מדינות/${f.thisflight.flight.destinationNavigation.path}.png`} alt={f.thisflight.flight.destinationNavigation.path}></img></th>
+                </div>
+            </div>
+
+
+                <div>
+
+                    <label>{f.thisflight.date} {f.thisflight.time}</label>
                 </div>
                 <div>
-                    <label>שעה:</label>
-                    <label>{f.thisflight.time}</label>
-                </div>
-                <div>
-                <label>מחלקה:</label>
+                    <label>מחלקה:</label>
                     <label>{f.class.description}</label>
                 </div>
                 <div>

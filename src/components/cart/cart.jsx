@@ -5,6 +5,8 @@ import { Update } from "@mui/icons-material";
 import { deleteOrder, savePriceToPay } from "../../redux/slices/flight/flightsSlice";
 import { useNavigate } from "react-router-dom";
 
+import DeleteIcon from '@mui/icons-material/Delete';
+
 export const Cart = () => {
 
     const dispatch = useDispatch()
@@ -96,7 +98,7 @@ export const Cart = () => {
             <tbody>
                 {order?.map(o => <tr key={o.id}
                 >
-                    <td onClick={() => deleteO(o)}>להסרה</td>
+                    <td onClick={() => deleteO(o)}><DeleteIcon/></td>
                     <td>{o.src}</td>
                        <td>{o.des}</td> 
                     <td>{o.date} - {o.time}</td>
