@@ -1,0 +1,331 @@
+/* Dialog */
+.logon-dialog {
+  border: none;
+  padding: 0;
+  background: transparent;
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.logon-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Main container */
+.logon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px;
+  background-color: transparent;
+  direction: rtl;
+}
+
+/* Logon card */
+.logon-card {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.logon-card-content {
+  padding: 0 !important;
+}
+
+/* Form container */
+.logon-form-container {
+  padding: 32px;
+  background-color: #ffffff;
+}
+
+.logon-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Header */
+.logon-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.logon-title {
+  font-weight: 600;
+  color: #1976d2;
+}
+
+.close-button {
+  color: #757575;
+}
+
+/* Stepper */
+.registration-stepper {
+  margin-bottom: 32px;
+}
+
+/* Step content */
+.step-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.form-field .MuiInputBase-root {
+  border-radius: 8px;
+}
+
+/* Summary step */
+.summary-step {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.summary-title {
+  margin-bottom: 16px;
+  color: #1976d2;
+  font-weight: 600;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+}
+
+/* Terms container */
+.terms-container {
+  margin-top: 24px;
+}
+
+.terms-link {
+  color: #1976d2;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.terms-error {
+  display: block;
+  margin-top: 8px;
+}
+
+/* Step buttons */
+.step-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.back-button {
+  color: #757575;
+}
+
+.next-button {
+  background-color: #1976d2;
+  color: white;
+}
+
+/* Login link */
+.login-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.login-button-link {
+  text-transform: none !important;
+  font-weight: 600 !important;
+}
+
+/* Info container (right side) */
+.logon-info-container {
+  background: linear-gradient(135deg, #2196f3, #0d47a1);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logon-info {
+  padding: 48px;
+  max-width: 400px;
+}
+
+.info-title {
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.info-text {
+  margin-bottom: 32px;
+  opacity: 0.9;
+}
+
+/* Features */
+.info-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+/* Remember me checkbox */
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.remember-me input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #bdbdbd;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.remember-me input[type="checkbox"]:checked {
+  background-color: #1976d2;
+  border-color: #1976d2;
+}
+
+.remember-me input[type="checkbox"]:checked::after {
+  content: "✓";
+  color: white;
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.remember-me label {
+  cursor: pointer;
+  font-size: 14px;
+  color: #757575;
+}
+
+/* Animation for card */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logon-card {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .logon-form-container {
+    padding: 24px;
+  }
+  
+  .logon-title {
+    font-size: 1.75rem;
+  }
+  
+  .step-content {
+    gap: 16px;
+  }
+  
+  .registration-stepper {
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .logon-container {
+    padding: 16px;
+  }
+  
+  .logon-form-container {
+    padding: 16px;
+  }
+  
+  .logon-title {
+    font-size: 1.5rem;
+  }
+  
+  .step-content {
+    gap: 12px;
+  }
+  
+  .registration-stepper {
+    margin-bottom: 16px;
+  }
+  
+  .step-buttons {
+    flex-direction: column-reverse;
+    gap: 12px;
+  }
+  
+  .next-button, .back-button {
+    width: 100%;
+  }
+}
+
+/* Focus styles */
+.form-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #1976d2;
+  border-width: 2px;
+}
+
+/* Error styles */
+.form-field .MuiFormHelperText-root.Mui-error {
+  font-size: 0.75rem;
+  margin-top: 4px;
+  margin-right: 14px;
+}
+
+/* Button hover effects */
+.next-button:hover {
+  background-color: #1565c0 !important;
+}
+
+.back-button:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}

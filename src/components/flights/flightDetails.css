@@ -1,0 +1,376 @@
+/* Main container */
+.flight-details-container {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    direction: rtl;
+  }
+  
+  /* Loading state */
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+  }
+  
+  /* Flight details paper */
+  .flight-details-paper {
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 24px;
+  }
+  
+  /* Flight header */
+  .flight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .flight-title {
+    font-weight: 700 !important;
+  }
+  
+  .flight-popularity {
+    direction: ltr;
+  }
+  
+  .star-icon {
+    color: #ffc107;
+    font-size: 28px !important;
+  }
+  
+  .star-icon-empty {
+    color: #e0e0e0;
+    font-size: 28px !important;
+  }
+  
+  .header-divider {
+    margin-bottom: 24px !important;
+  }
+  
+  /* Flight image card */
+  .flight-image-card {
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .flight-image {
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+  
+  .flight-image:hover {
+    transform: scale(1.05);
+  }
+  
+  .destination-name {
+    text-align: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.1));
+  }
+  
+  /* Flight info card */
+  .flight-info-card {
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Flight route */
+  .flight-route {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding: 16px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+  }
+  
+  .route-point {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .route-icon {
+    color: #1976d2;
+    font-size: 28px !important;
+    margin-bottom: 8px;
+  }
+  
+  .route-divider {
+    flex-grow: 1;
+    margin: 0 16px !important;
+    position: relative;
+  }
+  
+  .route-divider::after {
+    content: '✈';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f5f5f5;
+    padding: 0 8px;
+    color: #1976d2;
+    font-size: 16px;
+  }
+  
+  /* Flight details info */
+  .flight-details-info {
+    margin-bottom: 24px;
+  }
+  
+  .info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .info-icon {
+    color: #1976d2;
+    margin-left: 8px;
+  }
+  
+  /* Flight pricing */
+  .flight-pricing {
+    padding: 16px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .price-label {
+    margin-bottom: 12px !important;
+    font-weight: 600 !important;
+  }
+  
+  .price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  /* Booking card */
+  .booking-card {
+    margin-top: 24px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .booking-title {
+    margin-bottom: 16px !important;
+    font-weight: 600 !important;
+    text-align: center;
+  }
+  
+  /* Seats availability */
+  .seats-availability {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    gap: 8px;
+  }
+  
+  .availability-label {
+    font-weight: 500 !important;
+  }
+  
+  .availability-chip {
+    font-weight: 600 !important;
+  }
+  
+  /* Sold out alert */
+  .sold-out-alert {
+    margin-bottom: 16px !important;
+  }
+  
+  /* Booking options */
+  .booking-options {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  /* Quantity and weight selectors */
+  .quantity-selector,
+  .weight-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+  }
+  
+  .quantity-label,
+  .weight-label {
+    font-weight: 500 !important;
+  }
+  
+  .quantity-controls,
+  .weight-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .quantity-value,
+  .weight-value {
+    min-width: 40px;
+    text-align: center;
+  }
+  
+  /* Total price */
+  .total-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background-color: #e3f2fd;
+    border-radius: 8px;
+    margin-top: 8px;
+  }
+  
+  .total-label {
+    font-weight: 600 !important;
+  }
+  
+  .total-value {
+    font-weight: 700 !important;
+    color: #1976d2;
+  }
+  
+  /* Action buttons */
+  .action-buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  
+  .add-to-cart-button,
+  .view-cart-button {
+    padding: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    border-radius: 8px !important;
+  }
+  
+  /* Already in cart alert */
+  .already-in-cart {
+    margin-top: 16px !important;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 960px) {
+    .flight-details-container {
+      padding: 16px;
+    }
+    
+    .flight-details-paper {
+      padding: 16px;
+    }
+    
+    .flight-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    
+    .flight-popularity {
+      align-self: flex-end;
+    }
+    
+    .flight-route {
+      padding: 12px;
+    }
+    
+    .route-divider {
+      margin: 0 8px !important;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .flight-details-container {
+      padding: 12px;
+    }
+    
+    .flight-details-paper {
+      padding: 12px;
+    }
+    
+    .flight-title {
+      font-size: 1.5rem !important;
+    }
+    
+    .star-icon,
+    .star-icon-empty {
+      font-size: 24px !important;
+    }
+    
+    .flight-route {
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .route-divider {
+      width: 2px;
+      height: 40px;
+      transform: rotate(90deg);
+    }
+    
+    .route-divider::after {
+      transform: translateX(-50%) rotate(-90deg);
+    }
+    
+    .action-buttons {
+      flex-direction: column;
+    }
+  }
+  
+  /* Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .flight-details-paper {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  /* RTL specific adjustments */
+  .MuiChip-icon {
+    margin-right: 0 !important;
+    margin-left: 4px !important;
+  }
+  
+  .MuiButton-startIcon {
+    margin-right: 0 !important;
+    margin-left: 8px !important;
+  }
+  
+  /* Hover effects */
+  .flight-info-card:hover,
+  .booking-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  .add-to-cart-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3) !important;
+  }

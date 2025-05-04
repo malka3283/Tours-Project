@@ -1,19 +1,77 @@
-
-
-
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import "./pay.css";
+
+// MUI imports
+import {
+  Container,
+  Typography,
+  Box,
+  Paper,
+  TextField,
+  Button,
+  CircularProgress,
+  Card,
+  CardContent,
+  Grid,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+  Divider,
+  Alert,
+  Snackbar,
+  InputAdornment
+} from "@mui/material";
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+import LockIcon from '@mui/icons-material/Lock';
+import PaymentIcon from '@mui/icons-material/Payment';
+import AppleIcon from '@mui/icons-material/Apple';
+import PublicIcon from '@mui/icons-material/Public';
+import SecurityIcon from '@mui/icons-material/Security';
+import EventIcon from '@mui/icons-material/Event';
+import CreditScoreIcon from '@mui/icons-material/CreditScore';
 
 export const Pay = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const order = useSelector(state => state.flights.orders);
     const price = useSelector(state => state.flights.price);
     const userName = useSelector(state => state.users.user);
     
+    // Payment form states
     const [creditCardNum, setCreditCardNum] = useState("");
     const [date, setDate] = useState("");
     const [cvc, setCvc] = useState("");
+    const [cardholderName, setCardholderName] = useState("");
     const [isProcessing, setIsProcessing] = useState(false);
+    const [paymentMethod, setPaymentMethod] = useState("creditCard");
+    const [installments, setInstallments] = useState("1");
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    
+    // Format credit card number with spaces
+    const formatCreditCardNumber = (value) => {
+        const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+        const matches = v.match(/\d{4,16}/g);
+        const match = matches && matches[0] || '';
+        const parts = [];
+        
+        for (let i = 0; i < match.length; i += 4) {
+            parts.push(match.substring(i, i + 4));
+        }
+        
+        if (parts.length) {
+            return parts.join(' ');
+        } else {
+            return value;
+        }
+    };
+
+    const handleCreditCardChange = (e) => {
+        const formattedValue = formatCreditCardNumber(e.target.value);
+        setCreditCardNum(formattedValue);
+    };
 
     const toPay = () => {
         setIsProcessing(true);
@@ -33,88 +91,258 @@ export const Pay = () => {
             idCustomer: userName.id, 
             price: price, 
             date: new Date(), 
+            paymentMethod: paymentMethod,
+            installments: parseInt(installments),
             ordersDetails: ordersDetailToPay
         };
-        
-        // Here you would typically dispatch an action to process the payment
-        // For example:
-        // dispatch(processPayment(orderToPay));
         
         console.log("Processing payment:", orderToPay);
         
         // Simulate API call
         setTimeout(() => {
             setIsProcessing(false);
-            alert("Payment processed successfully!");
-            // You might want to redirect or clear the cart here
+            setSnackbarOpen(true);
+            // Redirect after showing success message
+            setTimeout(() => navigate("/payment-success"), 1500);
         }, 1500);
     };
 
-    // Validate credit card has correct length (typically 16 digits)
+    // Validations
     const isValidCreditCard = creditCardNum.replace(/\s/g, '').length === 16;
-    // Validate date is not empty
     const isValidDate = date !== "";
-    // Validate CVC is 3 digits
     const isValidCvc = cvc.length === 3;
+    const isValidName = cardholderName.trim().length > 3;
     
-    // Button is enabled only when all fields are valid
-    const isFormValid = isValidCreditCard && isValidDate && isValidCvc;
+    // Form validation based on payment method
+    const isFormValid = 
+        paymentMethod === "creditCard" 
+            ? (isValidCreditCard && isValidDate && isValidCvc && isValidName) 
+            : true;
+            
+    const handleCloseSnackbar = () => {
+        setSnackbarOpen(false);
+    };
 
     return (
-        <div className="payment-container" style={{ direction: "rtl", maxWidth: "500px", margin: "0 auto", padding: "20px" }}>
-            <h3>הזן פרטי אשראי</h3>
-            
-            <div className="payment-form" style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-                <div className="form-group">
-                    <label>הכנס מספר כרטיס אשראי</label>
-                    <input 
-                        type="text" 
-                        value={creditCardNum}
-                        onChange={(e) => setCreditCardNum(e.target.value)}
-                        placeholder="XXXX XXXX XXXX XXXX"
-                        maxLength="19"
-                        style={{ width: "100%", padding: "8px" }}
-                    />
-                </div>
+        <Container className="payment-container">
+            <Paper className="payment-paper">
+                <Typography variant="h4" component="h1" className="payment-title">
+                    <PaymentIcon className="payment-title-icon" />
+                    תשלום
+                </Typography>
                 
-                <div className="form-group">
-                    <label>הכנס תוקף</label>
-                    <input 
-                        type="date" 
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        style={{ width: "100%", padding: "8px" }}
-                    />
-                </div>
+                <Card className="order-summary-card">
+                    <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                            סיכום הזמנה
+                        </Typography>
+                        <Box className="summary-row">
+                            <Typography variant="body1">סה"כ לתשלום:</Typography>
+                            <Typography variant="h6" color="primary" className="summary-price">
+                                {price} ₪
+                            </Typography>
+                        </Box>
+                    </CardContent>
+                </Card>
                 
-                <div className="form-group">
-                    <label>הכנס CVC</label>
-                    <input 
-                        type="text" 
-                        value={cvc}
-                        onChange={(e) => setCvc(e.target.value.replace(/[^0-9]/g, ''))}
-                        maxLength="3"
-                        placeholder="123"
-                        style={{ width: "100%", padding: "8px" }}
-                    />
-                </div>
+                <Typography variant="h6" gutterBottom>
+                    בחר אמצעי תשלום
+                </Typography>
                 
-                <button 
-                    onClick={toPay} 
+                <Grid container spacing={2} className="payment-methods-grid">
+                    <Grid item xs={12} sm={4}>
+                        <Paper 
+                            className={`payment-method-option ${paymentMethod === "creditCard" ? "method-selected" : ""}`}
+                            onClick={() => setPaymentMethod("creditCard")}
+                        >
+                            <CreditCardIcon className="method-icon credit-card-icon" />
+                            <Typography variant="body1">כרטיס אשראי</Typography>
+                        </Paper>
+                    </Grid>
+                    
+                    <Grid item xs={12} sm={4}>
+                        <Paper 
+                            className={`payment-method-option ${paymentMethod === "paypal" ? "method-selected" : ""}`}
+                            onClick={() => setPaymentMethod("paypal")}
+                        >
+                            <PublicIcon className="method-icon paypal-icon" />
+                            <Typography variant="body1">PayPal</Typography>
+                        </Paper>
+                    </Grid>
+                    
+                    <Grid item xs={12} sm={4}>
+                        <Paper 
+                            className={`payment-method-option ${paymentMethod === "applepay" ? "method-selected" : ""}`}
+                            onClick={() => setPaymentMethod("applepay")}
+                        >
+                            <AppleIcon className="method-icon apple-icon" />
+                            <Typography variant="body1">Apple Pay</Typography>
+                        </Paper>
+                    </Grid>
+                </Grid>
+                
+                {paymentMethod === "creditCard" && (
+                    <Box className="credit-card-form">
+                        <Grid container spacing={3}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    label="שם בעל הכרטיס"
+                                    fullWidth
+                                    value={cardholderName}
+                                    onChange={(e) => setCardholderName(e.target.value)}
+                                    placeholder="ישראל ישראלי"
+                                    variant="outlined"
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <CreditScoreIcon color="action" />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    error={cardholderName !== "" && !isValidName}
+                                    helperText={cardholderName !== "" && !isValidName ? "יש להזין שם מלא" : ""}
+                                    className="form-field"
+                                />
+                            </Grid>
+                            
+                            <Grid item xs={12}>
+                                <TextField
+                                    label="מספר כרטיס אשראי"
+                                    fullWidth
+                                    value={creditCardNum}
+                                    onChange={handleCreditCardChange}
+                                    placeholder="XXXX XXXX XXXX XXXX"
+                                    variant="outlined"
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <CreditCardIcon color="action" />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    error={creditCardNum !== "" && !isValidCreditCard}
+                                    helperText={creditCardNum !== "" && !isValidCreditCard ? "מספר כרטיס לא תקין" : ""}
+                                    className="form-field"
+                                />
+                            </Grid>
+                            
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    label="תוקף"
+                                    type="month"
+                                    fullWidth
+                                    value={date}
+                                    onChange={(e) => setDate(e.target.value)}
+                                    variant="outlined"
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <EventIcon color="action" />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    error={date !== "" && !isValidDate}
+                                    className="form-field"
+                                />
+                            </Grid>
+                            
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    label="CVC/CVV"
+                                    fullWidth
+                                    value={cvc}
+                                    onChange={(e) => setCvc(e.target.value.replace(/[^0-9]/g, ''))}
+                                    placeholder="123"
+                                    variant="outlined"
+                                    inputProps={{ maxLength: 3 }}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <LockIcon color="action" />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    error={cvc !== "" && !isValidCvc}
+                                    helperText={cvc !== "" && !isValidCvc ? "קוד אבטחה לא תקין" : ""}
+                                    className="form-field"
+                                />
+                            </Grid>
+                            
+                            <Grid item xs={12}>
+                                <FormControl fullWidth variant="outlined" className="form-field">
+                                    <InputLabel id="installments-label">תשלומים</InputLabel>
+                                    <Select
+                                        labelId="installments-label"
+                                        value={installments}
+                                        onChange={(e) => setInstallments(e.target.value)}
+                                        label="תשלומים"
+                                    >
+                                        <MenuItem value="1">תשלום אחד</MenuItem>
+                                        <MenuItem value="3">3 תשלומים</MenuItem>
+                                        <MenuItem value="6">6 תשלומים</MenuItem>
+                                        <MenuItem value="12">12 תשלומים</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                )}
+                
+                {paymentMethod === "paypal" && (
+                    <Box className="alternative-payment">
+                        <Typography variant="body1" gutterBottom>
+                            לחץ על הכפתור למטה כדי להמשיך לתשלום באמצעות PayPal
+                        </Typography>
+                        <PublicIcon className="alternative-payment-icon paypal-large-icon" />
+                    </Box>
+                )}
+                
+                {paymentMethod === "applepay" && (
+                    <Box className="alternative-payment">
+                        <Typography variant="body1" gutterBottom>
+                            לחץ על הכפתור למטה כדי להמשיך לתשלום באמצעות Apple Pay
+                        </Typography>
+                        <AppleIcon className="alternative-payment-icon apple-large-icon" />
+                    </Box>
+                )}
+                
+                <Box className="security-note">
+                    <SecurityIcon className="security-icon" />
+                    <Typography variant="body2" color="textSecondary">
+                        כל פרטי התשלום שלך מאובטחים ומוצפנים
+                    </Typography>
+                </Box>
+                
+                <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    size="large"
+                    onClick={toPay}
                     disabled={!isFormValid || isProcessing}
-                    style={{ 
-                        padding: "10px", 
-                        backgroundColor: isFormValid && !isProcessing ? "#4CAF50" : "#cccccc",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "4px",
-                        cursor: isFormValid && !isProcessing ? "pointer" : "not-allowed",
-                        marginTop: "10px"
-                    }}
+                    className={`payment-button ${!isFormValid || isProcessing ? "button-disabled" : ""}`}
                 >
-                    {isProcessing ? "מעבד תשלום..." : "לתשלום"}
-                </button>
-            </div>
-        </div>
+                    {isProcessing ? (
+                        <Box className="loading-container">
+                            <CircularProgress size={24} color="inherit" className="loading-spinner" />
+                            <span>מעבד תשלום...</span>
+                        </Box>
+                    ) : (
+                        `לתשלום ${price} ₪`
+                    )}
+                </Button>
+            </Paper>
+            
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={3000}
+                onClose={handleCloseSnackbar}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            >
+                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+                    התשלום בוצע בהצלחה!
+                </Alert>
+            </Snackbar>
+        </Container>
     );
 };

@@ -1,0 +1,325 @@
+.payment-container {
+    direction: rtl;
+    padding: 2rem 0;
+    max-width: 800px !important;
+  }
+  
+  /* Paper container */
+  .payment-paper {
+    padding: 2rem;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  /* Title styling */
+  .payment-title {
+    text-align: center;
+    font-weight: 600 !important;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem !important;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .payment-title-icon {
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    color: #4CAF50;
+  }
+  
+  /* Order summary card */
+  .order-summary-card {
+    margin-bottom: 1.5rem !important;
+    background-color: #f8f9fa !important;
+    border-radius: 8px !important;
+  }
+  
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .summary-price {
+    font-weight: bold !important;
+  }
+  
+  /* Payment methods grid */
+  .payment-methods-grid {
+    margin-bottom: 1.5rem !important;
+  }
+  .payment-container {
+  direction: rtl;
+  padding: 2rem 0;
+  max-width: 800px !important;
+}
+
+/* Paper container */
+.payment-paper {
+  padding: 2rem;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Title styling */
+.payment-title {
+  text-align: center;
+  font-weight: 600 !important;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem !important;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.payment-title-icon {
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  color: #4CAF50;
+}
+
+/* Order summary card */
+.order-summary-card {
+  margin-bottom: 1.5rem !important;
+  background-color: #f8f9fa !important;
+  border-radius: 8px !important;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary-price {
+  font-weight: bold !important;
+}
+
+/* Payment methods grid */
+.payment-methods-grid {
+  margin-bottom: 1.5rem !important;
+}
+
+/* Payment method options */
+.payment-method-option {
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px !important;
+    transition: all 0.2s ease;
+  }
+  
+  .payment-method-option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .method-selected {
+    border: 2px solid #4CAF50 !important;
+    background-color: rgba(76, 175, 80, 0.08) !important;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15) !important;
+  }
+  
+  /* Method icons */
+  .method-icon {
+    font-size: 2.5rem !important;
+    margin-bottom: 0.5rem;
+  }
+  
+  .credit-card-icon {
+    color: #4CAF50;
+  }
+  
+  .paypal-icon {
+    color: #0070ba;
+  }
+  
+  .apple-icon {
+    color: #000;
+  }
+  
+  /* Credit card form */
+  .credit-card-form {
+    margin-top: 1.5rem;
+  }
+  
+  .form-field {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Alternative payment methods */
+  .alternative-payment {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+  }
+  
+  .alternative-payment-icon {
+    font-size: 3.75rem !important;
+    margin: 1rem 0;
+  }
+  
+  .paypal-large-icon {
+    color: #0070ba;
+  }
+  
+  .apple-large-icon {
+    color: #000;
+  }
+  
+  /* Security note */
+  .security-note {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+    padding: 0.75rem;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+  }
+  
+  .security-icon {
+    margin-left: 0.5rem;
+    color: #757575;
+  }
+  
+  /* Payment button */
+  .payment-button {
+    padding: 0.75rem !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+    background-color: #4CAF50 !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .payment-button:not(.button-disabled):hover {
+    background-color: #3d9140 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(76, 175, 80, 0.2) !important;
+  }
+  
+  .button-disabled {
+    background-color: #cccccc !important;
+    cursor: not-allowed;
+  }
+  
+  /* Loading state */
+  .loading-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .loading-spinner {
+    margin-left: 0.75rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .payment-paper {
+      padding: 1.5rem;
+    }
+    
+    .payment-title {
+      font-size: 1.5rem !important;
+    }
+    
+    .method-icon {
+      font-size: 2rem !important;
+    }
+    
+    .alternative-payment-icon {
+      font-size: 3rem !important;
+    }
+    
+    .payment-button {
+      font-size: 1rem !important;
+    }
+  }
+  
+  /* Form validation styling */
+  .MuiFormHelperText-root.Mui-error {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  /* Input direction fixes */
+  .MuiInputBase-input {
+    text-align: right;
+  }
+  
+  /* Snackbar styling */
+  .MuiAlert-root {
+    direction: rtl !important;
+  }
+  
+  /* Animation for payment methods */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  .method-selected .method-icon {
+    animation: pulse 1s infinite;
+  }
+  
+  /* Focus styles */
+  .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #4CAF50 !important;
+  }
+  
+  /* Select dropdown styling */
+  .MuiMenuItem-root {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  /* Card hover effect */
+  .order-summary-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  /* Additional accessibility improvements */
+  .MuiInputLabel-root {
+    right: 0;
+    left: auto;
+    transform-origin: top right;
+  }
+  
+  .MuiInputLabel-shrink {
+    transform-origin: top right !important;
+  }
+  
+  /* Improve form field spacing on mobile */
+  @media (max-width: 480px) {
+    .payment-container {
+      padding: 1rem 0;
+    }
+    
+    .payment-paper {
+      padding: 1rem;
+    }
+    
+    .credit-card-form .MuiGrid-item {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+  }
+  
+  /* Improve visual hierarchy */
+  .MuiTypography-h6 {
+    font-weight: 600 !important;
+  }
+  
+  /* Improve button accessibility */
+  .payment-button:focus {
+    outline: 2px solid #4CAF50;
+    outline-offset: 2px;
+  }
+  
+  /* Improve form field spacing */
+  .MuiFormControl-root {
+    margin-bottom: 8px !important;
+  }

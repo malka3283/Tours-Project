@@ -1,0 +1,303 @@
+/* Main container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 24px;
+    background-color: #f5f5f5;
+    direction: rtl;
+  }
+  
+  /* Login card */
+  .login-card {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+  
+  .login-card-content {
+    padding: 0 !important;
+  }
+  
+  /* Form container */
+  .login-form-container {
+    padding: 32px;
+    background-color: #ffffff;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  /* Header */
+  .login-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .login-title {
+    font-weight: 600;
+    color: #1976d2;
+  }
+  
+  .close-button {
+    color: #757575;
+  }
+  
+  .login-subtitle {
+    margin-bottom: 24px;
+  }
+  
+  /* Form fields */
+  .form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .form-field .MuiInputBase-root {
+    border-radius: 8px;
+  }
+  
+  /* Form options */
+  .form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .forgot-password {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  /* Login button */
+  .login-button {
+    padding: 12px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    margin-bottom: 16px !important;
+    background-color: #1976d2 !important;
+  }
+  
+  /* Register link */
+  .register-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  
+  .register-button {
+    text-transform: none !important;
+    font-weight: 600 !important;
+  }
+  
+  /* Divider */
+  .divider {
+    margin: 16px 0 !important;
+  }
+  
+  /* Social login */
+  .social-login {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  
+  .social-button {
+    flex: 1;
+    padding: 10px !important;
+    text-transform: none !important;
+    border-radius: 8px !important;
+  }
+  
+  .google {
+    color: #db4437 !important;
+    border-color: #db4437 !important;
+  }
+  
+  .facebook {
+    color: #4267B2 !important;
+    border-color: #4267B2 !important;
+  }
+  
+  /* Info container (right side) */
+  .login-info-container {
+    background: linear-gradient(135deg, #1976d2, #0d47a1);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login-info {
+    padding: 48px;
+    max-width: 400px;
+  }
+  
+  .info-title {
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+  
+  .info-text {
+    margin-bottom: 32px;
+    opacity: 0.9;
+  }
+  
+  /* Features */
+  .info-features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    font-weight: bold;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 900px) {
+    .login-form-container {
+      padding: 24px;
+    }
+    
+    .login-title {
+      font-size: 1.75rem;
+    }
+    
+    .form-options {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    
+    .social-login {
+      flex-direction: column;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .login-container {
+      padding: 16px;
+    }
+    
+    .login-form-container {
+      padding: 16px;
+    }
+    
+    .login-title {
+      font-size: 1.5rem;
+    }
+    
+    .form-fields {
+      gap: 12px;
+    }
+  }
+  
+  /* Animation for card */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .login-card {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  /* Focus styles */
+  .form-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #1976d2;
+    border-width: 2px;
+  }
+  
+  /* Error styles */
+  .form-field .MuiFormHelperText-root.Mui-error {
+    font-size: 0.75rem;
+    margin-top: 4px;
+    margin-right: 14px;
+  }
+  
+  /* Button hover effects */
+  .login-button:hover {
+    background-color: #1565c0 !important;
+  }
+  
+  .social-button.google:hover {
+    background-color: rgba(219, 68, 55, 0.05) !important;
+  }
+  
+  .social-button.facebook:hover {
+    background-color: rgba(66, 103, 178, 0.05) !important;
+  }
+  
+  /* Custom checkbox */
+  .remember-me input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #bdbdbd;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .remember-me input[type="checkbox"]:checked {
+    background-color: #1976d2;
+    border-color: #1976d2;
+  }
+  
+  .remember-me input[type="checkbox"]:checked::after {
+    content: "✓";
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .remember-me label {
+    cursor: pointer;
+    font-size: 14px;
+    color: #757575;
+  }
