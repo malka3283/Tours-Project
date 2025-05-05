@@ -3,6 +3,7 @@ import { Destnation } from "./destnation";
 import { ClassToFlight } from "./classToFlight";
 import { Flight } from "./flight";
 import { ThisFlight } from "./thisFlight";
+import { Customer } from "./customer";
 
 export const Handle = () => {
 
@@ -43,7 +44,11 @@ export const Handle = () => {
                         setClassToFlt(true)
                         setCustomer(false)
         }}> הטיסות למחלקות</button>
-        <button onClick={() => {}}>לקוחות</button>
+        <button onClick={() => { setFlt(false)
+                        setDes(false)
+                        setThisFlt(false)
+                        setClassToFlt(false)
+                        setCustomer(true)}}>לקוחות</button>
         <button></button>
 
 {des && <Destnation/>}

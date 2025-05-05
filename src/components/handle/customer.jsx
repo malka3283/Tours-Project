@@ -6,12 +6,12 @@ import { getAllCustomersThunk } from "../../redux/slices/flight/getAllCustomersT
 export const Customer = () => {
 
     useEffect(()=>{
-        dispatch(loct("/Customer"));
-  
+        dispatch(loct("/customer"));
+        
         dispatch(getAllCustomersThunk());
       },[])
 
-const customers = useSelector(state => state.users.customers);
+const customers = useSelector(state => state.flights.customers);
 
 const dispatch = useDispatch()
 
@@ -43,9 +43,6 @@ const dispatch = useDispatch()
                     <th>
                        
                     </th>
-                    <th>
-                       
-                       </th>
                 </tr>
             </thead>
 
@@ -61,7 +58,7 @@ const dispatch = useDispatch()
                     <th>🚮</th>
                     <button onClick={() => {
                     }}>פרטי הזמנות</button>
-                    <button onClick={() => {
+                    <button onClick={() => { 
 
                     }}>עריכה</button>
 
