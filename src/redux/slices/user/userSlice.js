@@ -25,7 +25,11 @@ export const userSlice = createSlice({
         },
         loct: (state, action) => {
             state.loction = action.payload;
-        }
+        },
+        signOut: (state, action) => {
+            state.user = null;
+            state.userWithoutOutId = { firstName: '', lastName: '', email: '', phone: '', password: '' };
+        },
     },
 
     extraReducers: (builder) => {
@@ -60,4 +64,4 @@ export const userSlice = createSlice({
     }
 
 });
-export const { logIn, loct } = userSlice.actions;
+export const { logIn, loct, signOut } = userSlice.actions;

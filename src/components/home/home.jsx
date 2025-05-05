@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { Routing } from "../routing/routing";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loct } from "../../redux/slices/user/userSlice";
+import { loct, signOut } from "../../redux/slices/user/userSlice";
 import { getAllFlightThunk } from "../../redux/slices/flight/getAllFlightThunk";
 import { getAllDestinationThunk } from "../../redux/slices/flight/getAllDestinationThunk";
 import './home.css';
@@ -76,7 +76,8 @@ export const Home = () => {
     
     const handleLogout = () => {
         handleUserMenuClose();
-        navigate('/logIn');
+        // navigate('/logIn');
+        dispatch(signOut())
     };
     
     // Drawer content for mobile

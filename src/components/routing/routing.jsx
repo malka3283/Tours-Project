@@ -19,6 +19,7 @@ import { Cart } from "../cart/cart"
 import { FlightsWhisHanach } from "../flights/flightsWhisHanach"
 import { OrderDetail } from "../orderDetail/orderDetail"
 import { Pay } from "../cart/pay"
+import { Customer } from "../handle/customer"
 
 
 export const Routing = () => {
@@ -44,6 +45,8 @@ export const Routing = () => {
         <Route path={'/flightDetail/:classs/:id/:numberOfSeats'} element={<FlightDetails/>}></Route>
         <Route path={'/cart'} element={<Cart/>}></Route>
         <Route path={'/pay'} element={<Pay/>}></Route>
+        <Route path={'/customer'} element={<Customer/>}></Route>
+
 
         <Route path={''} element={<Navigate to="about"></Navigate>}></Route>
     </Routes>

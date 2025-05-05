@@ -11,7 +11,7 @@ export const Destnation = () => {
 
     const dispatch = useDispatch()
     const [add, setAdd] = useState(false)
-    const [des, setDes] = useState({path: "", destinition: ""})
+    const [des, setDes] = useState({path: "", destination: ""})
 
     const destinitions = useSelector(state => state.flights.destinitions)
 
