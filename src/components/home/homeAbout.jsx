@@ -1,42 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Box, Container, Typography, Grid, Card, CardContent, CardMedia, Button, Paper, 
-  useTheme, useMediaQuery, Divider, Stack, TextField, InputAdornment, Autocomplete, 
-  Tabs, Tab, IconButton, Chip, Fade, Slide, Zoom, Rating, Avatar, Backdrop, 
-  CircularProgress, Snackbar, Alert
-} from '@mui/material';
-import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
-import FlightLandIcon from '@mui/icons-material/FlightLand';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import SearchIcon from '@mui/icons-material/Search';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import PersonIcon from '@mui/icons-material/Person';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import StarIcon from '@mui/icons-material/Star';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import PauseIcon from '@mui/icons-material/Pause';
-import LuggageIcon from '@mui/icons-material/Luggage';
-import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
-import HotelIcon from '@mui/icons-material/Hotel';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-import PublicIcon from '@mui/icons-material/Public';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import LocalAtmIcon from '@mui/icons-material/LocalAtm';
-
-// Import CSS
-import './HomeAbout.css';
+  Container, 
+  Grid, 
+  Card, 
+  Text, 
+  Button, 
+  Spacer, 
+  Badge, 
+  Avatar, 
+  Row, 
+  Col, 
+  Image, 
+  Progress
+} from '@nextui-org/react';
+import { 
+  FaPlane, 
+  FaHotel, 
+  FaCar, 
+  FaUmbrellaBeach, 
+  FaMapMarkerAlt, 
+  FaUser, 
+  FaStar, 
+  FaHeart, 
+  FaGlobe, 
+  FaHeadset, 
+  FaShieldAlt, 
+  FaMoneyBillWave, 
+  FaApple, 
+  FaGooglePlay,
+  FaArrowRight,
+  FaArrowLeft,
+  FaQuoteRight
+} from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import styles from '../styles/TravelAgency.module.css';
 
 // Data
 const destinations = [
   {
     name: 'פריז',
     country: 'צרפת',
-    image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80',
+    image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=2073&q=80',
     price: 399,
     rating: 4.8,
     featured: true,
@@ -45,7 +49,7 @@ const destinations = [
   {
     name: 'רומא',
     country: 'איטליה',
-    image: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1996&q=80',
+    image: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1996&q=80',
     price: 349,
     rating: 4.7,
     featured: true
@@ -53,7 +57,7 @@ const destinations = [
   {
     name: 'ברצלונה',
     country: 'ספרד',
-    image: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    image: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=2070&q=80',
     price: 329,
     rating: 4.6,
     featured: true,
@@ -62,14 +66,14 @@ const destinations = [
   {
     name: 'אמסטרדם',
     country: 'הולנד',
-    image: 'https://images.unsplash.com/photo-1576924542622-772281b13aa8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    image: 'https://images.unsplash.com/photo-1576924542622-772281b13aa8?auto=format&fit=crop&w=2070&q=80',
     price: 299,
     rating: 4.5
   },
   {
     name: 'לונדון',
     country: 'אנגליה',
-    image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=2070&q=80',
     price: 379,
     rating: 4.7,
     discount: '20%'
@@ -77,7 +81,7 @@ const destinations = [
   {
     name: 'ניו יורק',
     country: 'ארה"ב',
-    image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=2070&q=80',
     price: 599,
     rating: 4.9,
     featured: true
@@ -108,62 +112,161 @@ const testimonials = [
   }
 ];
 
-const airports = [
-  { label: 'נתב"ג (TLV)', id: 'TLV' },
-  { label: 'שארל דה גול, פריז (CDG)', id: 'CDG' },
-  { label: 'הית\'רו, לונדון (LHR)', id: 'LHR' },
-  { label: 'JFK, ניו יורק (JFK)', id: 'JFK' },
-  { label: 'פיומיצ\'ינו, רומא (FCO)', id: 'FCO' },
-  { label: 'שיפול, אמסטרדם (AMS)', id: 'AMS' },
-  { label: 'אל פראט, ברצלונה (BCN)', id: 'BCN' },
-];
-
 const features = [
-  { 
-    icon: <FlightTakeoffIcon sx={{ fontSize: 40 }} />, 
-    title: 'מבחר טיסות עצום', 
-    description: 'אנו מציעים מגוון רחב של טיסות לכל יעד בעולם במחירים הטובים ביותר' 
+  {
+    icon: <FaPlane size={32} />,
+    title: 'מבחר טיסות עצום',
+    description: 'אנו מציעים מגוון רחב של טיסות לכל יעד בעולם במחירים הטובים ביותר'
   },
-  { 
-    icon: <SupportAgentIcon sx={{ fontSize: 40 }} />, 
-    title: 'שירות לקוחות 24/7', 
-    description: 'צוות השירות שלנו זמין עבורכם בכל שעה, בכל יום, לכל שאלה או בעיה' 
+  {
+    icon: <FaHeadset size={32} />,
+    title: 'שירות לקוחות 24/7',
+    description: 'צוות השירות שלנו זמין עבורכם בכל שעה, בכל יום, לכל שאלה או בעיה'
   },
-  { 
-    icon: <VerifiedUserIcon sx={{ fontSize: 40 }} />, 
-    title: 'הבטחת מחיר', 
-    description: 'אנו מבטיחים את המחירים הטובים ביותר ומציעים החזר כספי אם תמצאו מחיר נמוך יותר' 
+  {
+    icon: <FaShieldAlt size={32} />,
+    title: 'הבטחת מחיר',
+    description: 'אנו מבטיחים את המחירים הטובים ביותר ומציעים החזר כספי אם תמצאו מחיר נמוך יותר'
   },
-  { 
-    icon: <LocalAtmIcon sx={{ fontSize: 40 }} />, 
-    title: 'ללא עמלות נסתרות', 
-    description: 'המחיר שאתם רואים הוא המחיר שתשלמו - ללא הפתעות או עמלות נסתרות' 
+  {
+    icon: <FaMoneyBillWave size={32} />,
+    title: 'ללא עמלות נסתרות',
+    description: 'המחיר שאתם רואים הוא המחיר שתשלמו - ללא הפתעות או עמלות נסתרות'
   },
-  { 
-    icon: <PublicIcon sx={{ fontSize: 40 }} />, 
-    title: 'יעדים בכל העולם', 
-    description: 'אנו מציעים טיסות ליותר מ-1000 יעדים ברחבי העולם' 
+  {
+    icon: <FaGlobe size={32} />,
+    title: 'יעדים בכל העולם',
+    description: 'אנו מציעים טיסות ליותר מ-1000 יעדים ברחבי העולם'
   },
-  { 
-    icon: <BeachAccessIcon sx={{ fontSize: 40 }} />, 
-    title: 'חבילות נופש מושלמות', 
-    description: 'חבילות הכוללות טיסות, מלונות, העברות ואטרקציות במחיר אטרקטיבי' 
+  {
+    icon: <FaUmbrellaBeach size={32} />,
+    title: 'חבילות נופש מושלמות',
+    description: 'חבילות הכוללות טיסות, מלונות, העברות ואטרקציות במחיר אטרקטיבי'
   }
 ];
 
-export const HomeAbout = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+// Star Rating Component
+const StarRating = ({ rating }) => {
+  const fullStars = Math.floor(rating);
+  const hasHalfStar = rating % 1 !== 0;
   
-  const [searchTab, setSearchTab] = useState(0);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-  const [showNotification, setShowNotification] = useState(false);
-  const [fromAirport, setFromAirport] = useState(null);
-  const [toAirport, setToAirport] = useState(null);
+  return (
+    <div className={styles.starRating}>
+      {[...Array(fullStars)].map((_, i) => (
+        <FaStar key={`full-${i}`} className={styles.starFilled} />
+      ))}
+      {hasHalfStar && <FaStar className={styles.starHalf} />}
+      {[...Array(5 - fullStars - (hasHalfStar ? 1 : 0))].map((_, i) => (
+        <FaStar key={`empty-${i}`} className={styles.starEmpty} />
+      ))}
+      <Text small className={styles.ratingText}>{rating}</Text>
+    </div>
+  );
+};
 
+// Destination Card Component
+const DestinationCard = ({ destination }) => {
+  return (
+    <Card className={styles.destinationCard} hoverable>
+      <Card.Body css={{ p: 0, overflow: 'hidden' }}>
+        <div className={styles.imageContainer}>
+          <Image
+            src={destination.image}
+            alt={destination.name}
+            objectFit="cover"
+            width="100%"
+            height={240}
+            className={styles.destinationImage}
+          />
+          {destination.discount && (
+            <Badge color="error" className={styles.discountBadge}>
+              הנחה {destination.discount}
+            </Badge>
+          )}
+          <Button 
+            light 
+            auto 
+            icon={<FaHeart fill="white" />} 
+            className={styles.favoriteButton}
+          />
+        </div>
+      </Card.Body>
+      <Card.Footer className={styles.destinationFooter}>
+        <Row justify="space-between" align="center">
+          <Col>
+            <Text h4 className={styles.destinationName}>{destination.name}</Text>
+            <div className={styles.locationContainer}>
+              <FaMapMarkerAlt className={styles.locationIcon} />
+              <Text small>{destination.country}</Text>
+            </div>
+            <StarRating rating={destination.rating} />
+          </Col>
+          <Col css={{ textAlign: 'right' }}>
+            <Text className={styles.priceLabel}>החל מ-</Text>
+            <Text h3 className={styles.price}>${destination.price}</Text>
+            <Button 
+              auto 
+              color="gradient" 
+              className={styles.bookButton}
+              iconRight={<FaArrowLeft />}
+            >
+              הזמן עכשיו
+            </Button>
+          </Col>
+        </Row>
+      </Card.Footer>
+    </Card>
+  );
+};
+
+// Testimonial Card Component
+const TestimonialCard = ({ testimonial }) => {
+  return (
+    <Card className={styles.testimonialCard}>
+      <Card.Body>
+        <FaQuoteRight className={styles.quoteIcon} />
+        <Text className={styles.testimonialComment}>
+          "{testimonial.comment}"
+        </Text>
+        <StarRating rating={testimonial.rating} />
+      </Card.Body>
+      <Card.Footer className={styles.testimonialFooter}>
+        <Avatar
+          src={testimonial.avatar}
+          size="lg"
+          bordered
+          color="gradient"
+          className={styles.testimonialAvatar}
+        />
+        <div>
+          <Text h5 className={styles.testimonialName}>{testimonial.name}</Text>
+          <Text small className={styles.testimonialDestination}>
+            טיול ל{testimonial.destination}
+          </Text>
+        </div>
+      </Card.Footer>
+    </Card>
+  );
+};
+
+// Feature Card Component
+const FeatureCard = ({ feature }) => {
+  return (
+    <Card className={styles.featureCard} hoverable>
+      <Card.Body>
+        <div className={styles.featureIconContainer}>
+          {feature.icon}
+        </div>
+        <Text h4 className={styles.featureTitle}>{feature.title}</Text>
+        <Text className={styles.featureDescription}>{feature.description}</Text>
+      </Card.Body>
+    </Card>
+  );
+};
+
+export default function TravelAgency() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
   // Auto-rotate featured destinations
   useEffect(() => {
     const featuredDestinations = destinations.filter(d => d.featured);
@@ -173,710 +276,489 @@ export const HomeAbout = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const handleSearchSubmit = () => {
-    setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      setShowNotification(true);
-    }, 1500);
-  };
-
-  const handleSearchTabChange = (event, newValue) => {
-    setSearchTab(newValue);
-  };
-
   const featuredDestinations = destinations.filter(d => d.featured);
 
   return (
-    <Box sx={{ width: '100%', bgcolor: 'background.paper', overflow: 'hidden' }}>
-      {/* Hero Section with Video Background */}
-      <Box className="hero-section">
-        {/* Video Background with Overlay */}
-        <Box className="video-background">
-          {/* <Box
-            component="img"
-            src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80"
-            alt="Travel video background"
-            className="background-image"
-          /> */}
-          <IconButton 
-            className="video-control-button"
-            onClick={() => setIsVideoPlaying(!isVideoPlaying)}
-          >
-            {isVideoPlaying ? <PauseIcon /> : <PlayArrowIcon />}
-          </IconButton>
-        </Box>
-
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
-              <Fade in={true} timeout={1000}>
-                <Box className="hero-content">
-                  <Typography variant={isMobile ? "h3" : "h1"} component="h1" className="hero-heading">
-                    גלו עולם של אפשרויות
-                  </Typography>
-                  <Typography variant="h5" className="hero-subheading">
-                    הטיסות הטובות ביותר, המחירים המשתלמים ביותר והחוויות הבלתי נשכחות ביותר - הכל במקום אחד
-                  </Typography>
-                  <Stack 
-                    direction={{ xs: 'column', sm: 'row' }} 
-                    spacing={2}
-                    sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}
+    <div className={styles.container} dir="rtl">
+      {/* Hero Section */}
+      <section className={styles.heroSection}>
+        <div className={styles.videoBackground}>
+          <div className={styles.overlay}></div>
+          <video autoPlay muted loop className={styles.backgroundVideo}>
+            <source src="/videos/travel-background.mp4" type="video/mp4" />
+            <Image 
+              src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=2074&q=80" 
+              alt="Travel background"
+              className={styles.fallbackImage}
+            />
+          </video>
+        </div>
+        
+        <Container lg className={styles.heroContainer}>
+          <Grid.Container gap={4} className={styles.heroContent}>
+            <Grid xs={12} md={6}>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className={styles.heroTextContent}
+              >
+                <Text 
+                  h1 
+                  className={styles.heroTitle}
+                  css={{ 
+                    textGradient: "45deg, $blue600 -20%, $purple600 100%",
+                  }}
+                >
+                  גלו עולם של אפשרויות
+                </Text>
+                <Text h3 className={styles.heroSubtitle}>
+                  הטיסות הטובות ביותר, המחירים המשתלמים ביותר והחוויות הבלתי נשכחות ביותר - הכל במקום אחד
+                </Text>
+                <Spacer y={1.5} />
+                <Row>
+                  <Button 
+                    size="xl" 
+                    shadow
+                    color="gradient" 
+                    className={styles.ctaButton}
+                    iconRight={<FaArrowLeft />}
                   >
-                    <Button 
-                      className="gradient-button"
-                      size="large" 
-                      startIcon={<SearchIcon />}
-                      onClick={() => document.getElementById('search-section').scrollIntoView({ behavior: 'smooth' })}
-                    >
-                      חפש טיסות
-                    </Button>
-                    <Button 
-                      variant="outlined" 
-                      size="large" 
-                      className="outline-button"
-                    >
-                      מבצעים מיוחדים
-                    </Button>
-                  </Stack>
-                </Box>
-              </Fade>
+                    מבצעים מיוחדים
+                  </Button>
+                  <Spacer x={1} />
+                  <Button 
+                    size="xl" 
+                    bordered
+                    color="primary" 
+                    className={styles.secondaryButton}
+                  >
+                    צור קשר
+                  </Button>
+                </Row>
+              </motion.div>
             </Grid>
             
-            <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' } }}>
-              <Zoom in={true} timeout={1500}>
-                <Box className="featured-destination-card">
-                  <Box
-                    component="img"
-                    src={featuredDestinations[currentSlide].image}
-                    alt={featuredDestinations[currentSlide].name}
-                    className="featured-destination-image"
-                  />
-                  <Box className="featured-destination-info">
-                    <Typography variant="h4" className="featured-destination-name">
-                      {featuredDestinations[currentSlide].name}
-                    </Typography>
-                    <Typography variant="h6" className="featured-destination-country">
-                      {featuredDestinations[currentSlide].country}
-                    </Typography>
-                    <Box className="featured-destination-price-container">
-                      <Typography variant="h5" className="featured-destination-price">
-                        החל מ-{featuredDestinations[currentSlide].price}$
-                      </Typography>
-                      <Button 
-                        variant="contained" 
-                        className="featured-destination-button"
-                        endIcon={<ArrowBackIcon />}
-                      >
-                        הזמן עכשיו
-                      </Button>
-                    </Box>
-                  </Box>
-                </Box>
-              </Zoom>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-
-      {/* Search Section */}
-      <Box id="search-section" className="search-section">
-        <Container maxWidth="lg">
-          <Paper className="search-paper">
-            <Box className="search-container">
-              <Tabs
-                value={searchTab}
-                onChange={handleSearchTabChange}
-                variant="fullWidth"
-                className="search-tabs"
+            <Grid xs={12} md={6} className={styles.heroImageContainer}>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
               >
-                <Tab 
-                  icon={<AirplanemodeActiveIcon />} 
-                  label="טיסות" 
-                  className="search-tab"
-                />
-                <Tab 
-                  icon={<HotelIcon />} 
-                  label="בתי מלון" 
-                  className="search-tab"
-                />
-                <Tab 
-                  icon={<DirectionsCarIcon />} 
-                  label="השכרת רכב" 
-                  className="search-tab"
-                />
-                <Tab 
-                  icon={<BeachAccessIcon />} 
-                  label="חבילות נופש" 
-                  className="search-tab"
-                />
-              </Tabs>
-              
-              {searchTab === 0 && (
-                <Box className="search-content">
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} md={5}>
-                      <Autocomplete
-                        value={fromAirport}
-                        onChange={(event, newValue) => setFromAirport(newValue)}
-                        options={airports}
-                        renderInput={(params) => (
-                          <TextField 
-                            {...params} 
-                            label="מוצא" 
-                            fullWidth
-                            InputProps={{
-                              ...params.InputProps,
-                              startAdornment: (
-                                <>
-                                  <InputAdornment position="start">
-                                    <FlightTakeoffIcon color="primary" />
-                                  </InputAdornment>
-                                  {params.InputProps.startAdornment}
-                                </>
-                              )
-                            }}
-                          />
-                        )}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={5}>
-                      <Autocomplete
-                        value={toAirport}
-                        onChange={(event, newValue) => setToAirport(newValue)}
-                        options={airports}
-                        renderInput={(params) => (
-                          <TextField 
-                            {...params} 
-                            label="יעד" 
-                            fullWidth
-                            InputProps={{
-                              ...params.InputProps,
-                              startAdornment: (
-                                <>
-                                  <InputAdornment position="start">
-                                    <FlightLandIcon color="primary" />
-                                  </InputAdornment>
-                                  {params.InputProps.startAdornment}
-                                </>
-                              )
-                            }}
-                          />
-                        )}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={2}>
-                      <Button 
-                        className="gradient-button"
-                        fullWidth 
-                        size="large" 
-                        sx={{ height: '100%', minHeight: '56px' }}
-                        onClick={handleSearchSubmit}
-                        startIcon={<SearchIcon />}
-                      >
-                        חפש
-                      </Button>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                      <TextField
-                        fullWidth
-                        label="תאריך יציאה"
-                        type="date"
-                        InputLabelProps={{ shrink: true }}
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <CalendarMonthIcon color="primary" />
-                            </InputAdornment>
-                          )
-                        }}
-                        defaultValue={new Date().toISOString().split('T')[0]}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                      <TextField
-                        fullWidth
-                        label="תאריך חזרה"
-                        type="date"
-                        InputLabelProps={{ shrink: true }}
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <CalendarMonthIcon color="primary" />
-                            </InputAdornment>
-                          )
-                        }}
-                        defaultValue={new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                      <TextField
-                        fullWidth
-                        label="נוסעים"
-                        type="number"
-                        defaultValue={1}
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <PersonIcon color="primary" />
-                            </InputAdornment>
-                          ),
-                          inputProps: { min: 1, max: 10 }
-                        }}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                      <TextField
-                        select
-                        fullWidth
-                        label="מחלקה"
-                        defaultValue="economy"
-                        SelectProps={{
-                          native: true,
-                        }}
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <LuggageIcon color="primary" />
-                            </InputAdornment>
-                          )
-                        }}
-                      >
-                        <option value="economy">תיירים</option>
-                        <option value="premium">תיירים פרימיום</option>
-                        <option value="business">עסקים</option>
-                        <option value="first">ראשונה</option>
-                      </TextField>
-                    </Grid>
-                  </Grid>
-                  
-                  <Box className="search-filters">
-                    <Chip 
-                      label="טיסות ישירות בלבד" 
-                      color="primary" 
-                      variant="outlined" 
-                      onClick={() => {}} 
+                <Card className={styles.featuredDestinationCard}>
+                  <Card.Body css={{ p: 0 }}>
+                    <Image
+                      src={featuredDestinations[currentSlide].image}
+                      alt={featuredDestinations[currentSlide].name}
+                      objectFit="cover"
+                      width="100%"
+                      height={400}
                     />
-                    <Chip 
-                      label="כולל מזוודה" 
-                      color="primary" 
-                      variant="outlined" 
-                      onClick={() => {}} 
-                    />
-                    <Chip 
-                      label="מחירים הכי זולים" 
-                      color="primary" 
-                      variant="outlined" 
-                      onClick={() => {}} 
-                    />
-                    <Chip 
-                      label="חברות תעופה מועדפות" 
-                      color="primary" 
-                      variant="outlined" 
-                      onClick={() => {}} 
-                    />
-                  </Box>
-                </Box>
-              )}
-              
-              {searchTab === 1 && (
-                <Box className="search-placeholder">
-                  <Typography variant="h6">חיפוש בתי מלון יהיה זמין בקרוב</Typography>
-                </Box>
-              )}
-              
-              {searchTab === 2 && (
-                <Box className="search-placeholder">
-                  <Typography variant="h6">חיפוש השכרת רכב יהיה זמין בקרוב</Typography>
-                </Box>
-              )}
-              
-              {searchTab === 3 && (
-                <Box className="search-placeholder">
-                  <Typography variant="h6">חיפוש חבילות נופש יהיה זמין בקרוב</Typography>
-                </Box>
-              )}
-            </Box>
-          </Paper>
-        </Container>
-      </Box>
-
-      {/* Popular Destinations */}
-      <Box className="destinations-section">
-        <Container maxWidth="lg">
-          <Box className="section-header">
-            <Typography variant="h2" component="h2" className="section-heading">יעדים פופולריים</Typography>
-            <Divider className="section-divider" />
-            <Typography variant="h6" className="section-subheading">
-              גלו את היעדים המובילים שלנו עם מבצעים מיוחדים ומחירים בלעדיים
-            </Typography>
-          </Box>
-
-          <Grid container spacing={4}>
-            {destinations.map((destination, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <Zoom in={true} style={{ transitionDelay: `${index * 100}ms` }}>
-                  <Card className="animated-card">
-                    <Box className="destination-image-container">
-                      <CardMedia
-                        component="img"
-                        height="240"
-                        image={destination.image}
-                        alt={destination.name}
-                      />
-                      {destination.discount && (
-                        <Chip 
-                          label={`הנחה ${destination.discount}`} 
-                          color="error" 
-                          size="medium"
-                          className="discount-chip"
-                        />
-                      )}
-                      <IconButton className="favorite-button">
-                        <FavoriteIcon color="error" />
-                      </IconButton>
-                    </Box>
-                    <CardContent className="destination-content">
-                      <Box className="destination-header">
-                        <Typography gutterBottom variant="h5" component="h3" className="destination-name">
-                          {destination.name}
-                        </Typography>
-                        <Rating 
-                          value={destination.rating} 
-                          readOnly 
-                          precision={0.5}
-                          size="small"
-                          className="destination-rating"
-                        />
-                      </Box>
-                      <Box className="destination-location">
-                        <LocationOnIcon color="primary" sx={{ mr: 0.5, fontSize: '1rem' }} />
-                        <Typography variant="body2" color="text.secondary">
-                          {destination.country}
-                        </Typography>
-                      </Box>
-                      <Divider sx={{ my: 2 }} />
-                      <Box className="destination-footer">
-                        <Typography className="destination-price">
-                          החל מ-{destination.price}$
-                        </Typography>
+                  </Card.Body>
+                  <Card.Footer 
+                    className={styles.featuredCardFooter}
+                    css={{ 
+                      position: "absolute", 
+                      bottom: 0,
+                      zIndex: 1,
+                      background: "rgba(0, 0, 0, 0.7)",
+                      borderTop: "none",
+                      width: "100%"
+                    }}
+                  >
+                    <Row justify="space-between" align="center">
+                      <Col>
+                        <Text h3 color="white">{featuredDestinations[currentSlide].name}</Text>
+                        <Text color="white">{featuredDestinations[currentSlide].country}</Text>
+                        <StarRating rating={featuredDestinations[currentSlide].rating} />
+                      </Col>
+                      <Col css={{ textAlign: 'right' }}>
+                        <Text color="white" className={styles.priceLabel}>החל מ-</Text>
+                        <Text h2 color="white" className={styles.price}>
+                          ${featuredDestinations[currentSlide].price}
+                        </Text>
                         <Button 
-                          variant="contained" 
-                          color="primary" 
-                          endIcon={<ArrowBackIcon />}
-                          className="destination-book-button"
+                          auto 
+                          color="gradient" 
+                          className={styles.bookButton}
+                          iconRight={<FaArrowLeft />}
                         >
                           הזמן עכשיו
                         </Button>
-                      </Box>
-                    </CardContent>
-                  </Card>
-                </Zoom>
-              </Grid>
-            ))}
-          </Grid>
+                      </Col>
+                    </Row>
+                  </Card.Footer>
+                </Card>
+                <div className={styles.slideControls}>
+                  {featuredDestinations.map((_, index) => (
+                    <button
+                      key={index}
+                      className={`${styles.slideIndicator} ${index === currentSlide ? styles.activeSlide : ''}`}
+                      onClick={() => setCurrentSlide(index)}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            </Grid>
+          </Grid.Container>
+        </Container>
+      </section>
+
+      {/* Services Section */}
+      <section className={styles.servicesSection}>
+        <Container lg>
+          <Text h2 className={styles.sectionTitle}>השירותים שלנו</Text>
+          <Text className={styles.sectionSubtitle}>
+            אנו מציעים מגוון רחב של שירותי נסיעות כדי להפוך את החופשה שלכם למושלמת
+          </Text>
           
-          <Box className="section-footer">
-            <Button 
-              className="gradient-button"
-              size="large" 
-              endIcon={<PublicIcon />}
-            >
-              גלה עוד יעדים
-            </Button>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Special Offers */}
-      <Box className="special-offers-section">
-        {/* Decorative elements */}
-        <Box className="decorative-circle-1" />
-        <Box className="decorative-circle-2" />
-        
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-          <Grid container spacing={6} alignItems="center">
-            <Grid item xs={12} md={6}>
-              <Fade in={true} timeout={1000}>
-                <Box>
-                  <Typography variant="overline" className="offers-overline">
-                    מבצעים מיוחדים
-                  </Typography>
-                  <Typography variant="h2" className="offers-heading">
-                    חסכו עד 30% בהזמנות הבאות שלכם
-                  </Typography>
-                  <Typography variant="h6" className="offers-subheading">
-                    הצטרפו למועדון הלקוחות שלנו וקבלו גישה למבצעים בלעדיים, הנחות מיוחדות והטבות נוספות בכל הזמנה.
-                  </Typography>
-                  <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-                    <Button className="white-button">
-                      הצטרף עכשיו
-                    </Button>
-                    <Button className="outline-white-button">
-                      למידע נוסף
-                    </Button>
-                  </Stack>
-                </Box>
-              </Fade>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Zoom in={true} timeout={1500}>
-                <Paper className="offer-paper">
-                  <Box className="offer-image-container">
-                    <Box
-                      component="img"
-                      src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80"
-                      alt="Special offer"
-                      className="offer-image"
-                    />
-                    <Box className="offer-overlay">
-                      <Typography variant="h4" className="offer-title">
-                        חבילת חופשה משפחתית
-                      </Typography>
-                      <Typography variant="body1" className="offer-description">
-                        כולל טיסות, מלון, העברות ואטרקציות
-                      </Typography>
-                      <Box className="offer-footer">
-                        <Chip 
-                          label="הנחה 30%" 
-                          color="error" 
-                          className="offer-discount-chip"
-                        />
-                        <Typography variant="h5" className="offer-price">
-                          החל מ-899$ לאדם
-                        </Typography>
-                      </Box>
-                    </Box>
-                  </Box>
-                </Paper>
-              </Zoom>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-
-      {/* Why Choose Us */}
-      <Box className="why-choose-us-section">
-        <Container maxWidth="lg">
-          <Box className="section-header">
-            <Typography variant="h2" component="h2" className="section-heading">למה לבחור בנו?</Typography>
-            <Divider className="section-divider" />  <Typography variant="h6" className="section-subheading">
-              אנו מציעים את השירות הטוב ביותר כדי להבטיח לכם חוויית נסיעה מושלמת
-            </Typography>
-          </Box>
-
-          <Grid container spacing={4}>
-            {features.map((feature, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <Zoom in={true} style={{ transitionDelay: `${index * 100}ms` }}>
-                  <Paper className="why-choose-us-item">
-                    <Box className="feature-icon-wrapper icon-wrapper">
-                      {feature.icon}
-                    </Box>
-                    <Typography variant="h5" component="h3" className="feature-title">
-                      {feature.title}
-                    </Typography>
-                    <Typography variant="body1" color="text.secondary" className="feature-description">
-                      {feature.description}
-                    </Typography>
-                  </Paper>
-                </Zoom>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
-
-      {/* Testimonials */}
-      <Box className="testimonials-section">
-        <Container maxWidth="lg">
-          <Box className="section-header">
-            <Typography variant="h2" component="h2" className="section-heading">לקוחות מספרים</Typography>
-            <Divider className="section-divider" />
-            <Typography variant="h6" className="section-subheading">
-              מה הלקוחות שלנו אומרים על החוויה שלהם איתנו
-            </Typography>
-          </Box>
-
-          <Grid container spacing={4}>
-            {testimonials.map((testimonial, index) => (
-              <Grid item xs={12} md={4} key={index}>
-                <Zoom in={true} style={{ transitionDelay: `${index * 150}ms` }}>
-                  <Paper className="testimonial-card">
-                    <Box className="testimonial-header">
-                      <Avatar 
-                        src={testimonial.avatar} 
-                        alt={testimonial.name}
-                        className="testimonial-avatar"
-                      />
-                      <Box>
-                        <Typography variant="h6" className="testimonial-name">
-                          {testimonial.name}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary" className="testimonial-destination">
-                          טיול ל{testimonial.destination}
-                        </Typography>
-                      </Box>
-                    </Box>
-                    <Rating 
-                      value={testimonial.rating} 
-                      readOnly 
-                      precision={0.5}
-                      className="testimonial-rating"
-                    />
-                    <Typography variant="body1" className="testimonial-comment">
-                      "{testimonial.comment}"
-                    </Typography>
-                    <Box className="testimonial-footer">
-                      <Typography variant="caption" color="text.secondary">
-                        לפני שבועיים
-                      </Typography>
-                    </Box>
-                  </Paper>
-                </Zoom>
-              </Grid>
-            ))}
-          </Grid>
-
-          <Box className="section-footer">
-            <Button 
-              className="gradient-button"
-              size="large" 
-              endIcon={<StarIcon />}
-            >
-              קרא עוד חוות דעת
-            </Button>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Newsletter */}
-      <Box className="newsletter-section">
-        {/* Decorative elements */}
-        <Box className="newsletter-circle-1" />
-        <Box className="newsletter-circle-2" />
-        
-        <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
-          <Box className="newsletter-content">
-            <Typography variant="h3" className="newsletter-heading">
-              הישארו מעודכנים
-            </Typography>
-            <Typography variant="h6" className="newsletter-subheading">
-              הירשמו לניוזלטר שלנו וקבלו עדכונים על מבצעים חדשים ויעדים מומלצים
-            </Typography>
-            <Box 
-              component="form" 
-              className="newsletter-form"
-            >
-              <TextField
-                fullWidth
-                placeholder="הזינו את כתובת האימייל שלכם"
-                variant="outlined"
-                className="newsletter-textfield"
-              />
-              <Button 
-                variant="contained" 
-                className="newsletter-button"
+          <Grid.Container gap={2} justify="center" className={styles.servicesContainer}>
+            <Grid xs={12} sm={6} md={3}>
+              <motion.div
+                whileHover={{ y: -10 }}
+                className={styles.serviceCard}
               >
-                הרשמה
-              </Button>
-            </Box>
-            <Typography variant="caption" className="newsletter-disclaimer">
-              לא נשלח ספאם. ניתן לבטל את המנוי בכל עת.
-            </Typography>
-          </Box>
+                <div className={styles.serviceIcon}>
+                  <FaPlane size={40} />
+                </div>
+                <Text h4>טיסות</Text>
+                <Text>מגוון רחב של טיסות במחירים אטרקטיביים לכל יעד בעולם</Text>
+              </motion.div>
+            </Grid>
+            
+            <Grid xs={12} sm={6} md={3}>
+              <motion.div
+                whileHover={{ y: -10 }}
+                className={styles.serviceCard}
+              >
+                <div className={styles.serviceIcon}>
+                  <FaHotel size={40} />
+                </div>
+                <Text h4>מלונות</Text>
+                <Text>מבחר מלונות מ-1 עד 5 כוכבים בכל יעד, במחירים משתלמים</Text>
+              </motion.div>
+            </Grid>
+            
+            <Grid xs={12} sm={6} md={3}>
+              <motion.div
+                whileHover={{ y: -10 }}
+                className={styles.serviceCard}
+              >
+                <div className={styles.serviceIcon}>
+                  <FaCar size={40} />
+                </div>
+                <Text h4>השכרת רכב</Text>
+                <Text>מגוון רחב של רכבים להשכרה בכל יעד, במחירים תחרותיים</Text>
+              </motion.div>
+            </Grid>
+            
+            <Grid xs={12} sm={6} md={3}>
+              <motion.div
+                whileHover={{ y: -10 }}
+                className={styles.serviceCard}
+              >
+                <div className={styles.serviceIcon}>
+                  <FaUmbrellaBeach size={40} />
+                </div>
+                <Text h4>חבילות נופש</Text>
+                <Text>חבילות נופש מושלמות הכוללות טיסות, מלון, העברות ועוד</Text>
+              </motion.div>
+            </Grid>
+          </Grid.Container>
         </Container>
-      </Box>
+      </section>
 
-      {/* Mobile App Promotion */}
-      <Box className="mobile-app-section">
-        <Container maxWidth="lg">
-          <Grid container spacing={6} alignItems="center">
-            <Grid item xs={12} md={6}>
-              <Fade in={true} timeout={1000}>
-                <Box>
-                  <Typography variant="overline" className="app-overline">
-                    אפליקציה חדשה
-                  </Typography>
-                  <Typography variant="h2" className="app-heading">
-                    הורידו את האפליקציה שלנו
-                  </Typography>
-                  <Typography variant="h6" className="app-subheading">
-                    הזמינו טיסות, בתי מלון וחבילות נופש בקלות מהסמארטפון שלכם. קבלו התראות על מבצעים מיוחדים ועקבו אחר ההזמנות שלכם בכל מקום.
-                  </Typography>
-                  <Stack direction="row" spacing={2} className="app-buttons">
+      {/* Popular Destinations Section */}
+      <section className={styles.destinationsSection}>
+        <Container lg>
+          <Text h2 className={styles.sectionTitle}>יעדים פופולריים</Text>
+          <Text className={styles.sectionSubtitle}>
+            גלו את היעדים המבוקשים ביותר בעולם במחירים הטובים ביותר
+          </Text>
+          
+          <Grid.Container gap={2}>
+            {destinations.map((destination, index) => (
+              <Grid xs={12} sm={6} md={4} key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <DestinationCard destination={destination} />
+                </motion.div>
+              </Grid>
+            ))}
+          </Grid.Container>
+          
+          <div className={styles.viewMoreContainer}>
+            <Button 
+              size="lg" 
+              shadow
+              color="gradient" 
+              className={styles.viewMoreButton}
+              iconRight={<FaArrowLeft />}
+            >
+              צפה בכל היעדים
+            </Button>
+          </div>
+        </Container>
+      </section>
+
+      {/* Features Section */}
+      <section className={styles.featuresSection}>
+        <Container lg>
+          <Text h2 className={styles.sectionTitle}>למה לבחור בנו?</Text>
+          <Text className={styles.sectionSubtitle}>
+            אנו מציעים את השירות הטוב ביותר, המחירים התחרותיים ביותר וחוויית לקוח יוצאת דופן
+          </Text>
+          
+          <Grid.Container gap={2}>
+            {features.map((feature, index) => (
+              <Grid xs={12} sm={6} md={4} key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <FeatureCard feature={feature} />
+                </motion.div>
+              </Grid>
+            ))}
+          </Grid.Container>
+        </Container>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className={styles.testimonialsSection}>
+        <Container lg>
+          <Text h2 className={styles.sectionTitle}>מה הלקוחות שלנו אומרים</Text>
+          <Text className={styles.sectionSubtitle}>
+            אלפי לקוחות מרוצים בוחרים בנו בכל שנה. הנה כמה מהחוויות שלהם
+          </Text>
+          
+          <Grid.Container gap={2} justify="center">
+            {testimonials.map((testimonial, index) => (
+              <Grid xs={12} sm={6} md={4} key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <TestimonialCard testimonial={testimonial} />
+                </motion.div>
+              </Grid>
+            ))}
+          </Grid.Container>
+        </Container>
+      </section>
+
+      {/* Stats Section */}
+      <section className={styles.statsSection}>
+        <Container lg>
+          <Grid.Container gap={2} justify="center">
+            <Grid xs={6} sm={3}>
+              <div className={styles.statItem}>
+                <Text h2 className={styles.statNumber}>10K+</Text>
+                <Text className={styles.statLabel}>לקוחות מרוצים</Text>
+              </div>
+            </Grid>
+            <Grid xs={6} sm={3}>
+              <div className={styles.statItem}>
+                <Text h2 className={styles.statNumber}>1000+</Text>
+                <Text className={styles.statLabel}>יעדים</Text>
+              </div>
+            </Grid>
+            <Grid xs={6} sm={3}>
+              <div className={styles.statItem}>
+                <Text h2 className={styles.statNumber}>500+</Text>
+                <Text className={styles.statLabel}>חברות תעופה</Text>
+              </div>
+            </Grid>
+            <Grid xs={6} sm={3}>
+              <div className={styles.statItem}>
+                <Text h2 className={styles.statNumber}>24/7</Text>
+                <Text className={styles.statLabel}>שירות לקוחות</Text>
+              </div>
+            </Grid>
+          </Grid.Container>
+        </Container>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className={styles.newsletterSection}>
+        <Container lg>
+          <Card className={styles.newsletterCard}>
+            <Card.Body>
+              <Grid.Container gap={2} justify="center" alignItems="center">
+                <Grid xs={12} md={6}>
+                  <div className={styles.newsletterContent}>
+                    <Text h2 className={styles.newsletterTitle}>הירשמו לניוזלטר שלנו</Text>
+                    <Text className={styles.newsletterText}>
+                      הירשמו לניוזלטר שלנו וקבלו עדכונים על מבצעים מיוחדים, הנחות והצעות בלעדיות
+                    </Text>
+                  </div>
+                </Grid>
+                <Grid xs={12} md={6}>
+                  <div className={styles.newsletterForm}>
+                    <input 
+                      type="email" 
+                      placeholder="הזינו את כתובת האימייל שלכם" 
+                      className={styles.newsletterInput}
+                    />
                     <Button 
-                      variant="contained" 
-                      color="primary" 
-                      className="app-download-button"
-                      startIcon={
-                        <Box component="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png" width={24} />
-                      }
+                      auto 
+                      color="gradient" 
+                      className={styles.newsletterButton}
                     >
-                      Google Play
+                      הירשם
                     </Button>
+                  </div>
+                </Grid>
+              </Grid.Container>
+            </Card.Body>
+          </Card>
+        </Container>
+      </section>
+
+      {/* App Download Section */}
+      <section className={styles.appSection}>
+        <Container lg>
+          <Grid.Container gap={4} alignItems="center">
+            <Grid xs={12} md={6}>
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <div className={styles.appContent}>
+                  <Text h2 className={styles.appTitle}>הורידו את האפליקציה שלנו</Text>
+                  <Text className={styles.appDescription}>
+                    הורידו את האפליקציה שלנו כדי לקבל חוויית משתמש טובה יותר, התראות על מבצעים מיוחדים, 
+                    ואפשרות לנהל את ההזמנות שלכם בקלות מהטלפון הנייד
+                  </Text>
+                  <Spacer y={1.5} />
+                  <div className={styles.appButtons}>
                     <Button 
-                      variant="contained" 
-                      color="primary" 
-                      className="app-download-button"
-                      startIcon={
-                        <Box component="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/App_Store_%28iOS%29.svg/2560px-App_Store_%28iOS%29.svg.png" width={24} />
-                      }
+                      icon={<FaApple size={20} />} 
+                      className={styles.appStoreButton}
                     >
                       App Store
                     </Button>
-                  </Stack>
-                  <Box className="app-rating">
-                    <Rating value={4.8} readOnly precision={0.1} sx={{ color: '#FFD700', mr: 1 }} />
-                    <Typography variant="body2" color="text.secondary">
-                      4.8/5 (2,500+ דירוגים)
-                    </Typography>
-                  </Box>
-                </Box>
-              </Fade>
+                    <Spacer x={1} />
+                    <Button 
+                      icon={<FaGooglePlay size={20} />} 
+                      className={styles.playStoreButton}
+                    >
+                      Google Play
+                    </Button>
+                  </div>
+                </div>
+              </motion.div>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <Zoom in={true} timeout={1500}>
-                <Box className="mobile-app-image">
-                  <Box
-                    component="img"
-                    src="https://cdn.dribbble.com/users/1998175/screenshots/15459384/media/48bfd946df36d7c331ac9a458b2e0f9a.png?compress=1&resize=1000x750&vertical=top"
-                    alt="Mobile app"
+            <Grid xs={12} md={6}>
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <div className={styles.appImageContainer}>
+                  <Image
+                    src="/images/travel-app-mockup.png"
+                    alt="Travel App Mockup"
+                    className={styles.appImage}
                   />
-                </Box>
-              </Zoom>
+                </div>
+              </motion.div>
             </Grid>
-          </Grid>
+          </Grid.Container>
         </Container>
-      </Box>
+      </section>
 
-      {/* Loading Backdrop */}
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={isLoading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-
-      {/* Notification */}
-      <Snackbar 
-        open={showNotification} 
-        autoHideDuration={6000} 
-        onClose={() => setShowNotification(false)}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert 
-          onClose={() => setShowNotification(false)} 
-          severity="success" 
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          החיפוש בוצע בהצלחה! מצאנו עבורך את הטיסות הטובות ביותר.
-        </Alert>
-      </Snackbar>
-    </Box>
+      {/* Footer */}
+      <footer className={styles.footer}>
+        <Container lg>
+          <Grid.Container gap={2}>
+            <Grid xs={12} md={4}>
+              <div className={styles.footerBrand}>
+                <Text h2 className={styles.footerLogo}>TravelEase</Text>
+                <Text className={styles.footerDescription}>
+                  אנו מציעים את המחירים הטובים ביותר לטיסות, מלונות, השכרת רכב וחבילות נופש.
+                </Text>
+                <div className={styles.socialIcons}>
+                  <Button light auto icon={<FaGlobe />} className={styles.socialIcon} />
+                  <Button light auto icon={<FaUser />} className={styles.socialIcon} />
+                  <Button light auto icon={<FaHeart />} className={styles.socialIcon} />
+                  <Button light auto icon={<FaHeadset />} className={styles.socialIcon} />
+                </div>
+              </div>
+            </Grid>
+            
+            <Grid xs={6} md={2}>
+              <div className={styles.footerLinks}>
+                <Text h4 className={styles.footerLinksTitle}>חברה</Text>
+                <ul>
+                  <li><a href="#">אודות</a></li>
+                  <li><a href="#">קריירה</a></li>
+                  <li><a href="#">מדיניות פרטיות</a></li>
+                  <li><a href="#">תנאי שימוש</a></li>
+                </ul>
+              </div>
+            </Grid>
+            
+            <Grid xs={6} md={2}>
+              <div className={styles.footerLinks}>
+                <Text h4 className={styles.footerLinksTitle}>שירותים</Text>
+                <ul>
+                <li><a href="#">טיסות</a></li>
+                  <li><a href="#">מלונות</a></li>
+                  <li><a href="#">השכרת רכב</a></li>
+                  <li><a href="#">חבילות נופש</a></li>
+                </ul>
+              </div>
+            </Grid>
+            
+            <Grid xs={6} md={2}>
+              <div className={styles.footerLinks}>
+                <Text h4 className={styles.footerLinksTitle}>תמיכה</Text>
+                <ul>
+                  <li><a href="#">מרכז עזרה</a></li>
+                  <li><a href="#">צור קשר</a></li>
+                  <li><a href="#">שאלות נפוצות</a></li>
+                  <li><a href="#">ביטולים</a></li>
+                </ul>
+              </div>
+            </Grid>
+            
+            <Grid xs={6} md={2}>
+              <div className={styles.footerLinks}>
+                <Text h4 className={styles.footerLinksTitle}>צור קשר</Text>
+                <ul>
+                  <li>רחוב הרצל 123, תל אביב</li>
+                  <li>info@travelease.com</li>
+                  <li>03-1234567</li>
+                </ul>
+              </div>
+            </Grid>
+          </Grid.Container>
+          
+          <div className={styles.footerBottom}>
+            <Text className={styles.copyright}>
+              © {new Date().getFullYear()} TravelEase. כל הזכויות שמורות.
+            </Text>
+            <div className={styles.paymentMethods}>
+              <Image src="/images/visa.png" alt="Visa" width={40} height={25} />
+              <Image src="/images/mastercard.png" alt="Mastercard" width={40} height={25} />
+              <Image src="/images/paypal.png" alt="PayPal" width={40} height={25} />
+              <Image src="/images/amex.png" alt="American Express" width={40} height={25} />
+            </div>
+          </div>
+        </Container>
+      </footer>
+    </div>
   );
-};
-
-export default HomeAbout;
+}
