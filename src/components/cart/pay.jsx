@@ -32,6 +32,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import SecurityIcon from '@mui/icons-material/Security';
 import EventIcon from '@mui/icons-material/Event';
 import CreditScoreIcon from '@mui/icons-material/CreditScore';
+import { addOrderThunk } from "../../redux/slices/flight/addOrderThunk";
 
 export const Pay = () => {
     const dispatch = useDispatch();
@@ -75,7 +76,7 @@ export const Pay = () => {
 
     const toPay = () => {
         setIsProcessing(true);
-        
+        debugger
         let ordersDetailToPay = [];
         order.forEach(element => {
             ordersDetailToPay.push({
@@ -87,16 +88,16 @@ export const Pay = () => {
             });
         });
         
+
         let orderToPay = {
             idCustomer: userName.id, 
             price: price, 
-            date: new Date(), 
-            paymentMethod: paymentMethod,
-            installments: parseInt(installments),
+            date: `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`, 
             ordersDetails: ordersDetailToPay
         };
         
-        console.log("Processing payment:", orderToPay);
+        
+        dispatch(addOrderThunk(orderToPay));
         
         // Simulate API call
         setTimeout(() => {
@@ -323,7 +324,7 @@ export const Pay = () => {
                     className={`payment-button ${!isFormValid || isProcessing ? "button-disabled" : ""}`}
                 >
                     {isProcessing ? (
-                        <Box className="loading-container">
+                        <Box className="loading-container" onClick={() => toPay()}>
                             <CircularProgress size={24} color="inherit" className="loading-spinner" />
                             <span>מעבד תשלום...</span>
                         </Box>

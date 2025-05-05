@@ -83,7 +83,7 @@ export const FlightDetails = () => {
                 priceToOverLoad: yourClassToFlight.thisflight.priceToOverLoad,
                 nOS: nOS, 
                 overWight: overWight,
-                classs: yourClassToFlight.classs,
+                classs: params.classs,
             };
             dispatch(savaClassToFlight(flt));
             setOpenSnackbar(true);
