@@ -30,7 +30,7 @@ export const AddClassToFlight = (props) => {
          <div>מחלקה</div>
         <input type="text" value={cls} />
 
-        {/* <div>תאריך טיסה</div>
+        {/* <div>תארcccיך טיסה</div>
         {thisFlt.time === "" && <input type="date" onChange={(e) => setTFlt(prev => ({ ...prev, date: e.target.value }))} />}
         {thisFlt.time !== "" && <input type="date" onChange={(e) => setTFlt(prev => ({ ...prev, date: e.target.value }))} defaultValue={tflt.date} />}
 
