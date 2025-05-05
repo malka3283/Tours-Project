@@ -280,7 +280,7 @@ export default function TravelAgency() {
 
   return (
     <div className={styles.container} dir="rtl">
-      {/* Hero Section */}
+      Hero Section
       <section className={styles.heroSection}>
         <div className={styles.videoBackground}>
           <div className={styles.overlay}></div>
