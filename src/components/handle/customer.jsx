@@ -1,8 +1,20 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loct } from "../../redux/slices/user/userSlice";
+import { getAllCustomersThunk } from "../../redux/slices/flight/getAllCustomersThunk";
 
 export const Customer = () => {
 
+    useEffect(()=>{
+        dispatch(loct("/Customer"));
+  
+        dispatch(getAllCustomersThunk());
+      },[])
+
 const customers = useSelector(state => state.users.customers);
+
+const dispatch = useDispatch()
+
     return <div>
         <table>
 <thead>
