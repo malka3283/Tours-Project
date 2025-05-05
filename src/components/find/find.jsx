@@ -61,7 +61,6 @@ export const Find = () => {
     
     const chooseCorrectTime = (f) => {
         navigate(`/flightDetail/${flt.classs}/${f.id}/${flt.numSeats}`)
-<<<<<<< HEAD
     };
     
     return (
@@ -75,35 +74,6 @@ export const Find = () => {
                         מצא את הטיסה המושלמת ליעד הבא שלך
                     </Typography>
                 </Box>
-=======
-
-     }
-
-    return <div className='divv'>
-        <div className='finddiv' ><div className='label'>חיפוש טיסה</div>
-            <div className='divOfinp'><input type="text" list='dest' className="findbutten" onChange={(e) => setFlt(prev => ({ ...prev, src: e.target.value }))} /><div>מקור</div></div>
-            <div className='divOfinp'> <input type="text" list='dest' className="findbutten" onChange={(e) => setFlt(prev => ({ ...prev, des: e.target.value }))}/><div>יעד</div></div>
-            <div className='divOfinp'> <input type="date" className="findbutten" onChange={(e) => setFlt(prev => ({ ...prev, date: e.target.value }))}/><div>תאריך</div></div>
-            <div className='divOfinp'> <input type="text"   list='class' className="findbutten" onChange={(e) => setFlt(prev => ({ ...prev, classs: e.target.value }))}/><div>מחלקה</div></div>
-            <div className='divOfinp'><input type="text" className="findbutten" placeholder='💺' onChange={(e) => setFlt(prev => ({ ...prev, numSeats: e.target.value }))}/><div>מספר מקומות</div></div>
-            <button className='divOfinp' onClick={() => nowFind()}>אישור</button>
-        </div>
-
-{(thisFlightsArr.length === 0 && find) && <div>אין תוצאות מתאימות</div>}
-        <datalist id='dest'>
-             {destinitions?.map(d => {
-                return <option>{d.destination}</option>
-             })}
-             
-        </datalist>
-
-        <datalist id='class'>
-        <option>תיירים</option>
-        <option>עסקים</option>
-                <option>ראשונה</option>
-                </datalist>
-
->>>>>>> b0cfb64bd58f8c4d98c14740238eaa038ee96717
                 
                 <Box className="search-form">
                     <Grid container spacing={3}>

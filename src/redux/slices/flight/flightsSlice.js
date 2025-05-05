@@ -63,10 +63,6 @@ export const flightsSlice = createSlice({
                 console.log(action.payload);
             },
             deleteOrder: (state, action) => {
-<<<<<<< HEAD
-=======
-                debugger
->>>>>>> b0cfb64bd58f8c4d98c14740238eaa038ee96717
                 let i = state.orders.indexOf(action.payload)
                 state.orders.splice(i, 1)
             },

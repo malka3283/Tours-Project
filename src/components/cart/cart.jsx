@@ -182,7 +182,6 @@ export const Cart = () => {
                                         <TableCell align="right">{o.date} - {o.time}</TableCell>
                                         <TableCell align="right">{o.classs}</TableCell>
 
-<<<<<<< HEAD
                                         <TableCell align="right">{o.price} ₪</TableCell>
                                         <TableCell align="right">
                                             <TextField
@@ -288,65 +287,3 @@ export const Cart = () => {
         </Container>
     );
 };
-=======
-<div>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-
-                    </th>
-                    <th>
-                        מקור
-                    </th>
-                    <th>
-                        יעד
-                    </th>
-                    <th>
-                        תאריך
-                    </th>
-                    <th>
-                        מחיר לכרטיס
-                    </th>
-                    <th>
-                        כמות כרטיסים
-                    </th>
-                    <th>
-                        מחיר למשקל עודף
-                    </th>
-                    <th>
-                        משקל עודף
-                    </th>
-                    <th>
-                        מחיר לתשלום
-                    </th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {order?.map(o => <tr key={o.id}
-                >
-                    <td onClick={() => deleteO(o)}>הסרה</td>
-                    <td>{o.src}</td>
-                       <td>{o.des}</td> 
-                    <td>{o.date} - {o.time}</td>
-                    <td>{o.price}</td>
-                    <td><input type="number" defaultValue={o.nOS} onClick={() => updateNOs(o)}/></td>
-                    <td><input type="number" defaultValue={o.overWight} onClick={() => updateOverWight(o)}/></td>
-                    <td>{o.nOS * (o.price) + o.overWight * o.priceToOverLoad}</td>
-
-                </tr>)}
-
-            </tbody>
-        </table>
-        <div>
-            <label>מחיר לתשלום</label>
-            <label>{price}</label>
-            <button onClick={() => Payment()}>למעבר לתשלום</button>
-        </div>
-        </div>}
-        
-
-    </div>
-}
->>>>>>> b0cfb64bd58f8c4d98c14740238eaa038ee96717
