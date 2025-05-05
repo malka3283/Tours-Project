@@ -189,64 +189,59 @@ export const HomeAbout = () => {
   const featuredDestinations = destinations.filter(d => d.featured);
 
   return (
-    <div className={styles.container} dir="rtl">
-      {/* Hero Section */}
-      <section className={styles.heroSection}>
-        <div className={styles.videoBackground}>
-          <div className={styles.overlay}></div>
-          <video autoPlay muted loop className={styles.backgroundVideo}>
-            <source src="/videos/travel-background.mp4" type="video/mp4" />
-            <Image 
-              src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=2074&q=80" 
-              alt="Travel background"
-              className={styles.fallbackImage}
-            />
-          </video>
-        </div>
-        
-        <Container lg className={styles.heroContainer}>
-          <Grid.Container gap={4} className={styles.heroContent}>
-            <Grid xs={12} md={6}>
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className={styles.heroTextContent}
-              >
-                <Text 
-                  h1 
-                  className={styles.heroTitle}
-                  css={{ 
-                    textGradient: "45deg, $blue600 -20%, $purple600 100%",
-                  }}
-                >
-                  גלו עולם של אפשרויות
-                </Text>
-                <Text h3 className={styles.heroSubtitle}>
-                  הטיסות הטובות ביותר, המחירים המשתלמים ביותר והחוויות הבלתי נשכחות ביותר - הכל במקום אחד
-                </Text>
-                <Spacer y={1.5} />
-                <Row>
-                  <Button 
-                    size="xl" 
-                    shadow
-                    color="gradient" 
-                    className={styles.ctaButton}
-                    iconRight={<FaArrowLeft />}
+    <Box sx={{ width: '100%', bgcolor: 'background.paper', overflow: 'hidden' }}>
+      {/* Hero Section with Video Background */}
+      <Box className="hero-section">
+        {/* Video Background with Overlay */}
+        <Box className="video-background">
+          {/* <Box
+            component="img"
+            src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80"
+            alt="Travel video background"
+            className="background-image"
+          /> */}
+          <IconButton 
+            className="video-control-button"
+            onClick={() => setIsVideoPlaying(!isVideoPlaying)}
+          >
+            {isVideoPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+          </IconButton>
+        </Box>
+
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={6}>
+              <Fade in={true} timeout={1000}>
+                <Box className="hero-content">
+                  <Typography variant={isMobile ? "h3" : "h1"} component="h1" className="hero-heading">
+                    גלו עולם של אפשרויות
+                  </Typography>
+                  <Typography variant="h5" className="hero-subheading">
+                    הטיסות הטובות ביותר, המחירים המשתלמים ביותר והחוויות הבלתי נשכחות ביותר - הכל במקום אחד
+                  </Typography>
+                  <Stack 
+                    direction={{ xs: 'column', sm: 'row' }} 
+                    spacing={2}
+                    sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}
                   >
-                    מבצעים מיוחדים
-                  </Button>
-                  <Spacer x={1} />
-                  <Button 
-                    size="xl" 
-                    bordered
-                    color="primary" 
-                    className={styles.secondaryButton}
-                  >
-                    צור קשר
-                  </Button>
-                </Row>
-              </motion.div>
+                    <Button 
+                      className="gradient-button"
+                      size="large" 
+                      startIcon={<SearchIcon />}
+                      onClick={() => document.getElementById('search-section').scrollIntoView({ behavior: 'smooth' })}
+                    >
+                      חפש טיסות
+                    </Button>
+                    <Button 
+                      variant="outlined" 
+                      size="large" 
+                      className="outline-button"
+                    >
+                      מבצעים מיוחדים
+                    </Button>
+                  </Stack>
+                </Box>
+              </Fade>
             </Grid>
             
             <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' } }}>
