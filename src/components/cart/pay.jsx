@@ -84,7 +84,7 @@ export const Pay = () => {
                 idClassToFlight: element.id, 
                 countTickets: element.nOS, 
                 countOverLoad: element.overWight, 
-                price: element.price
+                price: element.price.toString()
             });
         });
         
@@ -104,7 +104,7 @@ export const Pay = () => {
             setIsProcessing(false);
             setSnackbarOpen(true);
             // Redirect after showing success message
-            setTimeout(() => navigate("/payment-success"), 1500);
+            setTimeout(() => navigate("/about'"), 1500);
         }, 1500);
     };
 

@@ -22,10 +22,12 @@ export const Orders = () => {
                         שם
                     </th>
                     <th>
-                        יעד
+                        תאריך
                     </th>
                     <th>
-                        משך זמן טיסה
+                        מחיר
+                    </th>
+                    <th>
                     </th>
                 </tr>
             </thead>
@@ -34,8 +36,9 @@ export const Orders = () => {
 {ordersFromServer?.map(o => <tr key={o.id}
                    >
                     <th>{o.idCustomerNavigation.firstName} {o.idCustomerNavigation.lastName}</th> 
-                    {/* <th> {f.sourceNavigation.destination}</th>
-                    <th>משך זמן טיסה: {f.timeOfFlight}</th> */}
+                    <th> {o.date}</th>
+                    <th>{o.price}</th>
+<th></th>
                     
                 </tr>)}
 

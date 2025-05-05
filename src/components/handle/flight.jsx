@@ -64,8 +64,8 @@ return <div>
                         setAdd(true)
                     }}>לערוך</button></th>
                     <th>{f.sourceNavigation.destination}</th> 
-                    <th> {f.sourceNavigation.destination}</th>
-                    <th>משך זמן טיסה: {f.timeOfFlight}</th>
+                    <th> {f.destinationNavigation.destination}</th>
+                    <th>{f.timeOfFlight}</th>
                     
                 </tr>)}
 

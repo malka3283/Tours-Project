@@ -5,6 +5,8 @@ import { getAllThisFlightThunk } from "../../redux/slices/flight/getAllThisFligh
 import { useSelector } from "react-redux";
 import { addThisFlightThunk } from "../../redux/slices/flight/addThisFlightThunk";
 import { AddThisFlight } from "./addThisFlight";
+import { updateThisFlightThunk } from "../../redux/slices/flight/updateThisFlightThunk";
+import { AddClassToFlight } from "./addClassToFlight";
 
 export const ThisFlight = () => {
 
@@ -13,22 +15,45 @@ export const ThisFlight = () => {
     const flightsArr = useSelector(state => state.flights.AllThisFlight)
 
     const [add, setAdd] = useState(false)
-    const [flit, setFlt] = useState({priceToOverLoad: 0, time: '', data: '', flightId: 0, flight: {source: "", destination: "", timeOfFlight: 0, sold: 0, destinationNavigation:{}, sourceNavigation: {}}})
+    const [addCTF, setAddCTF] = useState(0)
+
+    const [flit, setFlt] = useState({priceToOverLoad: 0, time: '', date: ''})
+    const [ctf, setCtf] = useState({classId: 0, thisflightId: 0, price: 0, hanacha: 0, weightLoad: 0 , numberOfSeats: 0});
+    const [ctfArr, setctfArr] = useState([])
+    const [thisFlt, setThisFlt] = useState({})
+
+
+
 
     const addFlight = (addFlt) => {
         dispatch(addThisFlightThunk(addFlt))
-        close()
+        setThisFlt(addFlt)
+        setAddCTF(1)
+      }
+
+      const addCTFlight = (addctf) => {
+        setctfArr(prev => [...prev, addctf])
+        if(addctf === 1)
+        setAddCTF(2)
+        if(addctf === 2)
+            setAddCTF(3)
+        if(addctf === 3)
+            setAddCTF(0)
       }
 
       const update = (update) => {
-        // dispatch(updateFlightThunk(update))
+         dispatch(updateThisFlightThunk(update))
         close()
       }
       
 
       const close = () => {
-        setFlt({priceToOverLoad: 0, time: '', data: '', flightId: 0})
+        setFlt({priceToOverLoad: 0, time: '', date: '', flightId: 0})
             setAdd(false)
+      }
+
+      const closeCtf = () => {
+        setAddCTF(0)
       }
 
     useEffect(()=>{
@@ -57,6 +82,8 @@ export const ThisFlight = () => {
                     <th>
                         מחיר למשקל עודף
                     </th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -69,6 +96,10 @@ export const ThisFlight = () => {
                     <th>{f.time}</th>
                     <th>{f.priceToOverLoad}</th>
                     <th>🚮</th>
+                    <th onClick={() => {
+                        setFlt(f)
+                        setAdd(true)
+                    }}>עריכה</th>
 
                 </tr>)}
 
@@ -80,5 +111,9 @@ export const ThisFlight = () => {
 
 
                 {add && <AddThisFlight addFlight={addFlight} update={update} close={close} thisFlt={flit}/>}
+                {addCTF === 1 && <AddClassToFlight addCTFlight={addCTFlight} closeCtf={closeCtf} ctf={ctf} cls={"תיירים"}/>}
+                {addCTF === 2 && <AddClassToFlight addCTFlight={addCTFlight} closeCtf={closeCtf} ctf={ctf} cls={"עסקים"}/>}
+                {addCTF === 3 && <AddClassToFlight addCTFlight={addCTFlight} closeCtf={closeCtf} ctf={ctf} cls={"ראשונה"} thisFlt={thisFlt}/>}
+
         </div>
 }

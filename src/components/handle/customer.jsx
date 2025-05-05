@@ -58,9 +58,6 @@ const dispatch = useDispatch()
                     <th>🚮</th>
                     <button onClick={() => {
                     }}>פרטי הזמנות</button>
-                    <button onClick={() => { 
-
-                    }}>עריכה</button>
 
                 </tr>)}
 

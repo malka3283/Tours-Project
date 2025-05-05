@@ -56,7 +56,7 @@ export const AddFlight = (props) => {
         
         <div>זמן טיסה בדקות</div>
         {flit.source === "" && <input type="number"  onChange={(e) => setFlt(prev => ({ ...prev, timeOfFlight: e.target.value }))}/>}
-        {flit.source !== "" && <input type="number"  defaultValue={flt.timeOfFlight}/>}
+        {flit.source !== "" && <input type="number"  defaultValue={parseInt(flt.timeOfFlight)} onChange={(e) => setFlt(prev => ({ ...prev, timeOfFlight: e.target.value }))}/>}
 
 
         

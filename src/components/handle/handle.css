@@ -1,0 +1,104 @@
+.admin-panel {
+    direction: rtl;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .admin-header {
+    background: linear-gradient(135deg, #0d6efd, #0a58ca);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+  }
+  
+  .admin-header h1 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.8rem;
+  }
+  
+  .admin-container {
+    display: flex;
+    min-height: 600px;
+  }
+  
+  .admin-sidebar {
+    width: 220px;
+    background-color: #fff;
+    padding: 1.5rem 0;
+    border-left: 1px solid #e9ecef;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .tab-button {
+    background: none;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    text-align: right;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #495057;
+    position: relative;
+    margin: 0.2rem 0;
+  }
+  
+  .tab-button:hover {
+    background-color: #f1f3f5;
+    color: #0d6efd;
+  }
+  
+  .tab-button.active {
+    background-color: #e7f1ff;
+    color: #0d6efd;
+    font-weight: 600;
+  }
+  
+  .tab-button.active::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: #0d6efd;
+  }
+  
+  .admin-content {
+    flex: 1;
+    padding: 2rem;
+    background-color: white;
+  }
+  
+  /* תמיכה במסכים קטנים */
+  @media (max-width: 768px) {
+    .admin-container {
+      flex-direction: column;
+    }
+    
+    .admin-sidebar {
+      width: 100%;
+      border-left: none;
+      border-bottom: 1px solid #e9ecef;
+      padding: 0.5rem 0;
+    }
+    
+    .tab-button {
+      text-align: center;
+    }
+    
+    .tab-button.active::before {
+      width: 0;
+      height: 3px;
+      right: 0;
+      left: 0;
+      top: auto;
+      bottom: 0;
+    }
+  }

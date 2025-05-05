@@ -18,6 +18,8 @@ import { addThisFlightThunk } from "./addThisFlightThunk";
 import { addOrderThunk } from "./addOrderThunk";
 import { getAllCustomersThunk } from "./getAllCustomersThunk";
 import { getAllOrdersThunk } from "./getAllOrdersThunk";
+import { getAllOrdersByCustomerThunk } from "./getAllOrdersByCustomerThunk";
+import { updateThisFlightThunk } from "./updateThisFlightThunk";
 
 const INITIAL_STATE = {
     flightsArr: [],
@@ -30,7 +32,7 @@ const INITIAL_STATE = {
     destinitions: [],
     customers: [],
     thisFlight: [],
-    ordersInPass: [],
+    ordersByCustomer: [],
     ordersFromServer: [],
     find: false,
     yourClassToFlight: null,
@@ -111,16 +113,14 @@ export const flightsSlice = createSlice({
             })
 
 
-            //UPDATE - no use
+            //
             builder.addCase(updateFlightThunk.pending, (state) => {
             })
 
             builder.addCase(updateFlightThunk.fulfilled, (state, action) => {
+                state.flightsArr = action.payload
+
                 
-                let f = state.flightsArr.find(x => x.id === action.payload.id);
-                if(f)
-                f = action.payload;
-                console.log(state.flightsArr);
             })
 
             builder.addCase(updateFlightThunk.rejected, (state) => {
@@ -156,7 +156,7 @@ export const flightsSlice = createSlice({
             })
 
             builder.addCase(addFlightThunk.fulfilled, (state, action) => {
-                state.isAddFlight = action.payload
+                state.AllThisFlight = action.payload
             })
 
             builder.addCase(addFlightThunk.rejected, (state) => {
@@ -249,10 +249,23 @@ export const flightsSlice = createSlice({
             })
 
             builder.addCase(addThisFlightThunk.fulfilled, (state, action) => {
-                state.thisFlight = action.payload;
+                state.AllThisFlight = action.payload;
             })
 
             builder.addCase(addThisFlightThunk.rejected, (state) => {
+            })
+
+            
+            //uppdateThisFlight
+            builder.addCase(updateThisFlightThunk.pending, (state) => {
+            })
+
+            builder.addCase(updateThisFlightThunk.fulfilled, (state, action) => {
+                debugger
+                state.AllThisFlight = action.payload;
+            })
+
+            builder.addCase(updateThisFlightThunk.rejected, (state) => {
             })
 
             //addOrder
@@ -287,6 +300,17 @@ export const flightsSlice = createSlice({
             })
 
             builder.addCase(getAllOrdersThunk.rejected, (state) => {
+            })
+
+            //getAllOrdersByCustomerThunk
+            builder.addCase(getAllOrdersByCustomerThunk.pending, (state) => {
+            })
+
+            builder.addCase(getAllOrdersByCustomerThunk.fulfilled, (state, action) => {
+                state.ordersByCustomer = action.payload;  
+            })
+
+            builder.addCase(getAllOrdersByCustomerThunk.rejected, (state) => {
             })
                            
                         

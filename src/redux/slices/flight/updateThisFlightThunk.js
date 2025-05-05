@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
-export const updateFlightThunk = createAsyncThunk('editFlight',
+export const updateThisFlightThunk = createAsyncThunk('updateThisFlight',
 
     async (flight) => {
-        const response = await fetch("http://localhost:5041/api/Flight/Update",
+        const response = await fetch("http://localhost:5041/api/ThisFlight/Update",
             {
               method: 'PUT',
               body: JSON.stringify(flight),

@@ -51,6 +51,8 @@ export const Routing = () => {
 
 
 
+
+
         <Route path={''} element={<Navigate to="about"></Navigate>}></Route>
     </Routes>
     </>
