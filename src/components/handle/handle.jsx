@@ -10,6 +10,8 @@ export const Handle = () => {
     const[des, setDes] = useState(true)
     const[thisFlt, setThisFlt] = useState(false)
     const[classToFlt, setClassToFlt] = useState(false)
+    const[customer, setCustomer] = useState(false)
+
 
     return <div>
         <button onClick={() => {
@@ -17,24 +19,29 @@ export const Handle = () => {
             setDes(true)
             setThisFlt(false)
             setClassToFlt(false)
+            setCustomer(false)
         }}> היעדים</button>
         <button onClick={() => {
             setFlt(true)
             setDes(false)
             setThisFlt(false)
             setClassToFlt(false)
+            setCustomer(false)
         }}> הטיסות</button>
         <button onClick={() => {
                         setFlt(false)
                         setDes(false)
                         setThisFlt(true)
                         setClassToFlt(false)
+                        setCustomer(false)
+
         }}> טיסות הספציפיות</button>
         <button onClick={() => {
                         setFlt(false)
                         setDes(false)
                         setThisFlt(false)
                         setClassToFlt(true)
+                        setCustomer(false)
         }}> הטיסות למחלקות</button>
         <button onClick={() => {}}>לקוחות</button>
         <button></button>
@@ -43,6 +50,7 @@ export const Handle = () => {
 {flt && <Flight/>}
 {thisFlt && <ThisFlight/>}
 {classToFlt && <ClassToFlight/>}
+{customer && <Customer/>}
 
 
     </div>
