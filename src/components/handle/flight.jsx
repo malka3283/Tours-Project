@@ -62,17 +62,10 @@ return <div>
                     <th><button onClick={() => {
                         setFlt(f)
                         setAdd(true)
-<<<<<<< HEAD
                     }}>לערוך</button></th>
                     <th>{f.sourceNavigation.destination}</th> 
                     <th> {f.sourceNavigation.destination}</th>
                     <th>משך זמן טיסה: {f.timeOfFlight}</th>
-=======
-                    }}>💨</button></td> */}
-                    <h1>{f.sourceNavigation.destination} - {f.sourceNavigation.destination}</h1>
-                    <div><img src={`/תמונות מדינות/${f.sourceNavigation.path}.png`} alt={f.sourceNavigation.path}></img></div>
-                    <div>משך זמן טיסה: {f.timeOfFlight}</div>
->>>>>>> b0cfb64bd58f8c4d98c14740238eaa038ee96717
                     
                 </tr>)}
 
