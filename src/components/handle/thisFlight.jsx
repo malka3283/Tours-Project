@@ -63,6 +63,7 @@ export const ThisFlight = () => {
 <tbody>
 {flightsArr?.map(f => <tr key={f.id}
                    >
+<<<<<<< HEAD
                     <th>{f.flight.sourceNavigation.destination}</th>
                     <th>{f.flight.destinationNavigation.destination}</th>
                     <th>{f.date}</th>
@@ -77,6 +78,14 @@ export const ThisFlight = () => {
 
 
 
+=======
+                    <h1>{f.flight.sourceNavigation.destination} - {f.flight.destinationNavigation.destination}</h1>
+                    <div><img src={`/תמונות מדינות/${f.flight.sourceNavigation.path}.png`} alt={f.flight.sourceNavigation.path}></img></div>
+                    <div>תאריך: {f.date}</div>
+                    <div>שעה: {f.time}</div>
+                    <div>מחיר למשקל עודף: {f.priceToOverLoad}</div>
+                    <button>🚮</button>
+>>>>>>> b0cfb64bd58f8c4d98c14740238eaa038ee96717
 
 
                 {add && <AddThisFlight addFlight={addFlight} update={update} close={close} thisFlt={flit}/>}

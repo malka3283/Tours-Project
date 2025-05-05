@@ -8,7 +8,6 @@ import { Classes } from "../classes/classes"
 import { Calendar } from "../calander/calendar"
 import { Find } from "../find/find"
 import { FullFlight } from "../flights/fullFlight"
-import { AddFlightDetail } from "../handle/addFlightDetail"
 import { AddFlight } from "../handle/addFlight"
 import { FlightDetails } from "../flights/flightDetails"
 import { Destnation } from "../handle/destnation"
@@ -30,7 +29,6 @@ export const Routing = () => {
         <Route path={'/logIn'} element={<LogIn />}></Route>
         <Route path={'/flights'} element={<Flights />}></Route>
         <Route path={'/addFlight'} element={<AddFlight />}></Route>
-        <Route path={'/addFlightDetail'} element={<AddFlightDetail />}></Route>
         <Route path={'/logOn'} element={<LogOn />}></Route>
         <Route path={'/chooseClass'} element={<Classes />}></Route>
         <Route path={'/calendar'} element={<Calendar />}></Route>
