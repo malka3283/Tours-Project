@@ -1,0 +1,118 @@
+.flight-container {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    direction: rtl;
+  }
+  
+  .flight-paper {
+    padding: 2rem;
+    border-radius: 8px !important;
+  }
+  
+  .flight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .flight-title {
+    font-weight: 600 !important;
+    color: #1976d2;
+  }
+  
+  .add-button {
+    border-radius: 20px !important;
+    padding: 8px 20px !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .table-container {
+    margin-top: 1rem;
+    box-shadow: none !important;
+    border-radius: 8px !important;
+    overflow: hidden;
+  }
+  
+  .table-header {
+    font-weight: 600 !important;
+    background-color: #f5f8ff;
+    font-size: 0.95rem !important;
+    padding: 16px !important;
+  }
+  
+  .header-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .table-row:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .edit-button {
+    transition: transform 0.2s;
+  }
+  
+  .edit-button:hover {
+    transform: scale(1.1);
+  }
+  
+  .flight-chip {
+    font-weight: 500 !important;
+    padding: 4px 8px !important;
+  }
+  
+  .time-chip {
+    font-weight: 500 !important;
+    padding: 4px 8px !important;
+    color: #ff6d00;
+    border-color: #ff6d00;
+  }
+  
+  .no-data {
+    padding: 2rem !important;
+    color: #757575;
+    font-style: italic;
+  }
+  
+  /* For responsive design */
+  @media (max-width: 768px) {
+    .flight-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    .flight-title {
+      font-size: 1.5rem !important;
+    }
+    
+    .table-header {
+      padding: 12px !important;
+      font-size: 0.85rem !important;
+    }
+    
+    .flight-paper {
+      padding: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .flight-paper {
+      padding: 1rem;
+    }
+    
+    .flight-title {
+      font-size: 1.25rem !important;
+    }
+    
+    .table-container {
+      overflow-x: auto;
+    }
+    
+    .flight-chip, .time-chip {
+      font-size: 0.75rem !important;
+    }
+  }

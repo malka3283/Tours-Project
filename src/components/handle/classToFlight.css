@@ -1,0 +1,162 @@
+/* כללי */
+.class-to-flight-container {
+    direction: rtl;
+    padding: 24px;
+    min-height: 100vh;
+    background-color: #f5f7fa;
+  }
+  
+  /* כותרת ופעולות */
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .title-section {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .page-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 4px;
+  }
+  
+  .title-icon {
+    color: #2196f3;
+  }
+  
+  .page-subtitle {
+    color: #666;
+  }
+  
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  /* כרטיס ראשי */
+  .main-card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 24px;
+  }
+  
+  .card-content {
+    padding: 0;
+  }
+  
+  /* טבלה */
+  .table-container {
+    overflow-x: auto;
+    border-radius: 12px;
+  }
+  
+  .table-header {
+    background-color: #f0f4f8;
+    font-weight: 700;
+    color: #333;
+    white-space: nowrap;
+  }
+  
+  .table-row {
+    transition: background-color 0.2s;
+  }
+  
+  .table-row:hover {
+    background-color: #f5f7fa;
+  }
+  
+  .date-time-cell {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .price-text {
+    font-weight: 600;
+    color: #2e7d32;
+  }
+  
+  .discount-text {
+    font-weight: 600;
+    color: #d32f2f;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .no-data-message {
+    padding: 24px;
+    color: #666;
+  }
+  
+  /* דיאלוג לקוחות */
+  .customers-dialog {
+    z-index: 1300;
+  }
+  
+  .dialog-title-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse; /* שינוי כיוון האלמנטים בכותרת */
+  }
+  
+  .dialog-title-icon {
+    margin-left: 8px;
+    color: #2196f3;
+  }
+  
+  .dialog-content {
+    padding: 16px;
+  }
+  
+  .customers-table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+  }
+  
+  /* התאמות למובייל */
+  @media (max-width: 600px) {
+    .class-to-flight-container {
+      padding: 16px;
+    }
+    
+    .page-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .header-actions {
+      width: 100%;
+      justify-content: flex-end;
+    }
+    
+    .action-buttons {
+      flex-wrap: wrap;
+    }
+    
+    .dialog-content {
+      padding: 8px;
+    }
+  }
+  
+  /* התאמות לטאבלט */
+  @media (max-width: 960px) {
+    .action-buttons {
+      flex-direction: row;
+    }
+  }
