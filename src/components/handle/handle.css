@@ -1,0 +1,100 @@
+.admin-container {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  direction: rtl;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.admin-paper {
+  border-radius: 8px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+.admin-title {
+  padding: 1.5rem;
+  font-weight: 600 !important;
+  color: #1976d2;
+  text-align: center;
+}
+
+.admin-divider {
+  margin: 0 !important;
+}
+
+.tabs-bar {
+  background-color: #f5f8ff !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.admin-tabs {
+  min-height: 64px;
+}
+
+.admin-tab {
+  min-height: 64px;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  font-size: 0.9rem !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.admin-tab:hover {
+  background-color: rgba(25, 118, 210, 0.04);
+}
+
+.tab-content {
+  min-height: 500px;
+  padding: 0;
+}
+
+/* Custom styles for each tab icon */
+.admin-tab .MuiSvgIcon-root {
+  margin-bottom: 4px;
+}
+
+/* For responsive design */
+@media (max-width: 960px) {
+  .admin-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-tab {
+    min-width: auto;
+    padding: 6px 12px;
+    font-size: 0.8rem !important;
+  }
+  
+  .admin-title {
+    padding: 1rem;
+    font-size: 1.5rem !important;
+  }
+  
+  .tab-content {
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-tab {
+    min-width: auto;
+    padding: 6px 8px;
+    font-size: 0.75rem !important;
+  }
+  
+  .admin-tabs {
+    min-height: 56px;
+  }
+  
+  .admin-tab {
+    min-height: 56px;
+  }
+  
+  .admin-title {
+    font-size: 1.25rem !important;
+  }
+}
