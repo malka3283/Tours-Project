@@ -172,6 +172,7 @@ export const flightsSlice = createSlice({
             })
 
             builder.addCase(getThisFlightBySrcdesdateThunk.fulfilled, (state, action) => {
+                state.find = true;
                 state.thisFlight = action.payload
 
             })
