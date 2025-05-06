@@ -1,0 +1,615 @@
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap');
+
+/* Page Background */
+.class-selection-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+  transition: opacity 0.8s ease;
+}
+
+.class-selection-page.fade-out {
+  opacity: 0;
+}
+
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background-image: url('https://images.unsplash.com/photo-1569154941061-e231b4725ef1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.05;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Main Container */
+.class-selection-container {
+  padding: 80px 20px;
+  direction: rtl;
+  max-width: 1400px !important;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.class-selection-content {
+  width: 100%;
+}
+
+/* Title */
+.main-title {
+  text-align: center;
+  margin-bottom: 20px !important;
+  font-weight: 800 !important;
+  color: #1a237e;
+  position: relative;
+  font-family: 'Heebo', sans-serif !important;
+  letter-spacing: -0.5px;
+}
+
+.title-decoration {
+  width: 120px;
+  height: 8px;
+  background: linear-gradient(90deg, #00897B, #2196F3, #4CAF50);
+  border-radius: 4px;
+  margin: 15px auto 0;
+}
+
+.subtitle {
+  text-align: center;
+  color: #546e7a;
+  margin-bottom: 60px !important;
+  max-width: 700px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  font-weight: 400 !important;
+  font-family: 'Heebo', sans-serif !important;
+}
+
+/* Class Options Container */
+.class-options-container {
+  margin-top: 30px;
+  perspective: 1000px;
+}
+
+/* Class Card */
+.class-card {
+  border-radius: 20px !important;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  height: 100%;
+  background-color: #ffffff;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1) !important;
+  transform-style: preserve-3d;
+  border: 2px solid transparent;
+}
+
+.class-card:hover {
+  transform: translateY(-15px) rotateY(5deg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2) !important;
+}
+
+.class-card.selected {
+  transform: scale(1.05);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Card Badge */
+.card-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  z-index: 3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: rotate(5deg);
+}
+
+/* Card Media */
+.card-media-container {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+}
+
+.class-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.class-card:hover .class-image {
+  transform: scale(1.1);
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+  transition: background 0.3s ease;
+}
+
+/* Class Icon */
+.class-icon-container {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 2;
+}
+
+.class-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.class-card:hover .class-icon {
+  transform: scale(1.1) translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+}
+
+.class-icon svg {
+  font-size: 35px;
+  color: white;
+}
+
+/* Card Content */
+.card-content {
+  padding: 35px 25px 25px !important;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.class-title {
+  margin-bottom: 15px !important;
+  font-weight: 700 !important;
+  font-family: 'Heebo', sans-serif !important;
+  font-size: 1.8rem !important;
+}
+
+.class-description {
+  color: #546e7a;
+  line-height: 1.7 !important;
+  margin-bottom: 20px !important;
+  font-family: 'Heebo', sans-serif !important;
+}
+
+/* Features */
+.feature-divider {
+  width: 80%;
+  margin: 20px auto !important;
+  background-color: #f0f0f0;
+}
+
+.features-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.feature-chip {
+  border-radius: 20px !important;
+  padding: 5px 10px !important;
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease;
+}
+
+.feature-chip:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: white !important;
+}
+
+.feature-chip svg {
+  font-size: 16px !important;
+}
+
+/* Select Button */
+.select-button {
+  padding: 10px 25px !important;
+  border-radius: 30px !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  text-transform: none !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  font-family: 'Heebo', sans-serif !important;
+  letter-spacing: 0.5px !important;
+  width: 100%;
+  color: white !important;
+}
+
+.select-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3) !important;
+  filter: brightness(110%);
+}
+
+/* 3D Card Effect */
+.class-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 100%);
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.class-card:hover::before {
+  opacity: 1;
+}
+
+/* Floating Animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.class-card {
+  animation: float 6s ease-in-out infinite;
+}
+
+.class-card:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.class-card:nth-child(2) {
+  animation-delay: 2s;
+}
+
+.class-card:nth-child(3) {
+  animation-delay: 4s;
+}
+
+/* Direct Color Assignments - First Card (מחלקה ראשונה) */
+.class-options-container .MuiGrid-item:nth-child(1) .class-card {
+  border-color: #00897B;
+}
+
+.class-options-container .MuiGrid-item:nth-child(1) .class-card:hover {
+  border-color: #00897B;
+}
+
+.class-options-container .MuiGrid-item:nth-child(1) .card-badge {
+  background-color: #00897B;
+}
+
+.class-options-container .MuiGrid-item:nth-child(1) .class-icon {
+  background-color: #00897B;
+}
+
+.class-options-container .MuiGrid-item:nth-child(1) .class-title {
+  color: #00897B;
+}
+
+.class-options-container .MuiGrid-item:nth-child(1) .feature-chip {
+  border-color: #00897B;
+  color: #00897B;
+  background-color: rgba(0, 137, 123, 0.15) !important;
+}
+
+.class-options-container .MuiGrid-item:nth-child(1) .feature-chip:hover {
+  background-color: #00897B !important;
+}
+
+.class-options-container .MuiGrid-item:nth-child(1) .select-button {
+  background-color: #00897B !important;
+}
+
+/* Direct Color Assignments - Second Card (מחלקת תיירים) */
+.class-options-container .MuiGrid-item:nth-child(2) .class-card {
+  border-color: #2196F3;
+}
+
+.class-options-container .MuiGrid-item:nth-child(2) .class-card:hover {
+  border-color: #2196F3;
+}
+
+.class-options-container .MuiGrid-item:nth-child(2) .card-badge {
+  background-color: #2196F3;
+}
+
+.class-options-container .MuiGrid-item:nth-child(2) .class-icon {
+  background-color: #2196F3;
+}
+
+.class-options-container .MuiGrid-item:nth-child(2) .class-title {
+  color: #2196F3;
+}
+
+.class-options-container .MuiGrid-item:nth-child(2) .feature-chip {
+  border-color: #2196F3;
+  color: #2196F3;
+  background-color: rgba(33, 150, 243, 0.15) !important;
+}
+
+.class-options-container .MuiGrid-item:nth-child(2) .feature-chip:hover {
+  background-color: #2196F3 !important;
+}
+
+.class-options-container .MuiGrid-item:nth-child(2) .select-button {
+  background-color: #2196F3 !important;
+}
+
+/* Direct Color Assignments - Third Card (מחלקת עסקים) */
+.class-options-container .MuiGrid-item:nth-child(3) .class-card {
+  border-color: #4CAF50;
+}
+
+.class-options-container .MuiGrid-item:nth-child(3) .class-card:hover {
+  border-color: #4CAF50;
+}
+
+.class-options-container .MuiGrid-item:nth-child(3) .card-badge {
+  background-color: #4CAF50;
+}
+
+.class-options-container .MuiGrid-item:nth-child(3) .class-icon {
+  background-color: #4CAF50;
+}
+
+.class-options-container .MuiGrid-item:nth-child(3) .class-title {
+  color: #4CAF50;
+}
+
+.class-options-container .MuiGrid-item:nth-child(3) .feature-chip {
+  border-color: #4CAF50;
+  color: #4CAF50;
+  background-color: rgba(76, 175, 80, 0.15) !important;
+}
+
+.class-options-container .MuiGrid-item:nth-child(3) .feature-chip:hover {
+  background-color: #4CAF50 !important;
+}
+
+.class-options-container .MuiGrid-item:nth-child(3) .select-button {
+  background-color: #4CAF50 !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .class-selection-container {
+    padding: 60px 20px;
+  }
+  
+  .main-title {
+    font-size: 2.5rem !important;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem !important;
+  }
+  
+  .class-title {
+    font-size: 1.6rem !important;
+  }
+}
+
+@media (max-width: 960px) {
+  .main-title {
+    font-size: 2.2rem !important;
+  }
+  
+  .class-card {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .class-selection-container {
+    padding: 40px 15px;
+  }
+  
+  .main-title {
+    font-size: 1.8rem !important;
+  }
+  
+
+
+    .subtitle {
+      font-size: 1rem !important;
+      margin-bottom: 40px !important;
+    }
+    
+    .card-media-container {
+      height: 180px;
+    }
+    
+    .class-icon {
+      width: 60px;
+      height: 60px;
+    }
+    
+    .class-icon svg {
+      font-size: 30px;
+    }
+    
+    .class-title {
+      font-size: 1.4rem !important;
+    }
+    
+    .card-content {
+      padding: 30px 20px 20px !important;
+    }
+    
+    .feature-chip {
+      font-size: 0.75rem !important;
+    }
+    
+    .select-button {
+      padding: 8px 20px !important;
+      font-size: 0.9rem !important;
+    }
+  }
+  
+  /* Keep original class names for compatibility */
+  .label {
+    display: none;
+  }
+  
+  .choosClass {
+    display: none;
+  }
+  
+  .misgeret {
+    display: none;
+  }
+  
+  .smulllabel, .smulllabel2 {
+    display: none;
+  }
+  
+  .picC1, .picC3 {
+    display: none;
+  }
+  
+  /* Fallback direct color overrides */
+  /* First Card - Turquoise */
+  .MuiGrid-root > .MuiGrid-item:first-of-type .class-icon,
+  .MuiGrid-root > .MuiGrid-item:first-of-type .card-badge,
+  .MuiGrid-root > .MuiGrid-item:first-of-type .select-button {
+    background-color: #00897B !important;
+  }
+  
+  .MuiGrid-root > .MuiGrid-item:first-of-type .class-title {
+    color: #00897B !important;
+  }
+  
+  .MuiGrid-root > .MuiGrid-item:first-of-type .feature-chip {
+    border-color: #00897B !important;
+    color: #00897B !important;
+    background-color: rgba(0, 137, 123, 0.15) !important;
+  }
+  
+  .MuiGrid-root > .MuiGrid-item:first-of-type .feature-chip:hover {
+    background-color: #00897B !important;
+    color: white !important;
+  }
+  
+  .MuiGrid-root > .MuiGrid-item:first-of-type .class-card {
+    border-color: transparent;
+  }
+  
+  .MuiGrid-root > .MuiGrid-item:first-of-type .class-card:hover,
+  .MuiGrid-root > .MuiGrid-item:first-of-type .class-card.selected {
+    border-color: #00897B !important;
+  }
+  
+  /* Second Card - Blue */
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(2) .class-icon,
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(2) .card-badge,
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(2) .select-button {
+    background-color: #2196F3 !important;
+  }
+  
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(2) .class-title {
+    color: #2196F3 !important;
+  }
+  
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(2) .feature-chip {
+    border-color: #2196F3 !important;
+    color: #2196F3 !important;
+    background-color: rgba(33, 150, 243, 0.15) !important;
+  }
+  
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(2) .feature-chip:hover {
+    background-color: #2196F3 !important;
+    color: white !important;
+  }
+  
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(2) .class-card {
+    border-color: transparent;
+  }
+  
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(2) .class-card:hover,
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(2) .class-card.selected {
+    border-color: #2196F3 !important;
+  }
+  
+  /* Third Card - Light Green */
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(3) .class-icon,
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(3) .card-badge,
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(3) .select-button {
+    background-color: #4CAF50 !important;
+  }
+  
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(3) .class-title {
+    color: #4CAF50 !important;
+  }
+  
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(3) .feature-chip {
+    border-color: #4CAF50 !important;
+    color: #4CAF50 !important;
+    background-color: rgba(76, 175, 80, 0.15) !important;
+  }
+  
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(3) .feature-chip:hover {
+    background-color: #4CAF50 !important;
+    color: white !important;
+  }
+  
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(3) .class-card {
+    border-color: transparent;
+  }
+  
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(3) .class-card:hover,
+  .MuiGrid-root > .MuiGrid-item:nth-of-type(3) .class-card.selected {
+    border-color: #4CAF50 !important;
+  }
+  
+  /* Force color override with !important */
+  [data-class-type="ראשונה"] .class-icon,
+  [data-class-type="ראשונה"] .card-badge,
+  [data-class-type="ראשונה"] .select-button {
+    background-color: #00897B !important;
+  }
+  
+  [data-class-type="תיירים"] .class-icon,
+  [data-class-type="תיירים"] .card-badge,
+  [data-class-type="תיירים"] .select-button {
+    background-color: #2196F3 !important;
+  }
+  
+  [data-class-type="עסקים"] .class-icon,
+  [data-class-type="עסקים"] .card-badge,
+  [data-class-type="עסקים"] .select-button {
+    background-color: #4CAF50 !important;
+  }

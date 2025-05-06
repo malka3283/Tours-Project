@@ -1,0 +1,163 @@
+/* Calendar Container */
+.calendar-container {
+    direction: rtl;
+    padding: 20px;
+    max-width: 1200px !important;
+  }
+  
+  .calendar-paper {
+    padding: 20px;
+    border-radius: 12px !important;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  /* Calendar Header */
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  
+  .calendar-title {
+    display: flex;
+    align-items: center;
+    font-weight: 600 !important;
+    color: #1976d2;
+  }
+  
+  .calendar-icon {
+    margin-right: 10px;
+  }
+  
+  .calendar-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .current-month-btn {
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    padding: 8px 16px !important;
+  }
+  
+  .navigation-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .nav-button {
+    background-color: #f5f5f5 !important;
+  }
+  
+  /* Days Header */
+  .days-header {
+    background-color: #f5f5f5;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 8px;
+  }
+  
+  .day-name {
+    text-align: center;
+    padding: 12px 0;
+    width: 14.28% !important;
+    font-weight: 600 !important;
+  }
+  
+  /* Days Grid */
+  .days-grid {
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+  }
+  
+  .calendar-day {
+    width: 14.28% !important;
+    aspect-ratio: 1;
+    border: 1px solid #e0e0e0;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+  
+  .calendar-day:hover {
+    background-color: #f9f9f9;
+    transform: scale(1.02);
+    z-index: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .day-content {
+    height: 100%;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .day-number {
+    font-size: 14px !important;
+    margin-bottom: 4px !important;
+  }
+  
+  /* Today Highlight */
+  .today {
+    background-color: #e3f2fd;
+    border: 2px solid #1976d2 !important;
+  }
+  
+  /* Different Month Days */
+  .different-month {
+    opacity: 0.5;
+    background-color: #f5f5f5;
+  }
+  
+  /* Flights */
+  .flights-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: auto;
+    overflow-y: auto;
+    max-height: 70%;
+  }
+  
+  .flight-chip {
+    font-size: 12px !important;
+    height: 24px !important;
+    border-radius: 12px !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .flight-chip:hover {
+    background-color: rgba(25, 118, 210, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .calendar-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    
+    .calendar-controls {
+      width: 100%;
+      justify-content: space-between;
+    }
+    
+    .day-name, .calendar-day {
+      padding: 8px 4px;
+    }
+    
+    .day-number {
+      font-size: 12px !important;
+    }
+    
+    .flight-chip {
+      font-size: 10px !important;
+      height: 20px !important;
+    }
+  }
