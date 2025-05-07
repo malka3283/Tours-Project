@@ -97,7 +97,7 @@ export const Pay = () => {
         };
         
         
-        dispatch(addOrderThunk(orderToPay));
+         dispatch(addOrderThunk(orderToPay));
         
         // Simulate API call
         setTimeout(() => {

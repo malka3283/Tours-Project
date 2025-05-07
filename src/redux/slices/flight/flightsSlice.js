@@ -23,6 +23,7 @@ import { updateThisFlightThunk } from "./updateThisFlightThunk";
 import { updateClassToFlight } from "./updateClassToFlight";
 import { getOrderDetailByClassToFlightIdThunk } from "./getOrderDetailByClassToFlightIdThunk";
 import { addClassToFlight } from "./addClassToFlight";
+import { deleteFlight } from "./deleteFlight";
 
 const INITIAL_STATE = {
     flightsArr: [],
@@ -38,6 +39,7 @@ const INITIAL_STATE = {
     thisFlight: [],
     ordersByCustomer: [],
     ordersFromServer: [],
+    oneThisFlight: null,
     find: false,
     yourClassToFlight: null,
     price: 0,
@@ -46,6 +48,7 @@ const INITIAL_STATE = {
     status: false,
     classes: "",
     isAddFlight: 0,
+    response: false,
 
 }
 
@@ -85,6 +88,9 @@ export const flightsSlice = createSlice({
             },
             savePriceToPay: (state, action) => {
                 state.price = action.payload
+            },
+            changeResponse: (state, action) => {
+                state.response = false
             },
 
            
@@ -254,7 +260,8 @@ export const flightsSlice = createSlice({
             })
 
             builder.addCase(addThisFlightThunk.fulfilled, (state, action) => {
-                state.AllThisFlight = action.payload;
+                debugger
+                state.oneThisFlight = action.payload;
             })
 
             builder.addCase(addThisFlightThunk.rejected, (state) => {
@@ -345,9 +352,23 @@ export const flightsSlice = createSlice({
             })
 
             builder.addCase(addClassToFlight.fulfilled, (state, action) => {
+                state.response = true;
             })
 
             builder.addCase(addClassToFlight.rejected, (state) => {
+                state.response = false;
+            })
+
+            //deleteFlight
+            builder.addCase(deleteFlight.pending, (state) => {
+            })
+
+            builder.addCase(deleteFlight.fulfilled, (state, action) => {
+                state.AllThisFlight = action.payload;
+            })
+
+            builder.addCase(deleteFlight.rejected, (state) => {
+                debugger
             })
                 
     
@@ -358,4 +379,4 @@ export const flightsSlice = createSlice({
 
     
 });
-export const { chooseClass, getFlightDetailsById, savaYourChooseFlight, savaYourChooseFlightDetails, savaClassToFlight, deleteOrder, savePriceToPay} = flightsSlice.actions;
+export const { chooseClass, getFlightDetailsById, savaYourChooseFlight, savaYourChooseFlightDetails, savaClassToFlight, deleteOrder, savePriceToPay, changeResponse} = flightsSlice.actions;

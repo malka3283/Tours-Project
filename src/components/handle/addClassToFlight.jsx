@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 export const AddClassToFlight = (props) => {
+    debugger
 
     const { addCTFlight, closeCtf,ctf ,cls ,thisFlt} = props
     const [ctflight, setCtflight] = useState({classId: 0, thisflightId: 0, price: 0, hanacha: 0, weightLoad: 0 , numberOfSeats: 0});
@@ -53,7 +54,23 @@ export const AddClassToFlight = (props) => {
          onClick={() => {
             addCTFlight(ctflight)
          }}>אישור</button>}
-        {ctflight.classId === 0 && <button>אישור</button>}
+        {ctflight.classId === 0 && <button
+        onClick={() =>{
+            let c = ctflight;
+            c.thisflightId = thisFlt.id;
+            if(cls === "תיירים"){
+                c.classId = 3;
+            }
+            if(cls === "עסקים"){
+                c.classId = 2;
+            }
+            if(cls === "ראשונה"){
+                c.classId = 1;
+            }
+    
+            addCTFlight(c)}
+        }>אישור</button>}
+        
 
 
 </div>
