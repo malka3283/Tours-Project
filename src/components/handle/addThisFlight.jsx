@@ -19,7 +19,6 @@ export const AddThisFlight = (props) => {
     const refDailog = useRef();
 
     useEffect(() => {
-        debugger
         dispatch(getAllFlightThunk())
         setTFlt(thisFlt)
         refDailog.current.showModal();
@@ -45,9 +44,9 @@ export const AddThisFlight = (props) => {
         {thisFlt.time === "" && <input type="time" onChange={(e) => setTFlt(prev => ({ ...prev, time: e.target.value }))} />}
         {thisFlt.time !== "" && <input type="time" onChange={(e) => setTFlt(prev => ({ ...prev, time: e.target.value }))} defaultValue={tflt.time} />}
 
-        <div>מחיר לקילו משקל עודף</div>
-        {thisFlt.time === "" && <input type="text" onChange={(e) => setTFlt(prev => ({ ...prev, priceToOverLoad: e.target.value }))} />}
-        {thisFlt.time !== "" && <input type="text" onChange={(e) => setTFlt(prev => ({ ...prev, priceToOverLoad: e.target.value }))} defaultValue={tflt.priceToOverLoad} />}
+        <div>מחיר משקל עודף</div>
+        {thisFlt.time === "" && <input type="number" onChange={(e) => setTFlt(prev => ({ ...prev, priceToOverLoad: e.target.value }))} />}
+        {thisFlt.time !== "" && <input type="number" onChange={(e) => setTFlt(prev => ({ ...prev, priceToOverLoad: e.target.value }))} defaultValue={tflt.priceToOverLoad} />}
 
 
 
@@ -66,18 +65,17 @@ export const AddThisFlight = (props) => {
 
        
         {thisFlt.time === "" && <button onClick={() => {
-            debugger
             let ti = tflt.time + ":00";
             let i = tf.indexOf("-")
             let src = tf.substring(0, i - 1)
             let des = tf.substring(i + 2)
             let ff = tflt
             ff.time = ti;
-            debugger
             flightsArr.forEach(element => {
                 if (element.sourceNavigation.destination === src && element.destinationNavigation.destination === des)
                     ff.flightId = element.id
             });
+            ff.priceToOverLoad = parseInt(ff.priceToOverLoad)
             addFlight(ff)
         }}
             disabled={tflt.time === "" && thisFlt.date === "" && thisFlt.priceToOverLoad === "" && thisFlt.time === "" && setTf != ""}

@@ -12,8 +12,7 @@ export const addClassToFlight = createAsyncThunk('addClassToFlight',
             }
         )
         if(response.ok){
-            let data =  await response.json();
-            return data;
+            return response.ok;
         }
           else{
               throw new Error('faild to fetch to addClassToFlight');

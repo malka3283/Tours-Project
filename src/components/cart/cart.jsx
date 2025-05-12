@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { loct } from "../../redux/slices/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteOrder, savePriceToPay } from "../../redux/slices/flight/flightsSlice";
+import { changeNOS, changeWight, deleteOrder, savePriceToPay } from "../../redux/slices/flight/flightsSlice";
 import { useNavigate } from "react-router-dom";
 import "./cart.css";
 
@@ -64,8 +64,8 @@ export const Cart = () => {
     }, [order]);
     
     const updateNOs = (o, value) => {
-        // Here you would dispatch an action to update the number of seats
-        // For example: dispatch(updateOrderSeats({ id: o.id, seats: value }));
+        debugger
+       dispatch(changeNOS({ id: o.id, nOS: parseInt(value) }));
         setSnackbarMessage("כמות הכרטיסים עודכנה");
         setSnackbarOpen(true);
     };
@@ -77,8 +77,7 @@ export const Cart = () => {
     };
     
     const updateOverWight = (o, value) => {
-        // Here you would dispatch an action to update the overweight
-        // For example: dispatch(updateOrderWeight({ id: o.id, weight: value }));
+        dispatch(changeWight({ id: o.id, overWight: parseInt(value) }));
         setSnackbarMessage("משקל עודף עודכן");
         setSnackbarOpen(true);
     };
@@ -114,7 +113,7 @@ export const Cart = () => {
                         <Button 
                             variant="contained" 
                             color="primary" 
-                            onClick={() => navigate('/flights')}
+                            onClick={() => navigate('/chooseClass')}
                             className="continue-shopping-btn"
                         >
                             המשך לחיפוש טיסות
@@ -187,7 +186,7 @@ export const Cart = () => {
                                             <TextField
                                                 type="number"
                                                 defaultValue={o.nOS}
-                                                InputProps={{ inputProps: { min: 1 } }}
+                                                InputProps={{ inputProps: { min: 1 , max: o.maxCards} }}
                                                 size="small"
                                                 onChange={(e) => updateNOs(o, e.target.value)}
                                                 className="quantity-input"

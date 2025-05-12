@@ -124,8 +124,8 @@ export const ClassToFlight = () => {
                                 {classToFlight?.length > 0 ? (
                                     classToFlight.map(f => (
                                         <TableRow key={f.id} className="table-row">
-                                            <TableCell>{f.thisflight.flight.destinationNavigation.destination}</TableCell>
                                             <TableCell>{f.thisflight.flight.sourceNavigation.destination}</TableCell>
+                                            <TableCell>{f.thisflight.flight.destinationNavigation.destination}</TableCell>
                                             <TableCell>
                                                 <Chip 
                                                     label={f.class.description} 
@@ -176,7 +176,7 @@ export const ClassToFlight = () => {
                                             {!isTablet && (
                                                 <TableCell>
                                                     <Typography variant="body2" className="discount-text">
-                                                        {f.hanacha}
+                                                        {f.hanacha} ₪
                                                     </Typography>
                                                 </TableCell>
                                             )}

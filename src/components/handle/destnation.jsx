@@ -35,7 +35,6 @@ export const Destnation = () => {
   }, [dispatch]);
 
   const addDes = (addDes) => {
-    debugger
     dispatch(addDestantionThunk(addDes));
     close();
   };

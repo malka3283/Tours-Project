@@ -75,8 +75,11 @@ export const Pay = () => {
     };
 
     const toPay = () => {
-        setIsProcessing(true);
         debugger
+        const today = new Date();
+        const formattedDate = today.toISOString().split('T')[0];
+
+        setIsProcessing(true);
         let ordersDetailToPay = [];
         order.forEach(element => {
             ordersDetailToPay.push({
@@ -84,20 +87,18 @@ export const Pay = () => {
                 idClassToFlight: element.id, 
                 countTickets: element.nOS, 
                 countOverLoad: element.overWight, 
-                price: element.price.toString()
+                price: element.price * element.nOS + element.overWight * element.priceToOverLoad,
             });
         });
-        
-
         let orderToPay = {
             idCustomer: userName.id, 
             price: price, 
-            date: `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`, 
+            date: formattedDate, 
             ordersDetails: ordersDetailToPay
         };
         
         
-        dispatch(addOrderThunk(orderToPay));
+         dispatch(addOrderThunk(orderToPay));
         
         // Simulate API call
         setTimeout(() => {

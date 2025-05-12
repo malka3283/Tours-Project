@@ -4,7 +4,6 @@ export const getAllClassToFlightThunk = createAsyncThunk('fetchClassToFlightThun
     async () => {
         try {
             const response = await fetch("http://localhost:5041/api/ClassToFlight/GetAll");
-            debugger
             const data = await response.json();
             console.log(data);
             return data;

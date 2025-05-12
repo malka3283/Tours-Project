@@ -101,7 +101,7 @@ export const FlightsWhisHanach = () => {
     // Get popularity level based on sold seats
     const getPopularityLevel = (sold, total) => {
         
-        if (  total - sold === 0 ){ debugger ;return 5;}
+        if (  total - sold === 0 ){  return 5;}
         if (sold === 0) return 0;
         if (sold > 15) return 4;
         if (sold > 10) return 3;

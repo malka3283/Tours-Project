@@ -71,7 +71,7 @@ export const FlightDetails = () => {
             if(element.id === yourClassToFlight.id)
                 flag = true;
         });
-        
+        debugger
         if(!flag) {
             var flt = {
                 src: yourClassToFlight.thisflight.flight.sourceNavigation.destination, 
@@ -79,11 +79,12 @@ export const FlightDetails = () => {
                 date: yourClassToFlight.thisflight.date, 
                 time: yourClassToFlight.thisflight.time, 
                 id: yourClassToFlight.id,
-                price: (yourClassToFlight.price - yourClassToFlight.hanacha) * nOS + yourClassToFlight.thisflight.priceToOverLoad * overWight, 
+                price: yourClassToFlight.price - yourClassToFlight.hanacha, 
                 priceToOverLoad: yourClassToFlight.thisflight.priceToOverLoad,
                 nOS: nOS, 
                 overWight: overWight,
                 classs: params.classs,
+                maxCards: yourClassToFlight.numberOfSeats - yourClassToFlight.sold,
             };
             dispatch(savaClassToFlight(flt));
             setOpenSnackbar(true);
@@ -108,6 +109,7 @@ export const FlightDetails = () => {
         return 1;
     };
     
+
     // Calculate remaining seats
     const remainingSeats = yourClassToFlight ? 
         yourClassToFlight.numberOfSeats - yourClassToFlight.sold : 0;
@@ -275,13 +277,13 @@ export const FlightDetails = () => {
                                         מספר הכרטיסים הנותרים:
                                     </Typography>
                                     <Chip 
-                                        label={remainingSeats} 
-                                        color={remainingSeats > 10 ? "success" : remainingSeats > 0 ? "warning" : "error"}
+                                        label={yourClassToFlight.numberOfSeats - yourClassToFlight.sold} 
+                                        color={yourClassToFlight.numberOfSeats - yourClassToFlight.sold > 0 ? "success" : yourClassToFlight.numberOfSeats - yourClassToFlight.sold === 0 ? "warning" : "error"}
                                         className="availability-chip"
                                     />
                                 </Box>
                                 
-                                {remainingSeats === 0 ? (
+                                {yourClassToFlight.numberOfSeats - yourClassToFlight.sold === 0 ? (
                                     <Alert severity="error" className="sold-out-alert">
                                         <Typography variant="body1">הכרטיסים אזלו</Typography>
                                     </Alert>
@@ -293,9 +295,9 @@ export const FlightDetails = () => {
                                             </Typography>
                                             <Box className="quantity-controls">
                                                 <IconButton 
-                                                    onClick={() => { nOS < Math.min(remainingSeats, 10) && setNOS(nOS + 1) }}
+                                                    onClick={() => { nOS < Math.min(yourClassToFlight.numberOfSeats - yourClassToFlight.sold, 10) && setNOS(nOS + 1) }}
                                                     color="primary"
-                                                    disabled={nOS >= Math.min(remainingSeats, 10)}
+                                                    disabled={nOS >= Math.min(yourClassToFlight.numberOfSeats - yourClassToFlight.sold, 10)}
                                                 >
                                                     <Add />
                                                 </IconButton>
