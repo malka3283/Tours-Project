@@ -37,6 +37,7 @@ import {
   Search,
   AccessTime
 } from '@mui/icons-material';
+import { getAllClassThunk } from '../../redux/slices/class/getAllClassThunk';
 
 export const Find = () => {
     const[flt, setFlt] = useState({});
@@ -45,6 +46,8 @@ export const Find = () => {
     const thisFlightsArr = useSelector(state => state.flights.thisFlight);
     const find = useSelector(state => state.flights.find);
     const destinitions = useSelector(state => state.flights.destinitions);
+    const classes = useSelector(state => state.classs.classes);
+
     
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -54,6 +57,10 @@ export const Find = () => {
         if(destinitions.length === 0)
         dispatch(getAllDestinationThunk())
     }, []);
+
+    useEffect(() => {
+        dispatch(getAllClassThunk())
+    }, [classes, dispatch, destinitions]);
     
     const nowFind = () => {
         dispatch(getThisFlightBySrcdesdateThunk({src: flt.src, des: flt.des, date: flt.date}))
@@ -250,9 +257,9 @@ export const Find = () => {
             </datalist>
             
             <datalist id='class'>
-                <option>תיירים</option>
-                <option>עסקים</option>
-                <option>ראשונה</option>
+            {classes?.map((d, index) => (
+                    <option key={index || d.id}>{d.description}</option>
+                ))}
             </datalist>
         </Container>
     );

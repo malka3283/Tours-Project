@@ -74,7 +74,6 @@ export const userSlice = createSlice({
             sessionStorage.setItem('loading', 'true');
         })
         builder.addCase(logInUserThunk.fulfilled, (state, action) => {
-            debugger
             state.loading = false;
             sessionStorage.setItem('loading', 'false');
             

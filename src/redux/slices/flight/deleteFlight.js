@@ -1,11 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const deleteFlight = createAsyncThunk(
-
-    'deleteFlight',
-
+export const deleteFlight = createAsyncThunk('deleteFlight',
+    
     async ( id ) => {
-        debugger
         const response = await fetch(`http://localhost:5041/api/OrdersDetails/${id}`,
         {
             method: 'DELETE',
@@ -13,7 +10,6 @@ export const deleteFlight = createAsyncThunk(
                 'Content-Type': 'application/json'
             }
         });
-       debugger
         if (response.ok) {
         const data = await response.json();
          return data;

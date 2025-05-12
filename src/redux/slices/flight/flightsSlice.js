@@ -80,11 +80,12 @@ export const flightsSlice = createSlice({
                 state.orders.splice(i, 1)
             },
             changeNOS: (state, action) => {
-                let o = state.orders.find(x => x.id === action.payload.id)
-                o.overWight = action.payload.overWight
+                let o = state.orders.find(x => x.id === action.payload.id);
+                o.nOS = action.payload.nOS;
             },
             changeWight: (state, action) => {
-                state.orders.splice(action.payload)
+                let o = state.orders.find(x => x.id === action.payload.id);
+                o.overWight = action.payload.overWight;
             },
             savePriceToPay: (state, action) => {
                 state.price = action.payload
@@ -260,7 +261,6 @@ export const flightsSlice = createSlice({
             })
 
             builder.addCase(addThisFlightThunk.fulfilled, (state, action) => {
-                debugger
                 state.oneThisFlight = action.payload;
             })
 
@@ -273,7 +273,6 @@ export const flightsSlice = createSlice({
             })
 
             builder.addCase(updateThisFlightThunk.fulfilled, (state, action) => {
-                debugger
                 state.AllThisFlight = action.payload;
             })
 
@@ -368,7 +367,6 @@ export const flightsSlice = createSlice({
             })
 
             builder.addCase(deleteFlight.rejected, (state) => {
-                debugger
             })
                 
     
@@ -379,4 +377,4 @@ export const flightsSlice = createSlice({
 
     
 });
-export const { chooseClass, getFlightDetailsById, savaYourChooseFlight, savaYourChooseFlightDetails, savaClassToFlight, deleteOrder, savePriceToPay, changeResponse} = flightsSlice.actions;
+export const { chooseClass, getFlightDetailsById, savaYourChooseFlight, savaYourChooseFlightDetails, savaClassToFlight, deleteOrder, savePriceToPay, changeResponse, changeNOS, changeWight} = flightsSlice.actions;

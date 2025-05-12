@@ -71,7 +71,7 @@ export const FlightDetails = () => {
             if(element.id === yourClassToFlight.id)
                 flag = true;
         });
-        
+        debugger
         if(!flag) {
             var flt = {
                 src: yourClassToFlight.thisflight.flight.sourceNavigation.destination, 
@@ -79,11 +79,12 @@ export const FlightDetails = () => {
                 date: yourClassToFlight.thisflight.date, 
                 time: yourClassToFlight.thisflight.time, 
                 id: yourClassToFlight.id,
-                price: (yourClassToFlight.price - yourClassToFlight.hanacha) * nOS + yourClassToFlight.thisflight.priceToOverLoad * overWight, 
+                price: yourClassToFlight.price - yourClassToFlight.hanacha, 
                 priceToOverLoad: yourClassToFlight.thisflight.priceToOverLoad,
                 nOS: nOS, 
                 overWight: overWight,
                 classs: params.classs,
+                maxCards: yourClassToFlight.numberOfSeats - yourClassToFlight.sold,
             };
             dispatch(savaClassToFlight(flt));
             setOpenSnackbar(true);
@@ -108,7 +109,6 @@ export const FlightDetails = () => {
         return 1;
     };
     
-    debugger
 
     // Calculate remaining seats
     const remainingSeats = yourClassToFlight ? 

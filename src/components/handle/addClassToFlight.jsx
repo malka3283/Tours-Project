@@ -1,16 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 
 export const AddClassToFlight = (props) => {
-    debugger
 
     const { addCTFlight, closeCtf,ctf ,cls ,thisFlt} = props
     const [ctflight, setCtflight] = useState({classId: 0, thisflightId: 0, price: 0, hanacha: 0, weightLoad: 0 , numberOfSeats: 0});
 
     useEffect(() => {
         setCtflight(ctf)
-
         refDailog.current.showModal();
-        debugger
     }, [])
 
     const refDailog = useRef();

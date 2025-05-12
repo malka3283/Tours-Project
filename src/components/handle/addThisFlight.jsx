@@ -19,7 +19,6 @@ export const AddThisFlight = (props) => {
     const refDailog = useRef();
 
     useEffect(() => {
-        debugger
         dispatch(getAllFlightThunk())
         setTFlt(thisFlt)
         refDailog.current.showModal();

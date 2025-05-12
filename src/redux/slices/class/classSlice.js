@@ -1,7 +1,6 @@
 
 import { createSlice } from "@reduxjs/toolkit";
-import { logInUserThunk } from "./logInUserThunk";
-import { addUserThunk } from "./addUserThunk";
+import { getAllClassThunk } from "./getAllClassThunk";
 
 const INITIAL_STATE = {
     classes: []
@@ -12,7 +11,7 @@ const INITIAL_STATE = {
 export const classSlice = createSlice({
 
 
-    name: 'users',
+    name: 'classs',
     initialState: INITIAL_STATE,
     reducers: {
        
@@ -21,14 +20,14 @@ export const classSlice = createSlice({
     extraReducers: (builder) => {
 
         //GetAllClasses
-        builder.addCase(logInUserThunk.pending, (state) => {
+        builder.addCase(getAllClassThunk.pending, (state) => {
         })
 
-        builder.addCase(logInUserThunk.fulfilled, (state, action) => {
-           state.classes = action.pending
+        builder.addCase(getAllClassThunk.fulfilled, (state, action) => {
+           state.classes = action.payload;
         })
 
-        builder.addCase(logInUserThunk.rejected, (state) => {
+        builder.addCase(getAllClassThunk.rejected, (state) => {
         })
 
     }

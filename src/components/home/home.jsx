@@ -27,7 +27,11 @@ import {
   Badge,
   Divider,
   useMediaQuery,
-  useTheme
+  useTheme,
+  Fade,
+  Paper,
+  Backdrop,
+  Tooltip
 } from "@mui/material";
 
 // MUI icons
@@ -38,9 +42,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import FlightIcon from '@mui/icons-material/Flight';
+import PublicIcon from '@mui/icons-material/Public';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BookIcon from '@mui/icons-material/Book';
+import CloseIcon from '@mui/icons-material/Close';
 
 export const Home = () => {
     const navigate = useNavigate();
@@ -58,8 +65,8 @@ export const Home = () => {
     
     useEffect(() => {
         dispatch(loct("/about"));
-        dispatch(getAllFlightThunk());
-        dispatch(getAllDestinationThunk());
+        // dispatch(getAllFlightThunk());
+        // dispatch(getAllDestinationThunk());
     }, [dispatch]);
     
     const handleDrawerToggle = () => {
@@ -76,68 +83,108 @@ export const Home = () => {
     
     const handleLogout = () => {
         handleUserMenuClose();
-        // navigate('/logIn');
-        dispatch(signOut())
+        dispatch(signOut());
     };
     
     // Drawer content for mobile
     const drawerContent = (
         <Box className="drawer-content">
-            <List>
-                <ListItem button onClick={() => { navigate('/chooseClass'); setDrawerOpen(false); }}>
-                    <ListItemIcon><FlightIcon /></ListItemIcon>
-                    <ListItemText primary="טיסות" />
-                </ListItem>
-                
-                <ListItem button onClick={() => { navigate('/flightsWhisHanach'); setDrawerOpen(false); }}>
-                    <ListItemIcon><LocalOfferIcon /></ListItemIcon>
-                    <ListItemText primary="מבצעים" />
-                </ListItem>
-                
-                <ListItem button onClick={() => { navigate('/find'); setDrawerOpen(false); }}>
-                    <ListItemIcon><SearchIcon /></ListItemIcon>
-                    <ListItemText primary="חיפוש טיסה אוטומטי" />
-                </ListItem>
-            </List>
-            <Divider />
-            <List>
+            <Box className="drawer-header">
+                <Box className="drawer-logo-container">
+                    <Box className="drawer-logo-inner">
+                        <PublicIcon className="drawer-logo-globe" />
+                    </Box>
+                </Box>
+                <Box className="drawer-title-container">
+                    <Typography variant="h6" className="drawer-title">גלובוס</Typography>
+                    <Typography variant="caption" className="drawer-subtitle">לטוס באמת עם הלב</Typography>
+                </Box>
+                <IconButton onClick={handleDrawerToggle} className="drawer-close">
+                    <CloseIcon />
+                </IconButton>
+            </Box>
+            
+            <Box className="drawer-user-section">
                 {user ? (
-                    <>
-                        <ListItem>
-                            <ListItemIcon><AccountCircleIcon /></ListItemIcon>
-                            <ListItemText primary={`שלום ${user.firstName}`} />
-                        </ListItem>
-                        
-                        <ListItem button onClick={() => { navigate('/orderDetail'); setDrawerOpen(false); }}>
-                            <ListItemIcon><BookIcon /></ListItemIcon>
-                            <ListItemText primary="ההזמנות שלי" />
-                        </ListItem>
-                        
-                        {user.isManager === 1 && (
-                            <ListItem button onClick={() => { navigate('/handle'); setDrawerOpen(false); }}>
-                                <ListItemIcon><ManageAccountsIcon /></ListItemIcon>
-                                <ListItemText primary="ניהול" />
-                            </ListItem>
-                        )}
-                        
-                        <ListItem button onClick={() => { handleLogout(); setDrawerOpen(false); }}>
-                            <ListItemIcon><LogoutIcon /></ListItemIcon>
-                            <ListItemText primary="התנתק" />
-                        </ListItem>
-                    </>
+                    <Box className="drawer-user-info">
+                        <Avatar className="drawer-user-avatar">
+                            {user.firstName.charAt(0)}
+                        </Avatar>
+                        <Box>
+                            <Typography variant="subtitle1" className="drawer-user-name">
+                                {user.firstName} {user.lastName}
+                            </Typography>
+                            <Typography variant="body2" className="drawer-user-email">
+                                {user.email}
+                            </Typography>
+                        </Box>
+                    </Box>
                 ) : (
-                    <ListItem button onClick={() => { navigate('/logIn'); setDrawerOpen(false); }}>
-                        <ListItemIcon><PersonIcon /></ListItemIcon>
-                        <ListItemText primary="התחברות / הרשמה" />
-                    </ListItem>
+                    <Button 
+                        variant="contained" 
+                        fullWidth
+                        startIcon={<PersonIcon />}
+                        onClick={() => { navigate('/logIn'); setDrawerOpen(false); }}
+                        className="drawer-login-button"
+                    >
+                        התחברות / הרשמה
+                    </Button>
                 )}
+            </Box>
+            
+            <Divider className="drawer-divider" />
+            
+            <List className="drawer-nav-list">
+                <ListItem button onClick={() => { navigate('/chooseClass'); setDrawerOpen(false); }} className="drawer-nav-item">
+                    <ListItemIcon><FlightIcon className="drawer-nav-icon" /></ListItemIcon>
+                    <ListItemText primary="טיסות" className="drawer-nav-text" />
+                </ListItem>
+                
+                <ListItem button onClick={() => { navigate('/flightsWhisHanach'); setDrawerOpen(false); }} className="drawer-nav-item">
+                    <ListItemIcon><LocalOfferIcon className="drawer-nav-icon" /></ListItemIcon>
+                    <ListItemText primary="מבצעים" className="drawer-nav-text" />
+                </ListItem>
+                
+                <ListItem button onClick={() => { navigate('/find'); setDrawerOpen(false); }} className="drawer-nav-item">
+                    <ListItemIcon><SearchIcon className="drawer-nav-icon" /></ListItemIcon>
+                    <ListItemText primary="חיפוש טיסה" className="drawer-nav-text" />
+                </ListItem>
             </List>
+            
+            <Divider className="drawer-divider" />
+            
+            {user && (
+                <List className="drawer-nav-list">
+                    <ListItem button onClick={() => { navigate('/orderDetail'); setDrawerOpen(false); }} className="drawer-nav-item">
+                        <ListItemIcon><BookIcon className="drawer-nav-icon" /></ListItemIcon>
+                        <ListItemText primary="ההזמנות שלי" className="drawer-nav-text" />
+                    </ListItem>
+                    
+                    {user.isManager === 1 && (
+                        <ListItem button onClick={() => { navigate('/handle'); setDrawerOpen(false); }} className="drawer-nav-item">
+                            <ListItemIcon><ManageAccountsIcon className="drawer-nav-icon" /></ListItemIcon>
+                            <ListItemText primary="ניהול" className="drawer-nav-text" />
+                        </ListItem>
+                    )}
+                    
+                    <ListItem button onClick={() => { handleLogout(); setDrawerOpen(false); }} className="drawer-nav-item logout-item">
+                        <ListItemIcon><LogoutIcon className="drawer-nav-icon" /></ListItemIcon>
+                        <ListItemText primary="התנתק" className="drawer-nav-text" />
+                    </ListItem>
+                </List>
+            )}
+            
+            <Box className="drawer-footer">
+                <Typography variant="body2" className="drawer-footer-text">
+                    © {new Date().getFullYear()} גלובוס - לטוס באמת עם הלב
+                </Typography>
+            </Box>
         </Box>
     );
 
     return (
         <Box className="app-container">
-            <AppBar position="sticky" className="app-bar">
+            <AppBar position="fixed" className="app-bar" elevation={0}>
                 <Toolbar className="toolbar">
                     {isMobile && (
                         <IconButton
@@ -150,40 +197,46 @@ export const Home = () => {
                         </IconButton>
                     )}
                     
-                    <Typography 
-                        variant="h6" 
-                        component="div" 
-                        className="app-title"
-                        onClick={() => navigate('/about')}
-                    >
-                        מערכת הזמנת טיסות
-                    </Typography>
+                    <Tooltip title="גלובוס - לטוס באמת עם הלב" arrow>
+                        <Box 
+                            className="logo-container"
+                            onClick={() => navigate('/about')}
+                        >
+                            <Box className="logo-icon-container">
+                                <Box className="logo-icon-inner">
+                                    <PublicIcon className="logo-globe" />
+                                </Box>
+                            </Box>
+                            <Box className="logo-text">
+                                <Typography variant="h6" className="app-title">
+                                    גלובוס
+                                </Typography>
+                                <Typography variant="caption" className="app-subtitle">
+                                    לטוס באמת עם הלב
+                                </Typography>
+                            </Box>
+                        </Box>
+                    </Tooltip>
                     
                     {!isMobile && (
                         <Box className="nav-buttons">
                             <Button
-                                color="inherit"
-                                onClick={() => navigate('/chooseClass')}
-                                startIcon={<FlightIcon />}
                                 className="nav-button"
+                                onClick={() => navigate('/chooseClass')}
                             >
                                 טיסות
                             </Button>
                             
                             <Button
-                                color="inherit"
-                                onClick={() => navigate('/flightsWhisHanach')}
-                                startIcon={<LocalOfferIcon />}
                                 className="nav-button"
+                                onClick={() => navigate('/flightsWhisHanach')}
                             >
                                 מבצעים
                             </Button>
                             
                             <Button
-                                color="inherit"
-                                onClick={() => navigate('/find')}
-                                startIcon={<SearchIcon />}
                                 className="nav-button"
+                                onClick={() => navigate('/find')}
                             >
                                 חיפוש טיסה
                             </Button>
@@ -192,71 +245,102 @@ export const Home = () => {
                     
                     <Box className="toolbar-actions">
                         <IconButton
-                            color="inherit"
+                            className="action-button cart-button"
                             onClick={() => navigate('/cart')}
-                            className="action-button"
                         >
-                            <Badge badgeContent={cartItems.length} color="error">
-                                <ShoppingCartIcon />
+                            <Badge badgeContent={cartItems.length} color="error" className="cart-badge">
+                                <ShoppingCartIcon className="action-icon" />
                             </Badge>
                         </IconButton>
                         
                         {user ? (
                             <>
-                                <IconButton
+                                <Box 
+                                    className="user-profile"
                                     onClick={handleUserMenuOpen}
-                                    color="inherit"
-                                    className="user-button"
                                 >
                                     <Avatar className="user-avatar">
                                         {user.firstName.charAt(0)}
                                     </Avatar>
-                                </IconButton>
+                                    {!isMobile && (
+                                        <Typography variant="body2" className="user-name">
+                                            {user.firstName}
+                                        </Typography>
+                                    )}
+                                </Box>
                                 
                                 <Menu
                                     anchorEl={userMenuAnchor}
                                     open={Boolean(userMenuAnchor)}
                                     onClose={handleUserMenuClose}
                                     className="user-menu"
+                                    TransitionComponent={Fade}
+                                    BackdropComponent={Backdrop}
+                                    BackdropProps={{
+                                        timeout: 500,
+                                    }}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'left',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'left',
+                                    }}
                                 >
-                                    <MenuItem disabled className="user-greeting">
-                                        <Typography variant="body2">
-                                            שלום {user.firstName}
-                                        </Typography>
-                                    </MenuItem>
-                                    <Divider />
-                                    
-                                    <MenuItem onClick={() => { dispatch(setUserId(user.id)); navigate('/orderDetail'); handleUserMenuClose(); }} className="menu-item">
-                                        <ListItemIcon>
-                                            <BookIcon fontSize="small" />
-                                        </ListItemIcon>
-                                        <ListItemText primary="ההזמנות שלי" />
-                                    </MenuItem>
-                                    
-                                    {user.isManager === 1 && (
-                                        <MenuItem onClick={() => { navigate('/handle'); handleUserMenuClose(); }} className="menu-item">
-                                            <ListItemIcon>
-                                                <ManageAccountsIcon fontSize="small" />
-                                            </ListItemIcon>
-                                            <ListItemText primary="ניהול מערכת" />
-                                        </MenuItem>
-                                    )}
-                                    
-                                    <Divider />
-                                    <MenuItem onClick={handleLogout} className="menu-item">
-                                        <ListItemIcon>
-                                            <LogoutIcon fontSize="small" />
-                                        </ListItemIcon>
-                                        <ListItemText primary="התנתק" />
-                                    </MenuItem>
+                                    <Paper className="user-menu-paper" elevation={0}>
+                                        <Box className="user-menu-header">
+                                            <Avatar className="user-menu-avatar">
+                                                {user.firstName.charAt(0)}
+                                            </Avatar>
+                                            <Box>
+                                                <Typography variant="subtitle1" className="user-menu-name">
+                                                    {user.firstName} {user.lastName}
+                                                </Typography>
+                                                <Typography variant="body2" className="user-menu-email">
+                                                    {user.email}
+                                                </Typography>
+                                            </Box>
+                                        </Box>
+                                        
+                                        <Box className="user-menu-content">
+                                            <MenuItem onClick={() => { dispatch(setUserId(user.id)); navigate('/orderDetail'); handleUserMenuClose(); }} className="menu-item">
+                                                <ListItemIcon>
+                                                    <BookIcon className="menu-icon" />
+                                                </ListItemIcon>
+                                                <ListItemText primary="ההזמנות שלי" />
+                                            </MenuItem>
+                                        
+                                            {user.isManager === 1 && (
+                                                <MenuItem onClick={() => { navigate('/handle'); handleUserMenuClose(); }} className="menu-item">
+                                                    <ListItemIcon>
+                                                        <ManageAccountsIcon className="menu-icon" />
+                                                    </ListItemIcon>
+                                                    <ListItemText primary="ניהול מערכת" />
+                                                </MenuItem>
+                                            )}
+                                        </Box>
+                                        
+                                        <Box className="user-menu-footer">
+                                            <Button 
+                                                variant="outlined" 
+                                                fullWidth
+                                                startIcon={<LogoutIcon />}
+                                                onClick={handleLogout}
+                                                className="logout-button"
+                                            >
+                                                התנתק
+                                            </Button>
+                                        </Box>
+                                    </Paper>
                                 </Menu>
                             </>
                         ) : (
                             <Button
-                                color="inherit"
-                                startIcon={<PersonIcon />}
+                                variant="contained"
                                 onClick={() => navigate('/logIn')}
                                 className="login-button"
+                                disableElevation
                             >
                                 התחברות
                             </Button>
@@ -265,6 +349,9 @@ export const Home = () => {
                 </Toolbar>
             </AppBar>
             
+            {/* Toolbar spacer */}
+            <Box className="toolbar-spacer" />
+            
             {/* Mobile drawer */}
             <Drawer
                 variant="temporary"
@@ -272,6 +359,9 @@ export const Home = () => {
                 onClose={handleDrawerToggle}
                 ModalProps={{ keepMounted: true }}
                 className="mobile-drawer"
+                PaperProps={{
+                    className: "drawer-paper"
+                }}
             >
                 {drawerContent}
             </Drawer>
@@ -285,9 +375,79 @@ export const Home = () => {
             {/* Footer */}
             <Box component="footer" className="footer">
                 <Container>
-                    <Typography variant="body2" align="center" className="copyright">
-                        © {new Date().getFullYear()} מערכת הזמנת טיסות - כל הזכויות שמורות
-                    </Typography>
+                    <Box className="footer-content">
+                        <Box className="footer-brand-section">
+                            <Box className="footer-logo">
+                                <Box className="footer-logo-icon-container">
+                                    <Box className="footer-logo-icon-inner">
+                                        <PublicIcon className="footer-logo-globe" />
+                                        <FavoriteIcon className="footer-logo-heart" />
+                                    </Box>
+                                </Box>
+                                <Box className="footer-brand-text">
+                                    <Typography variant="h5" className="footer-brand-name">
+                                        גלובוס
+                                    </Typography>
+                                    <Typography variant="body2" className="footer-brand-slogan">
+                                        לטוס באמת עם הלב
+                                    </Typography>
+                                </Box>
+                            </Box>
+                            <Typography variant="body2" className="footer-description">
+                                אנו מאמינים שטיסה היא יותר מאשר רק הגעה ממקום למקום. זו חוויה שמתחילה ברגע ההזמנה ונמשכת הרבה אחרי הנחיתה. אנחנו כאן כדי להפוך את החלום שלך למציאות.
+                            </Typography>
+                        </Box>
+                        
+                        <Box className="footer-links-section">
+                            <Typography variant="h6" className="footer-title">
+                                ניווט מהיר
+                            </Typography>
+                            <Box className="footer-links">
+                                <Typography variant="body2" className="footer-link" onClick={() => navigate('/about')}>
+                                    דף הבית
+                                </Typography>
+                                <Typography variant="body2" className="footer-link" onClick={() => navigate('/chooseClass')}>
+                                    טיסות
+                                </Typography>
+                                <Typography variant="body2" className="footer-link" onClick={() => navigate('/flightsWhisHanach')}>
+                                    מבצעים
+                                </Typography>
+                                <Typography variant="body2" className="footer-link" onClick={() => navigate('/find')}>
+                                    חיפוש טיסה
+                                </Typography>
+                            </Box>
+                        </Box>
+                        
+                        <Box className="footer-contact-section">
+                            <Typography variant="h6" className="footer-title">
+                                צור קשר
+                            </Typography>
+                            <Box className="footer-contact-info">
+                                <Typography variant="body2" className="footer-contact-item">
+                                    טלפון: 03-1234567
+                                </Typography>
+                                <Typography variant="body2" className="footer-contact-item">
+                                    דוא"ל: info@globus.co.il
+                                </Typography>
+                                <Typography variant="body2" className="footer-contact-item">
+                                    כתובת: רחוב הטיסות 123, תל אביב
+                                </Typography>
+                            </Box>
+                        </Box>
+                    </Box>
+                    
+                    <Divider className="footer-divider" />
+                    
+                    <Box className="footer-bottom">
+                        <Typography variant="body2" className="copyright">
+                            © {new Date().getFullYear()} גלובוס - לטוס באמת עם הלב | כל הזכויות שמורות
+                        </Typography>
+                        <Box className="social-icons">
+                            <Box className="social-icon"></Box>
+                            <Box className="social-icon"></Box>
+                            <Box className="social-icon"></Box>
+                        </Box>
+                    </Box>
                 </Container>
             </Box>
         </Box>

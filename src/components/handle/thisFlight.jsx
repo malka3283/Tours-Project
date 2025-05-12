@@ -71,7 +71,6 @@ export const ThisFlight = () => {
 
     const addFlight = async (addFlt) => {
         try {
-            debugger
             await dispatch(addThisFlightThunk(addFlt))
             close()
             setAddCTF(1)
