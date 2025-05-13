@@ -1,11 +1,21 @@
 import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllClassThunk } from "../../redux/slices/class/getAllClassThunk";
 
 export const AddClassToFlight = (props) => {
 
     const { addCTFlight, closeCtf,ctf ,cls ,thisFlt} = props
     const [ctflight, setCtflight] = useState({classId: 0, thisflightId: 0, price: 0, hanacha: 0, weightLoad: 0 , numberOfSeats: 0});
 
+
+    const classes = useSelector(state => state.classs.classes);
+    const dispatch = useDispatch();
+
+
     useEffect(() => {
+        if(classes === undefined || classes.length === 0)
+            dispatch(getAllClassThunk())
+
         setCtflight(ctf)
         refDailog.current.showModal();
     }, [])
@@ -55,15 +65,19 @@ export const AddClassToFlight = (props) => {
         onClick={() =>{
             let c = ctflight;
             c.thisflightId = thisFlt.id;
-            if(cls === "תיירים"){
-                c.classId = 3;
-            }
-            if(cls === "עסקים"){
-                c.classId = 2;
-            }
-            if(cls === "ראשונה"){
-                c.classId = 1;
-            }
+            debugger
+            let cl = classes.filter(c => c.description === cls)
+            c.classId = cl[0].id
+
+            // if(cls === "תיירים"){
+            //     c.classId = 3;
+            // }
+            // if(cls === "עסקים"){
+            //     c.classId = 2;
+            // }
+            // if(cls === "ראשונה"){
+            //     c.classId = 1;
+            // }
     
             addCTFlight(c)}
         }>אישור</button>}

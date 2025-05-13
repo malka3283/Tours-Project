@@ -75,7 +75,6 @@ export const Pay = () => {
     };
 
     const toPay = () => {
-        debugger
         const today = new Date();
         const formattedDate = today.toISOString().split('T')[0];
 
@@ -105,7 +104,8 @@ export const Pay = () => {
             setIsProcessing(false);
             setSnackbarOpen(true);
             // Redirect after showing success message
-            setTimeout(() => navigate("/about"), 1500);
+            debugger
+            setTimeout(() => navigate("/orderAfterPay"), 1500);
         }, 1500);
     };
 

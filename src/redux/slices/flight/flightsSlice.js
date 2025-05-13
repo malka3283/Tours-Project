@@ -39,6 +39,7 @@ const INITIAL_STATE = {
     thisFlight: [],
     ordersByCustomer: [],
     ordersFromServer: [],
+    ordersToPdf: [],
     oneThisFlight: null,
     find: false,
     yourClassToFlight: null,
@@ -281,14 +282,19 @@ export const flightsSlice = createSlice({
 
             //addOrder
             builder.addCase(addOrderThunk.pending, (state) => {
+                state.ordersToPdf = []
+                state.orders.forEach(order => {
+                    state.ordersToPdf.push(order)
+                })
             })
 
             builder.addCase(addOrderThunk.fulfilled, (state, action) => {
-                state.price = 0
-                state.orders = []
+                state.orders.splice(0, state.orders.length)
+
             })
 
             builder.addCase(addOrderThunk.rejected, (state) => {
+                state.orders.splice(0, state.orders.length)
             })
 
             //getAllCustomers

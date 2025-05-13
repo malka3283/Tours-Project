@@ -21,6 +21,7 @@ import { OrderDetail } from "../orderDetail/orderDetail"
 import { Pay } from "../cart/pay"
 import { Customer } from "../handle/customer"
 import { Orders } from "../handle/orders"
+import { Order } from "../cart/order"
 
 
 export const Routing = () => {
@@ -48,6 +49,8 @@ export const Routing = () => {
         <Route path={'/pay'} element={<Pay/>}></Route>
         <Route path={'/customer'} element={<Customer/>}></Route>
         <Route path={'/orders'} element={<Orders/>}></Route>
+        <Route path={'/orderAfterPay'} element={<Order/>}></Route>
+
 
 
 
