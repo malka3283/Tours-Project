@@ -24,6 +24,7 @@ import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import FlightLandIcon from '@mui/icons-material/FlightLand';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import "./AddFlight.css";
+import { getAllClassThunk } from "../../redux/slices/class/getAllClassThunk";
 
 export const AddFlight = (props) => {
   const { addFlight, update, close, flit } = props;

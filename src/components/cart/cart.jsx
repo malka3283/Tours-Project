@@ -38,9 +38,11 @@ import { AirplaneTicket } from "@mui/icons-material";
 export const Cart = () => {
     const dispatch = useDispatch();
     const order = useSelector(state => state.flights.orders);
-    const [price, setPrice] = useState(0);
+
     const userName = useSelector(state => state.users.user);
     const navigate = useNavigate();
+    
+    const [price, setPrice] = useState(0);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
     
