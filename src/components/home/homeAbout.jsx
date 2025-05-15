@@ -15,12 +15,10 @@ import {
   Avatar,
   IconButton,
   Fade,
-  Slide,
   Zoom,
   Rating,
-  TextField,
-  InputAdornment,
-  Chip
+  Chip,
+  Stack
 } from '@mui/material';
 
 // Icons
@@ -28,26 +26,46 @@ import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import SecurityIcon from '@mui/icons-material/Security';
-import PublicIcon from '@mui/icons-material/Public';
-import SearchIcon from '@mui/icons-material/Search';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import EventIcon from '@mui/icons-material/Event';
-import PersonIcon from '@mui/icons-material/Person';
 import StarIcon from '@mui/icons-material/Star';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import FlightIcon from '@mui/icons-material/Flight';
-import HotelIcon from '@mui/icons-material/Hotel';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import LocalActivityIcon from '@mui/icons-material/LocalActivity';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import SendIcon from '@mui/icons-material/Send';
+import ExploreIcon from '@mui/icons-material/Explore';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import GroupIcon from '@mui/icons-material/Group';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import MuseumIcon from '@mui/icons-material/Museum';
+import CodeIcon from '@mui/icons-material/Code';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import TwitterIcon from '@mui/icons-material/Twitter';
 
 import './HomeAbout.css';
+import { useNavigate } from 'react-router-dom';
+
+// פונקציה ליצירת תמונות מקומיות עם צבע ואות ראשונה
+const placeholderImage = (name, color) => {
+  // יוצר SVG פשוט עם האות הראשונה של השם על רקע צבעוני
+  const letter = name.charAt(0);
+  const svg = `
+    <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100%" height="100%" fill="${color}" />
+      <text x="50%" y="50%" dy=".3em" font-size="80" text-anchor="middle" fill="white" font-family="Arial, sans-serif">${letter}</text>
+    </svg>
+  `;
+  
+  // ממיר את ה-SVG ל-Data URL
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+};
+
+
+
+
+
 
 export const HomeAbout = () => {
   const theme = useTheme();
@@ -56,108 +74,113 @@ export const HomeAbout = () => {
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
   
   // Refs for scroll animations
+  const aboutRef = useRef(null);
   const featuresRef = useRef(null);
   const destinationsRef = useRef(null);
   const testimonialsRef = useRef(null);
-  const searchRef = useRef(null);
+  const statsRef = useRef(null);
+  const partnersRef = useRef(null);
   
   // State for animations
+  const [aboutVisible, setAboutVisible] = useState(false);
   const [featuresVisible, setFeaturesVisible] = useState(false);
   const [destinationsVisible, setDestinationsVisible] = useState(false);
   const [testimonialsVisible, setTestimonialsVisible] = useState(false);
-  const [searchVisible, setSearchVisible] = useState(false);
+  const [statsVisible, setStatsVisible] = useState(false);
+  const [partnersVisible, setPartnersVisible] = useState(false);
   
   // State for destination carousel
   const [currentDestination, setCurrentDestination] = useState(0);
   
-  // Popular destinations data
+  // Popular destinations data with local images
   const destinations = [
     {
       city: "פריז",
       country: "צרפת",
-      image: "/תמונות מדינות/צרפת.png",
+      image: "/images/destinations/paris.jpg", // מסלול מקומי לתמונה
       description: "עיר האורות, הרומנטיקה והאמנות",
       price: "החל מ-499€",
       rating: 4.8,
-      tags: ["רומנטי", "תרבות", "אוכל"]
+      tags: ["רומנטי", "תרבות", "אוכל"],
+      color: "#3f51b5"
     },
     {
       city: "טוקיו",
       country: "יפן",
-      image: "תמונות מדינות/סין.png",
+      image: "/images/destinations/tokyo.jpg",
       description: "שילוב מושלם של מסורת וטכנולוגיה",
       price: "החל מ-799€",
       rating: 4.9,
-      tags: ["אסיה", "טכנולוגיה", "תרבות"]
+      tags: ["אסיה", "טכנולוגיה", "תרבות"],
+      color: "#e91e63"
     },
     {
       city: "ניו יורק",
       country: "ארה״ב",
-      image: "/תמונות מדינות/ארצות הברית.png",
+      image: "/images/destinations/newyork.jpg",
       description: "העיר שאף פעם לא ישנה",
       price: "החל מ-599€",
       rating: 4.7,
-      tags: ["קניות", "אורבני", "תרבות"]
+      tags: ["קניות", "אורבני", "תרבות"],
+      color: "#ff9800"
     },
     {
-      city: "קהיר",
-      country: "מצרים",
-      image: "/תמונות מדינות/מצרים.png",
-      description: "עיר הפירמידות והתרבות העתיקה",
-      price: "החל מ-299€",
+      city: "ברצלונה",
+      country: "ספרד",
+      image: "/images/destinations/barcelona.jpg",
+      description: "אדריכלות, חופים וטאפאס",
+      price: "החל מ-349€",
+      rating: 4.6,
+      tags: ["חופים", "אוכל", "אדריכלות"],
+      color: "#009688"
+    },
+    {
+      city: "בנגקוק",
+      country: "תאילנד",
+      image: "/images/destinations/bangkok.jpg",
+      description: "מקדשים, שווקים ואוכל רחוב מדהים",
+      price: "החל מ-649€",
       rating: 4.5,
-      tags: ["היסטוריה", "ארכיאולוגיה", "תרבות"]
+      tags: ["אסיה", "אוכל", "תרבות"],
+      color: "#673ab7"
     },
     {
-      city: "אתונה",
-    country: "יוון",
-    image: "/תמונות מדינות/יון.png",
-    description: "עיר עתיקה עם היסטוריה עשירה ונופים מרהיבים",
-    price: "החל מ-329€",
-    rating: 4.6,
-    tags: ["היסטוריה", "ים", "תרבות"]
-    },
-    {
-      city: "תל אביב",
-    country: "ישראל",
-    image: "/תמונות מדינות/ישראל.png",
-    description: "עיר ללא הפסקה עם חופים מדהימים וחיי לילה תוססים",
-    price: "החל מ-199€",
-    rating: 4.7,
-    tags: ["חופים", "אוכל", "חיי לילה"]
-    },
-    {
-      city: "ציריך",
-      country: "שוויץ",
-      image: "/תמונות מדינות/שוויץ.png",
-      description: "עיר מודרנית מוקפת באגמים והרים מושלגים",
-      price: "החל מ-449€",
-      rating: 4.8,
-      tags: ["טבע", "הרים", "יוקרה"]
+      city: "רומא",
+      country: "איטליה",
+      image: "/images/destinations/rome.jpg",
+      description: "עיר נצחית עם היסטוריה עשירה",
+      price: "החל מ-399€",
+      rating: 4.7,
+      tags: ["היסטוריה", "אוכל", "אמנות"],
+      color: "#4caf50"
     }
   ];
   
-  // Features data
+  // Features data with colors
   const features = [
     {
       icon: <FlightTakeoffIcon fontSize="large" />,
       title: "יעדים גלובליים",
-      description: "גישה ליותר מ-500 חברות תעופה ו-10,000+ יעדים ברחבי העולם. מצא את הטיסה המושלמת להרפתקה הבאה שלך."
+      description: "גישה ליותר מ-500 חברות תעופה ו-10,000+ יעדים ברחבי העולם. מצא את הטיסה המושלמת להרפתקה הבאה שלך.",
+      color: "#3f51b5"
     },
     {
       icon: <LocalOfferIcon fontSize="large" />,
       title: "הבטחת המחיר הטוב ביותר",
-      description: "אנו מבטיחים את התעריפים הטובים ביותר. מצאת מחיר טוב יותר במקום אחר? נשווה אותו וניתן לך הנחה נוספת."
+      description: "אנו מבטיחים את התעריפים הטובים ביותר. מצאת מחיר טוב יותר במקום אחר? נשווה אותו וניתן לך הנחה נוספת.",
+      color: "#e91e63"
     },
     {
       icon: <SupportAgentIcon fontSize="large" />,
       title: "תמיכה 24/7",
-      description: "צוות התמיכה המסור שלנו זמין סביב השעון כדי לסייע בכל שאלה או בעיה הקשורה להזמנה שלך."
+      description: "צוות התמיכה המסור שלנו זמין סביב השעון כדי לסייע בכל שאלה או בעיה הקשורה להזמנה שלך.",
+      color: "#ff9800"
     },
     {
       icon: <SecurityIcon fontSize="large" />,
       title: "הזמנה מאובטחת",
-      description: "המידע האישי ופרטי התשלום שלך מוגנים באמצעות טכנולוגיית הצפנה מתקדמת."
+      description: "המידע האישי ופרטי התשלום שלך מוגנים באמצעות טכנולוגיית הצפנה מתקדמת.",
+      color: "#4caf50"
     }
   ];
   
@@ -166,25 +189,46 @@ export const HomeAbout = () => {
     {
       name: "שרה כהן",
       location: "תל אביב",
-      avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+      avatar: "/images/avatars/avatar1.jpg",
       text: "תהליך ההזמנה היה חלק להפליא. מצאתי עסקה נהדרת על הטיסה שלי לברצלונה ושירות הלקוחות היה יוצא מן הכלל כשהייתי צריכה לשנות את ההזמנה שלי.",
-      rating: 5
+      rating: 5,
+      color: "#3f51b5"
     },
     {
       name: "מיכאל לוי",
       location: "חיפה",
-      avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+      avatar: "/images/avatars/avatar2.jpg",
       text: "אני משתמש בשירות הזה לכל נסיעות העסקים שלי בשנה האחרונה. הממשק אינטואיטיבי, המחירים תחרותיים, ואני אוהב את התראות הדוא\"ל על ירידות מחירים.",
-      rating: 4.5
+      rating: 4.5,
+      color: "#e91e63"
     },
     {
       name: "עדי פרץ",
       location: "ירושלים",
-      avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+      avatar: "/images/avatars/avatar3.jpg",
       text: "מציאת טיסות לחופשת המשפחה שלנו הייתה קלה מאוד. המסננים עזרו לי למצוא את זמני הטיסה המושלמים ותכונת השוואת המחירים חסכה לנו הרבה כסף!",
-      rating: 5
+      rating: 5,
+      color: "#ff9800"
     }
   ];
+
+  // About us content
+  const aboutContent = {
+    title: "אודות חברת התיירות שלנו",
+    subtitle: "גלובוס - מובילים את עולם התיירות מאז 2010",
+    description: "חברת התיירות שלנו נוסדה מתוך אהבה לטיולים וחקר העולם. אנו מאמינים שכל אחד צריך לחוות את הפלא של גילוי מקומות חדשים, תרבויות מרתקות וליצור זיכרונות שיישארו לכל החיים. המשימה שלנו היא להפוך את החלום של טיול מושלם למציאות עבור כל לקוח.",
+    points: [
+      "יותר מ-12 שנות ניסיון בענף התיירות",
+      "צוות מומחים עם ידע נרחב על יעדים ברחבי העולם",
+      "שירות אישי ומותאם לצרכים הייחודיים של כל לקוח",
+      "מחויבות לאיכות, אמינות ושקיפות מלאה"
+    ],
+    image: "/images/about/company.jpg"
+  };
+
+
+
+
   
   // Scroll animation effect
   useEffect(() => {
@@ -196,30 +240,34 @@ export const HomeAbout = () => {
     
     const observerCallback = (entries) => {
       entries.forEach(entry => {
-        if (entry.target === featuresRef.current && entry.isIntersecting) {
+        if (entry.target === aboutRef.current && entry.isIntersecting) {
+          setAboutVisible(true);
+        } else if (entry.target === featuresRef.current && entry.isIntersecting) {
           setFeaturesVisible(true);
         } else if (entry.target === destinationsRef.current && entry.isIntersecting) {
           setDestinationsVisible(true);
         } else if (entry.target === testimonialsRef.current && entry.isIntersecting) {
           setTestimonialsVisible(true);
-        } else if (entry.target === searchRef.current && entry.isIntersecting) {
-          setSearchVisible(true);
+        } else if (entry.target === statsRef.current && entry.isIntersecting) {
+          setStatsVisible(true);
         }
       });
     };
     
     const observer = new IntersectionObserver(observerCallback, observerOptions);
     
+    if (aboutRef.current) observer.observe(aboutRef.current);
     if (featuresRef.current) observer.observe(featuresRef.current);
     if (destinationsRef.current) observer.observe(destinationsRef.current);
     if (testimonialsRef.current) observer.observe(testimonialsRef.current);
-    if (searchRef.current) observer.observe(searchRef.current);
+    if (statsRef.current) observer.observe(statsRef.current);
     
     return () => {
+      if (aboutRef.current) observer.unobserve(aboutRef.current);
       if (featuresRef.current) observer.unobserve(featuresRef.current);
       if (destinationsRef.current) observer.unobserve(destinationsRef.current);
       if (testimonialsRef.current) observer.unobserve(testimonialsRef.current);
-      if (searchRef.current) observer.unobserve(searchRef.current);
+      if (statsRef.current) observer.unobserve(statsRef.current);
     };
   }, []);
   
@@ -243,9 +291,14 @@ export const HomeAbout = () => {
       ? destinations.slice(currentDestination, currentDestination + 4)
       : destinations.slice(currentDestination, currentDestination + 3);
 
+  // Placeholder images for demo
+
+
+const navigate = useNavigate();
+
   return (
     <Box className="home-about-container">
-      {/* Hero Section with Search */}
+      {/* Hero Section */}
       <Box className="hero-section">
         <Container maxWidth="xl">
           <Grid container spacing={4} alignItems="center" className="hero-grid">
@@ -258,7 +311,7 @@ export const HomeAbout = () => {
                     className="hero-title"
                     gutterBottom
                   >
-                    <span className="text-gradient">המסע שלך</span> מתחיל איתנו
+                    <span className="text-gradient">המסע שלך</span> מתחיל עם גלובוס
                   </Typography>
                   
                   <Typography 
@@ -270,152 +323,26 @@ export const HomeAbout = () => {
                     מחירים משתלמים, אפשרויות גמישות ושירות יוצא מן הכלל.
                   </Typography>
                   
-                  <Box ref={searchRef} className="search-box-container">
-                    <Slide direction="up" in={searchVisible} timeout={800}>
-                      <Paper elevation={6} className="search-box">
-                        <Box className="search-tabs">
-                          <Box className="search-tab active">
-                            <FlightIcon fontSize="small" />
-                            <Typography variant="body2">טיסות</Typography>
-                          </Box>
-                          <Box className="search-tab">
-                            <HotelIcon fontSize="small" />
-                            <Typography variant="body2">מלונות</Typography>
-                          </Box>
-                          <Box className="search-tab">
-                            <DirectionsCarIcon fontSize="small" />
-                            <Typography variant="body2">רכב</Typography>
-                          </Box>
-                          <Box className="search-tab">
-                            <LocalActivityIcon fontSize="small" />
-                            <Typography variant="body2">אטרקציות</Typography>
-                          </Box>
-                        </Box>
-                        
-                        <Box className="search-fields">
-                          <Grid container spacing={2}>
-                            <Grid item xs={12} md={5}>
-                              <TextField
-                                fullWidth
-                                variant="outlined"
-                                placeholder="מאיפה?"
-                                InputProps={{
-                                  startAdornment: (
-                                    <InputAdornment position="start">
-                                      <LocationOnIcon className="search-icon" />
-                                    </InputAdornment>
-                                  ),
-                                }}
-                                className="search-input"
-                              />
-                            </Grid>
-                            <Grid item xs={12} md={5}>
-                              <TextField
-                                fullWidth
-                                variant="outlined"
-                                placeholder="לאן?"
-                                InputProps={{
-                                  startAdornment: (
-                                    <InputAdornment position="start">
-                                      <LocationOnIcon className="search-icon" />
-                                    </InputAdornment>
-                                  ),
-                                }}
-                                className="search-input"
-                              />
-                            </Grid>
-                            <Grid item xs={12} md={2}>
-                              <TextField
-                                fullWidth
-                                variant="outlined"
-                                placeholder="תאריך נסיעה"
-                                InputProps={{
-                                  startAdornment: (
-                                    <InputAdornment position="start">
-                                      <EventIcon className="search-icon" />
-                                    </InputAdornment>
-                                  ),
-                                }}
-                                className="search-input"
-                              />
-                            </Grid>
-                            <Grid item xs={12} md={2}>
-                              <TextField
-                                fullWidth
-                                variant="outlined"
-                                placeholder="תאריך חזרה"
-                                InputProps={{
-                                  startAdornment: (
-                                    <InputAdornment position="start">
-                                      <EventIcon className="search-icon" />
-                                    </InputAdornment>
-                                  ),
-                                }}
-                                className="search-input"
-                              />
-                            </Grid>
-                            <Grid item xs={12} md={2}>
-                              <TextField
-                                fullWidth
-                                variant="outlined"
-                                placeholder="מספר נסעים"
-                                InputProps={{
-                                  startAdornment: (
-                                    <InputAdornment position="start">
-                                      <PersonIcon className="search-icon" />
-                                    </InputAdornment>
-                                  ),
-                                }}
-                                className="search-input"
-                              />
-                            </Grid>
-                            <Grid item xs={12} md={2}>
-                              <Button 
-                                fullWidth 
-                                variant="contained" 
-                                className="search-button"
-                                endIcon={<SearchIcon />}
-                              >
-                                חיפוש
-                              </Button>
-                            </Grid>
-                          </Grid>
-                          
-                          <Box className="search-options">
-                            <Chip 
-                              icon={<EventIcon />} 
-                              label="כל התאריכים" 
-                              variant="outlined" 
-                              className="search-chip"
-                              clickable
-                            />
-                            <Chip 
-                              icon={<PersonIcon />} 
-                              label="נוסע אחד" 
-                              variant="outlined" 
-                              className="search-chip"
-                              clickable
-                            />
-                            <Chip 
-                              icon={<FlightIcon />} 
-                              label="מחלקת תיירים" 
-                              variant="outlined" 
-                              className="search-chip"
-                              clickable
-                            />
-                          </Box>
-                        </Box>
-                      </Paper>
-                    </Slide>
-                  </Box>
+                  <Button 
+                  size="large" 
+                  variant="contained" 
+                  className="cta-button"
+                  onClick={() => navigate('/find')}
+                  endIcon={<FlightTakeoffIcon />}
+                >
+                  חפש טיסות 
+                </Button>
                 </Box>
               </Fade>
             </Grid>
             
             <Grid item xs={12} md={6} >
               <Zoom in={true} timeout={1000}>
-                <Box>
-                 
+                <Box className="hero-image-wrapper">
+                  <Box 
+                    component="img"
+                    className="hero-image"
+                  />
                   <Box className="floating-card-container">
                     <Paper elevation={6} className="floating-card">
                       <Box className="floating-card-content">
@@ -457,77 +384,133 @@ export const HomeAbout = () => {
       </Box>
 
       {/* Stats Section */}
-      <Container maxWidth="xl">
-        <Box className="stats-section">
-          <Grid container spacing={3} justifyContent="center">
-            <Grid item xs={6} sm={3}>
-              <Box className="stat-item">
-                <Typography variant="h3" className="stat-number">500+</Typography>
-                <Typography variant="body2" className="stat-label">חברות תעופה</Typography>
-              </Box>
+      <Box className="stats-banner" ref={statsRef}>
+        <Container maxWidth="xl">
+          <Fade in={statsVisible} timeout={800}>
+            <Grid container spacing={3} justifyContent="center">
+              <Grid item xs={6} sm={3}>
+                <Box className="stat-item">
+                  <ExploreIcon className="stat-icon" />
+                  <Typography variant="h3" className="stat-number">500+</Typography>
+                  <Typography variant="body2" className="stat-label">חברות תעופה</Typography>
+                </Box>
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <Box className="stat-item">
+                  <EmojiEventsIcon className="stat-icon" />
+                  <Typography variant="h3" className="stat-number">10K+</Typography>
+                  <Typography variant="body2" className="stat-label">יעדים</Typography>
+                </Box>
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <Box className="stat-item">
+                  <GroupIcon className="stat-icon" />
+                  <Typography variant="h3" className="stat-number">2M+</Typography>
+                  <Typography variant="body2" className="stat-label">לקוחות מרוצים</Typography>
+                </Box>
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <Box className="stat-item">
+                  <SupportAgentIcon className="stat-icon" />
+                  <Typography variant="h3" className="stat-number">24/7</Typography>
+                  <Typography variant="body2" className="stat-label">תמיכת לקוחות</Typography>
+                </Box>
+              </Grid>
             </Grid>
-            <Grid item xs={6} sm={3}>
-              <Box className="stat-item">
-                <Typography variant="h3" className="stat-number">10K+</Typography>
-                <Typography variant="body2" className="stat-label">יעדים</Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={6} sm={3}>
-              <Box className="stat-item">
-                <Typography variant="h3" className="stat-number">2M+</Typography>
-                <Typography variant="body2" className="stat-label">לקוחות מרוצים</Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={6} sm={3}>
-              <Box className="stat-item">
-                <Typography variant="h3" className="stat-number">24/7</Typography>
-                <Typography variant="body2" className="stat-label">תמיכת לקוחות</Typography>
-              </Box>
-            </Grid>
-          </Grid>
-        </Box>
-      </Container>
+          </Fade>
+        </Container>
+      </Box>
 
-      {/* Features Section */}
-      <Container maxWidth="xl" ref={featuresRef}>
-        <Box className="section-header">
-          <Typography 
-            variant="h2" 
-            component="h2" 
-            className="section-title"
-          >
-            למה <span className="text-gradient">לבחור בנו</span>
-          </Typography>
-          <Typography 
-            variant="h6" 
-            className="section-subtitle"
-          >
-            אנו מחויבים להפוך את חווית הנסיעה שלך ליוצאת מן הכלל מההתחלה ועד הסוף
-          </Typography>
-        </Box>
+      {/* About Us Section */}
+      <Box className="about-section" ref={aboutRef}>
+        <Container maxWidth="xl">
+          <Grid container spacing={6} alignItems="center">
+            <Grid item xs={12} md={6}>
+              <Fade in={aboutVisible} timeout={800}>
+                <Box>
+                  <Typography variant="h2" component="h2" className="section-title" gutterBottom>
+                    <span className="text-gradient">{aboutContent.title}</span>
+                  </Typography>
+                  <Typography variant="h5" className="about-subtitle" gutterBottom>
+                    {aboutContent.subtitle}
+                  </Typography>
+                  <Typography variant="body1" className="about-description" paragraph>
+                    {aboutContent.description}
+                  </Typography>
+                  
+                  <Box className="about-points">
+                    {aboutContent.points.map((point, index) => (
+                      <Box key={index} className="about-point">
+                        <CheckCircleIcon className="about-point-icon" />
+                        <Typography variant="body1">{point}</Typography>
+                      </Box>
+                    ))}
+                  </Box>
 
-        <Grid container spacing={4} className="features-grid">
-          {features.map((feature, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
-              <Zoom in={featuresVisible} timeout={500 + index * 200}>
-                <Card className="feature-card">
-                  <CardContent className="feature-card-content">
-                    <Box className="feature-icon-wrapper">
-                      {feature.icon}
-                    </Box>
-                    <Typography variant="h5" component="h3" className="feature-title">
-                      {feature.title}
-                    </Typography>
-                    <Typography variant="body2" className="feature-description">
-                      {feature.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
+                </Box>
+              </Fade>
+            </Grid>
+            
+            <Grid item xs={12} md={6}>
+              <Zoom in={aboutVisible} timeout={1000}>
+                <Box className="about-image-container">
+                  <Box 
+                    component="img"
+                   
+                    className="about-image"
+                  />
+                </Box>
               </Zoom>
             </Grid>
-          ))}
-        </Grid>
-      </Container>
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* Features Section */}
+      <Box className="features-section" ref={featuresRef}>
+        <Container maxWidth="xl">
+          <Box className="section-header">
+            <Typography 
+              variant="h2" 
+              component="h2" 
+              className="section-title"
+            >
+              למה <span className="text-gradient">לבחור בנו</span>
+            </Typography>
+            <Typography 
+              variant="h6" 
+              className="section-subtitle"
+            >
+              אנו מחויבים להפוך את חווית הנסיעה שלך ליוצאת מן הכלל מההתחלה ועד הסוף
+            </Typography>
+          </Box>
+
+          <Grid container spacing={4} className="features-grid">
+            {features.map((feature, index) => (
+              <Grid item xs={12} sm={6} md={3} key={index}>
+                <Zoom in={featuresVisible} timeout={500 + index * 200}>
+                  <Card className="feature-card" elevation={3}>
+                    <CardContent className="feature-card-content">
+                      <Box 
+                        className="feature-icon-wrapper"
+                        sx={{ background: `linear-gradient(135deg, ${feature.color}22 0%, ${feature.color}44 100%)` }}
+                      >
+                        <Box sx={{ color: feature.color }}>{feature.icon}</Box>
+                      </Box>
+                      <Typography variant="h5" component="h3" className="feature-title">
+                        {feature.title}
+                      </Typography>
+                      <Typography variant="body2" className="feature-description">
+                        {feature.description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Zoom>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
 
       {/* Popular Destinations */}
       <Box className="destinations-section" ref={destinationsRef}>
@@ -538,7 +521,7 @@ export const HomeAbout = () => {
               component="h2" 
               className="section-title"
             >
-              יעדים <span className="text-gradient">מובחרים</span>
+              יעדים 
             </Typography>
             <Typography 
               variant="h6" 
@@ -571,16 +554,18 @@ export const HomeAbout = () => {
             <Box className="destinations-carousel">
               {visibleDestinations.map((destination, index) => (
                 <Fade in={destinationsVisible} timeout={500 + index * 200} key={index}>
-                  <Card className="destination-card">
+                  <Card className="destination-card" elevation={3}>
                     <Box className="destination-image-container">
                       <CardMedia
                         component="img"
                         height="220"
-                        image={destination.image}
-                        alt={destination.city}
+                       
                         className="destination-image"
                       />
-                      <Box className="destination-price">
+                      <Box 
+                        className="destination-price"
+                        sx={{ background: `linear-gradient(90deg, ${destination.color} 0%, ${destination.color}dd 100%)` }}
+                      >
                         <Typography variant="body2">
                           {destination.price}
                         </Typography>
@@ -593,9 +578,9 @@ export const HomeAbout = () => {
                           readOnly 
                           precision={0.1}
                           size="small"
-                          icon={<StarIcon fontSize="inherit" />}
+                          icon={<StarIcon fontSize="inherit" sx={{ color: destination.color }} />}
                         />
-                        <Typography variant="body2" className="rating-value">
+                        <Typography variant="body2" className="rating-value" sx={{ color: destination.color }}>
                           {destination.rating}
                         </Typography>
                       </Box>
@@ -615,13 +600,29 @@ export const HomeAbout = () => {
                             label={tag} 
                             size="small" 
                             className="destination-tag"
+                            sx={{ 
+                              backgroundColor: `${destination.color}22`, 
+                              color: destination.color,
+                              '&:hover': {
+                                backgroundColor: `${destination.color}44`
+                              }
+                            }}
                           />
                         ))}
                       </Box>
                       <Button 
                         variant="outlined" 
                         className="destination-button"
+                        onClick={() => navigate(`/chooseClass`)}
                         endIcon={<ArrowForwardIcon />}
+                        sx={{ 
+                          borderColor: destination.color, 
+                          color: destination.color,
+                          '&:hover': {
+                            borderColor: destination.color,
+                            backgroundColor: `${destination.color}11`
+                          }
+                        }}
                       >
                         גלה עוד
                       </Button>
@@ -654,142 +655,106 @@ export const HomeAbout = () => {
               >
                 הצטרפו לאלפי נוסעים מרוצים שמצאו את הטיסות המושלמות שלהם איתנו
               </Typography>
-              <Button 
-                size="large" 
-                variant="contained" 
-                className="cta-button"
-                endIcon={<FlightTakeoffIcon />}
-              >
-                חפש טיסות עכשיו
-              </Button>
+              
+              {/* כפתורי קריאה לפעולה */}
+              <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
+
+                
+                <Button 
+                  size="large" 
+                  variant="contained" 
+                  className="contact-button"
+                  onClick={() => navigate('/logIn')}
+                  endIcon={<SupportAgentIcon />}
+                  sx={{ 
+                    backgroundColor: 'white', 
+                    color: '#1976d2',
+                    '&:hover': {
+                      backgroundColor: '#f5f5f5',
+                      color: '#1565c0'
+                    }
+                  }}
+                >
+                  צור קשר עכשיו
+                </Button>
+              </Box>
             </Grid>
           </Grid>
         </Container>
       </Box>
 
       {/* Testimonials */}
-      <Container maxWidth="xl" ref={testimonialsRef}>
-        <Box className="section-header">
-          <Typography 
-            variant="h2" 
-            component="h2" 
-            className="section-title"
-          >
-            מה <span className="text-gradient">הלקוחות שלנו</span> אומרים
-          </Typography>
-          <Typography 
-            variant="h6" 
-            className="section-subtitle"
-          >
-            אל תסתמכו רק על המילה שלנו
-          </Typography>
-        </Box>
+      <Box className="testimonials-section" ref={testimonialsRef}>
+        <Container maxWidth="xl">
+          <Box className="section-header">
+            <Typography 
+              variant="h2" 
+              component="h2" 
+              className="section-title"
+            >
+              מה <span className="text-gradient">הלקוחות שלנו</span> אומרים
+            </Typography>
+            <Typography 
+              variant="h6" 
+              className="section-subtitle"
+            >
+              אל תסתמכו רק על המילה שלנו
+            </Typography>
+          </Box>
 
-        <Grid container spacing={4} className="testimonials-grid">
-          {testimonials.map((testimonial, index) => (
-            <Grid item xs={12} md={4} key={index}>
-              <Fade in={testimonialsVisible} timeout={500 + index * 200}>
-                <Card className="testimonial-card">
-                  <CardContent className="testimonial-content">
-                    <Box className="testimonial-quote-icon">
-                      <FormatQuoteIcon />
-                    </Box>
-                    <Typography variant="body1" className="testimonial-text">
-                      {testimonial.text}
-                    </Typography>
-                    <Box className="testimonial-rating">
-                      <Rating 
-                        value={testimonial.rating} 
-                        readOnly 
-                        precision={0.5}
-                        size="small"
-                      />
-                    </Box>
-                    <Divider className="testimonial-divider" />
-                    <Box className="testimonial-author">
-                      <Avatar 
-                        src={testimonial.avatar} 
-                        alt={testimonial.name}
-                        className="testimonial-avatar"
-                      />
-                      <Box>
-                        <Typography variant="subtitle1" className="testimonial-name">
-                          {testimonial.name}
-                        </Typography>
-                        <Typography variant="body2" className="testimonial-location">
-                          {testimonial.location}
-                        </Typography>
+          <Grid container spacing={4} className="testimonials-grid">
+            {testimonials.map((testimonial, index) => (
+              <Grid item xs={12} md={4} key={index}>
+                <Fade in={testimonialsVisible} timeout={500 + index * 200}>
+                  <Card className="testimonial-card" elevation={3}>
+                    <CardContent className="testimonial-content">
+                      <Box 
+                        className="testimonial-quote-icon"
+                        sx={{ color: `${testimonial.color}33` }}
+                      >
+                        <FormatQuoteIcon fontSize="large" />
                       </Box>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Fade>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-
-      {/* Newsletter Section */}
-      <Box className="newsletter-section">
-        <Container maxWidth="md">
-          <Paper elevation={6} className="newsletter-container">
-            <Grid container spacing={3} alignItems="center">
-              <Grid item xs={12} md={7}>
-                <Typography variant="h4" className="newsletter-title">
-                  הישארו מעודכנים
-                </Typography>
-                <Typography variant="body1" className="newsletter-description">
-                  הירשמו לניוזלטר שלנו וקבלו עדכונים על מבצעים מיוחדים, טיפים לטיולים ועוד
-                </Typography>
+                      <Typography variant="body1" className="testimonial-text">
+                        {testimonial.text}
+                      </Typography>
+                      <Box className="testimonial-rating">
+                        <Rating 
+                          value={testimonial.rating} 
+                          readOnly 
+                          precision={0.5}
+                          size="small"
+                          sx={{ color: testimonial.color }}
+                        />
+                      </Box>
+                      <Divider className="testimonial-divider" />
+                      <Box className="testimonial-author">
+                        <Avatar 
+                        
+                          className="testimonial-avatar"
+                          sx={{ bgcolor: testimonial.color }}
+                        />
+                        <Box>
+                          <Typography variant="subtitle1" className="testimonial-name">
+                            {testimonial.name}
+                          </Typography>
+                          <Typography variant="body2" className="testimonial-location">
+                            {testimonial.location}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Fade>
               </Grid>
-              <Grid item xs={12} md={5}>
-                <Box className="newsletter-form">
-                  <TextField
-                    fullWidth
-                    variant="outlined"
-                    placeholder="הזינו את כתובת האימייל שלכם"
-                    className="newsletter-input"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <Button 
-                            variant="contained" 
-                            className="newsletter-button"
-                            endIcon={<SendIcon />}
-                          >
-                            הרשמה
-                          </Button>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                </Box>
-              </Grid>
-            </Grid>
-          </Paper>
+            ))}
+          </Grid>
         </Container>
       </Box>
 
-      {/* Trust Badges */}
-      <Container maxWidth="xl">
-        <Box className="trust-badges">
-          <Typography variant="subtitle1" className="trust-title">
-            שותפים מהימנים
-          </Typography>
-          <Box className="trust-logos">
-            {[1, 2, 3, 4, 5].map((item) => (
-              <Box 
-                key={item}
-                component="img"
-                src={`https://via.placeholder.com/120x60?text=Partner${item}`}
-                alt={`Partner ${item}`}
-                className="trust-logo"
-              />
-            ))}
-          </Box>
-        </Box>
-      </Container>
-    </Box>
+    
+
+   
+     </Box>
   );
 };
 
