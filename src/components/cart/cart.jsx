@@ -98,7 +98,7 @@ export const Cart = () => {
     };
 
     return (
-        <Container className="cart-container">
+        <Container className="cart-container" maxWidth={false} disableGutters>
             <Typography variant="h4" component="h1" className="cart-title">
                 <ShoppingCartIcon className="cart-icon" />
                 סל הקניות שלי
@@ -117,6 +117,9 @@ export const Cart = () => {
                             color="primary" 
                             onClick={() => navigate('/chooseClass')}
                             className="continue-shopping-btn"
+                            size="large"
+                            fullWidth={true}
+                            startIcon={<FlightTakeoffIcon />}
                         >
                             המשך לחיפוש טיסות
                         </Button>
@@ -178,13 +181,13 @@ export const Cart = () => {
                                                 <DeleteIcon />
                                             </IconButton>
                                         </TableCell>
-                                        <TableCell align="right">{o.src}</TableCell>
-                                        <TableCell align="right">{o.des}</TableCell>
-                                        <TableCell align="right">{o.date} - {o.time}</TableCell>
-                                        <TableCell align="right">{o.classs}</TableCell>
+                                        <TableCell align="right" data-label="מקור">{o.src}</TableCell>
+                                        <TableCell align="right" data-label="יעד">{o.des}</TableCell>
+                                        <TableCell align="right" data-label="תאריך">{o.date} - {o.time}</TableCell>
+                                        <TableCell align="right" data-label="מחלקה">{o.classs}</TableCell>
 
-                                        <TableCell align="right">{o.price} ₪</TableCell>
-                                        <TableCell align="right">
+                                        <TableCell align="right" data-label="מחיר לכרטיס">{o.price} ₪</TableCell>
+                                        <TableCell align="right" data-label="כמות כרטיסים">
                                             <TextField
                                                 type="number"
                                                 defaultValue={o.nOS}
@@ -194,8 +197,8 @@ export const Cart = () => {
                                                 className="quantity-input"
                                             />
                                         </TableCell>
-                                        <TableCell align="right">{o.priceToOverLoad} ₪</TableCell>
-                                        <TableCell align="right">
+                                        <TableCell align="right" data-label="מחיר למשקל עודף">{o.priceToOverLoad} ₪</TableCell>
+                                        <TableCell align="right" data-label="משקל עודף">
                                             <TextField
                                                 type="number"
                                                 defaultValue={o.overWight}
@@ -205,7 +208,7 @@ export const Cart = () => {
                                                 className="quantity-input"
                                             />
                                         </TableCell>
-                                        <TableCell align="right" className="item-total-price">
+                                        <TableCell align="right" data-label="מחיר לתשלום" className="item-total-price">
                                             {o.nOS * (o.price) + o.overWight * o.priceToOverLoad} ₪
                                         </TableCell>
                                     </TableRow>

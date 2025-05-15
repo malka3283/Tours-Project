@@ -1,0 +1,419 @@
+/* עיצוב דף ההזמנה */
+.order-container {
+    direction: rtl;
+    padding: 40px 20px;
+    max-width: 1200px !important;
+    margin: 0 auto;
+}
+
+/* כותרת עם לוגו */
+.order-header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #1976d2, #0d47a1);
+    color: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(25, 118, 210, 0.2);
+}
+
+.logo-container {
+    margin-bottom: 20px;
+}
+
+.order-logo {
+    height: 60px;
+    max-width: 200px;
+    object-fit: contain;
+}
+
+.order-title {
+    font-weight: 700 !important;
+    margin-bottom: 10px !important;
+    font-size: 2.5rem !important;
+}
+
+.order-subtitle {
+    opacity: 0.9;
+    font-size: 1.2rem !important;
+    max-width: 600px;
+    margin: 0 auto !important;
+}
+
+.success-icon {
+    font-size: 60px !important;
+    color: #4caf50;
+    margin: 20px auto 0;
+    display: block;
+    background-color: white;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+/* תוכן ההזמנה */
+.order-content {
+    margin-bottom: 40px;
+}
+
+/* כרטיסים */
+.order-card {
+    border-radius: 12px !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08) !important;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.order-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12) !important;
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    font-weight: 600 !important;
+    color: #1976d2 !important;
+    margin-bottom: 16px !important;
+}
+
+.card-icon {
+    margin-left: 10px;
+    color: #1976d2;
+}
+
+.card-divider {
+    margin-bottom: 20px !important;
+    background-color: rgba(25, 118, 210, 0.2) !important;
+}
+
+/* פרטי לקוח */
+.customer-card {
+    margin-bottom: 20px;
+}
+
+.customer-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+}
+
+.detail-icon {
+    margin-left: 10px;
+    color: #1976d2;
+}
+
+.detail-text {
+    font-size: 1.1rem !important;
+}
+
+/* סיכום הזמנה */
+.summary-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem !important;
+}
+
+.summary-divider {
+    margin: 16px 0 !important;
+    background-color: rgba(25, 118, 210, 0.2) !important;
+}
+
+.total-price-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.total-label {
+    font-weight: 600 !important;
+    color: #1976d2 !important;
+}
+
+.total-price {
+    font-weight: 700 !important;
+    color: #1976d2 !important;
+    font-size: 2rem !important;
+}
+
+/* פרטי טיסות - עם גלילה אנכית */
+.flights-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.flights-list-container {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 5px;
+    margin-right: -5px;
+}
+
+/* מותאם לסגנון גלילה מודרני */
+.flights-list-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.flights-list-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.flights-list-container::-webkit-scrollbar-thumb {
+    background: #1976d2;
+    border-radius: 10px;
+}
+
+.flights-list-container::-webkit-scrollbar-thumb:hover {
+    background: #0d47a1;
+}
+
+.flights-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.flight-item {
+    padding: 20px;
+    border-radius: 8px !important;
+    border: 1px solid rgba(25, 118, 210, 0.2);
+    background-color: #f8faff;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.flight-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(25, 118, 210, 0.1) !important;
+}
+
+.flight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.flight-route {
+    display: flex;
+    align-items: center;
+    font-weight: 600 !important;
+    color: #1976d2 !important;
+}
+
+.route-icon {
+    margin-left: 8px;
+    color: #1976d2;
+}
+
+.flight-number {
+    color: #757575;
+    font-weight: 500 !important;
+}
+
+.flight-details {
+    margin-bottom: 16px;
+}
+
+.detail-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: rgba(25, 118, 210, 0.05);
+    height: 100%;
+    transition: background-color 0.2s;
+}
+
+.detail-box:hover {
+    background-color: rgba(25, 118, 210, 0.1);
+}
+
+.detail-label {
+    color: #757575;
+    margin: 5px 0;
+}
+
+.detail-value {
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+}
+
+.price-value {
+    color: #1976d2 !important;
+}
+
+.flight-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.class-value, .time-value {
+    font-weight: 600;
+    color: #1976d2;
+}
+
+.flight-divider {
+    margin: 20px 0 !important;
+}
+
+/* כפתורים */
+.order-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.pdf-button {
+    background-color: #1976d2 !important;
+    color: white !important;
+    padding: 12px 24px !important;
+    font-weight: 600 !important;
+    border-radius: 30px !important;
+    text-transform: none !important;
+    font-size: 1.1rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.25) !important;
+}
+
+.pdf-button:hover {
+    background-color: #0d47a1 !important;
+    box-shadow: 0 8px 16px rgba(25, 118, 210, 0.35) !important;
+    transform: translateY(-2px);
+}
+
+.print-button {
+    border-color: #1976d2 !important;
+    color: #1976d2 !important;
+    padding: 12px 24px !important;
+    font-weight: 600 !important;
+    border-radius: 30px !important;
+    text-transform: none !important;
+    font-size: 1.1rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.print-button:hover {
+    background-color: rgba(25, 118, 210, 0.05) !important;
+    transform: translateY(-2px);
+}
+
+/* פוטר */
+.order-footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.footer-text {
+    color: #757575;
+    margin-bottom: 8px !important;
+}
+
+/* התאמה למסכים קטנים */
+@media (max-width: 960px) {
+    .order-title {
+        font-size: 2rem !important;
+    }
+    
+    .order-subtitle {
+        font-size: 1rem !important;
+    }
+    
+    .customer-card {
+        margin-bottom: 20px;
+    }
+    
+    .flights-list-container {
+        max-height: 400px;
+    }
+}
+
+@media (max-width: 600px) {
+    .order-container {
+        padding: 20px 16px;
+    }
+    
+    .order-title {
+        font-size: 1.8rem !important;
+    }
+    
+    .flight-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .order-actions {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .pdf-button, .print-button {
+        width: 100%;
+    }
+    
+    .flights-list-container {
+        max-height: 350px;
+    }
+}
+
+/* סגנון להדפסה */
+@media print {
+    .order-container {
+        padding: 0;
+    }
+    
+    .order-header {
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+        padding: 20px 0 !important;
+    }
+    
+    .order-title {
+        color: #1976d2 !important;
+    }
+    
+    .order-subtitle {
+        color: #333 !important;
+    }
+    
+    .order-card {
+        box-shadow: none !important;
+        border: 1px solid #e0e0e0 !important;
+    }
+    
+    .order-actions {
+        display: none !important;
+    }
+    
+    .order-footer {
+        margin-top: 20px !important;
+    }
+    
+    .flights-list-container {
+        max-height: none;
+        overflow: visible;
+    }
+}
