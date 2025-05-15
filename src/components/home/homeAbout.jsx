@@ -75,7 +75,7 @@ export const HomeAbout = () => {
     {
       city: "פריז",
       country: "צרפת",
-      image: "https://source.unsplash.com/featured/?paris,eiffel",
+      image: "/תמונות מדינות/צרפת.png",
       description: "עיר האורות, הרומנטיקה והאמנות",
       price: "החל מ-499€",
       rating: 4.8,
@@ -84,7 +84,7 @@ export const HomeAbout = () => {
     {
       city: "טוקיו",
       country: "יפן",
-      image: "https://source.unsplash.com/featured/?tokyo,japan",
+      image: "תמונות מדינות/סין.png",
       description: "שילוב מושלם של מסורת וטכנולוגיה",
       price: "החל מ-799€",
       rating: 4.9,
@@ -93,38 +93,47 @@ export const HomeAbout = () => {
     {
       city: "ניו יורק",
       country: "ארה״ב",
-      image: "https://source.unsplash.com/featured/?newyork,skyline",
+      image: "/תמונות מדינות/ארצות הברית.png",
       description: "העיר שאף פעם לא ישנה",
       price: "החל מ-599€",
       rating: 4.7,
       tags: ["קניות", "אורבני", "תרבות"]
     },
     {
-      city: "ברצלונה",
-      country: "ספרד",
-      image: "https://source.unsplash.com/featured/?barcelona,sagrada",
-      description: "אדריכלות, חופים וטאפאס",
-      price: "החל מ-349€",
-      rating: 4.6,
-      tags: ["חופים", "אוכל", "אדריכלות"]
-    },
-    {
-      city: "בנגקוק",
-      country: "תאילנד",
-      image: "https://source.unsplash.com/featured/?bangkok,thailand",
-      description: "מקדשים, שווקים ואוכל רחוב מדהים",
-      price: "החל מ-649€",
+      city: "קהיר",
+      country: "מצרים",
+      image: "/תמונות מדינות/מצרים.png",
+      description: "עיר הפירמידות והתרבות העתיקה",
+      price: "החל מ-299€",
       rating: 4.5,
-      tags: ["אסיה", "אוכל", "תרבות"]
+      tags: ["היסטוריה", "ארכיאולוגיה", "תרבות"]
     },
     {
-      city: "רומא",
-      country: "איטליה",
-      image: "https://source.unsplash.com/featured/?rome,colosseum",
-      description: "עיר נצחית עם היסטוריה עשירה",
-      price: "החל מ-399€",
-      rating: 4.7,
-      tags: ["היסטוריה", "אוכל", "אמנות"]
+      city: "אתונה",
+    country: "יוון",
+    image: "/תמונות מדינות/יון.png",
+    description: "עיר עתיקה עם היסטוריה עשירה ונופים מרהיבים",
+    price: "החל מ-329€",
+    rating: 4.6,
+    tags: ["היסטוריה", "ים", "תרבות"]
+    },
+    {
+      city: "תל אביב",
+    country: "ישראל",
+    image: "/תמונות מדינות/ישראל.png",
+    description: "עיר ללא הפסקה עם חופים מדהימים וחיי לילה תוססים",
+    price: "החל מ-199€",
+    rating: 4.7,
+    tags: ["חופים", "אוכל", "חיי לילה"]
+    },
+    {
+      city: "ציריך",
+      country: "שוויץ",
+      image: "/תמונות מדינות/שוויץ.png",
+      description: "עיר מודרנית מוקפת באגמים והרים מושלגים",
+      price: "החל מ-449€",
+      rating: 4.8,
+      tags: ["טבע", "הרים", "יוקרה"]
     }
   ];
   
@@ -403,15 +412,10 @@ export const HomeAbout = () => {
               </Fade>
             </Grid>
             
-            <Grid item xs={12} md={6} className="hero-image-container">
+            <Grid item xs={12} md={6} >
               <Zoom in={true} timeout={1000}>
-                <Box className="hero-image-wrapper">
-                  <Box 
-                    component="img"
-                    src="https://source.unsplash.com/random/1200x800/?airplane,travel,sunset"
-                    alt="Travel"
-                    className="hero-image"
-                  />
+                <Box>
+                 
                   <Box className="floating-card-container">
                     <Paper elevation={6} className="floating-card">
                       <Box className="floating-card-content">
@@ -534,13 +538,15 @@ export const HomeAbout = () => {
               component="h2" 
               className="section-title"
             >
-              יעדים <span className="text-gradient">ibriחים</span>
+              יעדים <span className="text-gradient">מובחרים</span>
             </Typography>
             <Typography 
               variant="h6" 
               className="section-subtitle"
             >
               גלה את היעדים המבוקשים ביותר שלנו
+              ונסה את הטיול המושלם שלך
+              
             </Typography>
           </Box>
           
