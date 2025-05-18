@@ -17,10 +17,13 @@ import {
   TableHead, 
   TableRow,
   IconButton,
-  Box
+  Box,
+  Chip
 } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import ImageIcon from '@mui/icons-material/Image';
 import "./destination.css";
 
 export const Destnation = () => {
@@ -122,7 +125,14 @@ export const Destnation = () => {
             <TableBody>
               {destinitions?.map((d) => (
                 <TableRow key={d.id} className="table-row">
-                  <TableCell align="right">{d.destination}</TableCell>
+                  <TableCell align="right">
+                    <Chip 
+                      icon={<LocationOnIcon />} 
+                      label={d.destination}
+                      variant="outlined"
+                      className="destination-chip"
+                    />
+                  </TableCell>
                   <TableCell align="right">
                     <img 
                       src={`/תמונות מדינות/${d.path}.png`} 

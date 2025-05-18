@@ -262,3 +262,22 @@
       padding: 12px 16px !important;
     }
   }
+
+  /* הוספת סגנון למסגרת צבעונית לתאריך */
+  .date-chip {
+    font-weight: 500 !important;
+    padding: 4px 8px !important;
+    color: #9c27b0 !important; /* צבע סגול */
+    border-color: #9c27b0 !important;
+  }
+
+  .date-chip .MuiChip-icon {
+    color: #9c27b0 !important;
+  }
+
+  /* הוספת אפקט הובר לכל הצ'יפים */
+  .customer-chip:hover, .price-chip:hover, .date-chip:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+  }

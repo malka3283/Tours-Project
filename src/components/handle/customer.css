@@ -1,125 +1,225 @@
 /* כללי */
 .customer-container {
-    direction: rtl;
-    padding: 24px;
-    min-height: 100vh;
-    background-color: #f5f7fa;
-  }
-  
-  /* כותרת וחיפוש */
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  direction: rtl;
+}
+
+.customer-paper {
+  padding: 2rem;
+  border-radius: 8px !important;
+}
+
+.customer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.customer-title {
+  font-weight: 600 !important;
+  color: #1976d2;
+}
+
+.add-button {
+  border-radius: 20px !important;
+  padding: 8px 20px !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+}
+
+.table-container {
+  margin-top: 1rem;
+  box-shadow: none !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.table-header {
+  font-weight: 600 !important;
+  background-color: #f5f8ff;
+  font-size: 0.95rem !important;
+  padding: 16px !important;
+}
+
+.header-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.table-row:hover {
+  background-color: #f9f9f9;
+}
+
+.view-button {
+  transition: transform 0.2s;
+}
+
+.view-button:hover {
+  transform: scale(1.1);
+}
+
+.customer-chip {
+  font-weight: 500 !important;
+  padding: 4px 8px !important;
+}
+
+.email-chip {
+  font-weight: 500 !important;
+  padding: 4px 8px !important;
+  color: #ff6d00;
+  border-color: #ff6d00;
+}
+
+.phone-chip {
+  font-weight: 500 !important;
+  padding: 4px 8px !important;
+  color: #2196f3;
+  border-color: #2196f3;
+}
+
+.no-data {
+  padding: 2rem !important;
+  color: #757575;
+  font-style: italic;
+}
+
+/* For responsive design */
+@media (max-width: 768px) {
   .customer-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-    gap: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
   
-  .page-title {
-    font-weight: 700;
-    color: #333;
-  }
-  
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  
-  .search-field {
-    min-width: 240px;
-    background-color: white;
-    border-radius: 8px;
-  }
-  
-  /* כרטיס הלקוחות */
-  .customers-card {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  }
-  
-  .card-content {
-    padding: 0;
-  }
-  
-  /* טבלה */
-  .table-container {
-    overflow-x: auto;
-    border-radius: 12px;
+  .customer-title {
+    font-size: 1.5rem !important;
   }
   
   .table-header {
-    background-color: #f0f4f8;
-    font-weight: 700;
-    color: #333;
-    white-space: nowrap;
+    padding: 12px !important;
+    font-size: 0.85rem !important;
   }
   
-  .table-row {
-    transition: background-color 0.2s;
+  .customer-paper {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .customer-paper {
+    padding: 1rem;
   }
   
-  .table-row:hover {
-    background-color: #f5f7fa;
+  .customer-title {
+    font-size: 1.25rem !important;
   }
   
-  .action-cell {
-    padding: 8px 16px;
+  .table-container {
+    overflow-x: auto;
   }
   
-  .action-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
+  .customer-chip, .email-chip, .phone-chip {
+    font-size: 0.75rem !important;
   }
-  
-  .no-data-message {
-    padding: 24px;
-    color: #666;
+}
+
+/* הוספת סגנונות לאנימציית טעינה */
+.loading-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  width: 100%;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(25, 118, 210, 0.2);
+  border-radius: 50%;
+  border-top-color: #1976d2;
+  animation: spinner-rotation 1s ease-in-out infinite;
+}
+
+@keyframes spinner-rotation {
+  to {
+    transform: rotate(360deg);
   }
-  
-  /* דיאלוג פרטי הזמנות */
-  .order-dialog {
-    z-index: 1300;
+}
+
+/* אנימציית הופעה הדרגתית לתוכן */
+.content-fade-in {
+  animation: content-fade-in 0.5s ease-in-out;
+}
+
+@keyframes content-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .dialog-actions {
-    display: flex;
-    justify-content: flex-end;
-    padding: 16px 24px;
-    background-color: #f5f7fa;
-    border-top: 1px solid #e0e0e0;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  /* התאמות למובייל */
-  @media (max-width: 600px) {
-    .customer-container {
-      padding: 16px;
-    }
-    
-    .customer-header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    
-    .header-actions {
-      width: 100%;
-    }
-    
-    .search-field {
-      flex-grow: 1;
-    }
-    
-    .action-buttons {
-      flex-wrap: wrap;
-    }
-  }
-  
-  /* התאמות לטאבלט */
-  @media (max-width: 960px) {
-    .action-buttons {
-      flex-direction: row;
-    }
-  }
+}
+
+/* סגנונות לדיאלוג */
+.dialog-title {
+  background-color: #f5f8ff;
+  padding: 16px 24px;
+}
+
+.dialog-content {
+  padding: 24px !important;
+}
+
+.dialog-actions {
+  padding: 16px 24px !important;
+  background-color: #f5f8ff;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.search-field {
+  min-width: 240px;
+}
+
+.search-field .MuiOutlinedInput-root {
+  transition: all 0.3s ease;
+}
+
+.search-field .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: #1976d2 !important; /* כחול כברירת מחדל */
+}
+
+.search-field .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #1976d2 !important; /* נשאר כחול בהובר */
+  border-width: 2px !important;
+}
+
+.search-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #4caf50 !important; /* ירוק רגיל בפוקוס */
+  border-width: 2px !important;
+  box-shadow: none !important; /* ללא אפקט זוהר */
+}
+
+.MuiChip-root.customer-chip {
+  border-color: #1976d2 !important;
+  color: #1976d2 !important;
+}
+
+.MuiChip-root.customer-chip[color="secondary"] {
+  border-color: #f50057 !important;
+  color: #f50057 !important;
+}
+
+.MuiChip-root.email-chip {
+  border-color: #ff6d00 !important;
+  color: #ff6d00 !important;
+}
+
+.MuiChip-root.phone-chip {
+  border-color: #2196f3 !important;
+  color: #2196f3 !important;
+}

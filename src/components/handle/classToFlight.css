@@ -129,6 +129,61 @@
     }
   }
 
+/* סגנונות צבעוניים לאינפוטים */
+.MuiTextField-root .MuiOutlinedInput-root {
+  transition: all 0.3s ease;
+}
+
+/* מסגרת כחולה בהובר */
+.MuiTextField-root .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #2196f3;
+  border-width: 2px;
+}
+
+/* מסגרת סגולה בפוקוס */
+.MuiTextField-root .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #7c4dff;
+  border-width: 2px;
+  box-shadow: 0 0 5px rgba(124, 77, 255, 0.3);
+}
+
+/* סגנונות שונים לפי סוג האינפוט */
+.price-input .MuiOutlinedInput-notchedOutline {
+  border-color: #4caf50;
+}
+
+.discount-input .MuiOutlinedInput-notchedOutline {
+  border-color: #ff9800;
+}
+
+.seats-input .MuiOutlinedInput-notchedOutline {
+  border-color: #e91e63;
+}
+
+.weight-input .MuiOutlinedInput-notchedOutline {
+  border-color: #009688;
+}
+
+/* אנימציית קשת בעת מעבר בין שדות */
+@keyframes rainbow-border {
+  0% { border-color: #ff0000; }
+  20% { border-color: #ff9900; }
+  40% { border-color: #33cc33; }
+  60% { border-color: #3399ff; }
+  80% { border-color: #9933ff; }
+  100% { border-color: #ff0066; }
+}
+
+.MuiTextField-root .MuiOutlinedInput-root.Mui-focused.rainbow-effect .MuiOutlinedInput-notchedOutline {
+  animation: rainbow-border 3s infinite;
+  border-width: 2px;
+}
+
+/* הוספת אפקט זוהר למסגרת בעת פוקוס */
+.glow-effect .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  box-shadow: 0 0 8px rgba(33, 150, 243, 0.6);
+}
+
 /* הוספת סגנונות לאנימציית טעינה */
 .loading-spinner-container {
   display: flex;
@@ -167,4 +222,74 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* סגנונות למסגרות צבעוניות */
+.MuiChip-root.flight-chip {
+    border-color: #1976d2 !important;
+    color: #1976d2 !important;
+}
+
+.MuiChip-root.flight-chip[color="secondary"] {
+    border-color: #f50057 !important;
+    color: #f50057 !important;
+}
+
+.MuiChip-root.class-chip {
+    border-color: #2e7d32 !important;
+    color: #2e7d32 !important;
+}
+
+.MuiChip-root.price-chip {
+    border-color: #4caf50 !important;
+    color: #4caf50 !important;
+}
+
+.MuiChip-root.seats-chip {
+    border-color: #9c27b0 !important;
+    color: #9c27b0 !important;
+}
+
+.MuiChip-root.discount-chip {
+    border-color: #ff9800 !important;
+    color: #ff9800 !important;
+}
+
+.MuiChip-root.time-chip {
+    border-color: #ff6d00 !important;
+    color: #ff6d00 !important;
+}
+
+/* הקטנת כפתורים עוד יותר */
+.edit-button, .view-button {
+    padding: 2px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.edit-button .MuiSvgIcon-root, .view-button .MuiSvgIcon-root {
+    font-size: 14px !important;
+}
+
+/* הקטנת הצ'יפים */
+.MuiChip-root.flight-chip,
+.MuiChip-root.class-chip,
+.MuiChip-root.price-chip,
+.MuiChip-root.seats-chip,
+.MuiChip-root.discount-chip,
+.MuiChip-root.time-chip {
+    height: 24px !important;
+    font-size: 0.75rem !important;
+}
+
+.MuiChip-root .MuiChip-icon {
+    font-size: 14px !important;
+    margin-left: 4px !important;
+}
+
+.MuiChip-root .MuiChip-label {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
 }

@@ -121,7 +121,14 @@ export const Orders = () => {
                         className="customer-chip"
                       />
                     </TableCell>
-                    <TableCell align="right">{formatDate(order.date)}</TableCell>
+                    <TableCell align="right">
+                      <Chip 
+                        icon={<CalendarTodayIcon />} 
+                        label={formatDate(order.date)}
+                        variant="outlined"
+                        className="date-chip"
+                      />
+                    </TableCell>
                     <TableCell align="right">
                       <Chip 
                         icon={<PaidIcon />} 
@@ -287,7 +294,7 @@ export const Orders = () => {
             </Grid>
           ) : (
             <Typography variant="body1" align="center" className="no-details">
-              אין פרטי הזמנה זמינים
+              אין פרטי הזמנה זמינו
             </Typography>
           )}
         </DialogContent>
