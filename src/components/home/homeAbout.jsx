@@ -97,7 +97,7 @@ export const HomeAbout = () => {
     {
       city: "פריז",
       country: "צרפת",
-      image: "/images/destinations/paris.jpg", // מסלול מקומי לתמונה
+      image: "", // מסלול מקומי לתמונה
       description: "עיר האורות, הרומנטיקה והאמנות",
       price: "החל מ-499€",
       rating: 4.8,
@@ -339,10 +339,10 @@ const navigate = useNavigate();
             <Grid item xs={12} md={6} >
               <Zoom in={true} timeout={1000}>
                 <Box className="hero-image-wrapper">
-                  <Box 
+                  {/* <Box 
                     component="img"
                     className="hero-image"
-                  />
+                  /> */}
                   <Box className="floating-card-container">
                     <Paper elevation={6} className="floating-card">
                       <Box className="floating-card-content">
@@ -451,17 +451,17 @@ const navigate = useNavigate();
               </Fade>
             </Grid>
             
-            <Grid item xs={12} md={6}>
+            {/* <Grid item xs={12} md={6}>
               <Zoom in={aboutVisible} timeout={1000}>
-                <Box className="about-image-container">
+                 <Box className="about-image-container">
                   <Box 
                     component="img"
                    
                     className="about-image"
                   />
-                </Box>
+                </Box> 
               </Zoom>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Container>
       </Box>
