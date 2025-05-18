@@ -37,6 +37,10 @@
     font-size: 1rem !important;
   }
   
+  .table-row {
+    transition: all 0.2s ease;
+  }
+  
   .table-row:hover {
     background-color: #f9f9f9;
   }
@@ -47,6 +51,16 @@
     object-fit: contain;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 2px solid #1976d2; /* מסגרת כחולה */
+    padding: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .destination-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-color: #4caf50; /* שינוי צבע המסגרת בהובר לירוק */
   }
   
   /* כפתור עריכה מרובע עם פס תחתון בהובר */
@@ -93,6 +107,58 @@
       padding: 1rem;
     }
   }
+
+/* הוספת סגנון למסגרת צבעונית ליעד - עם צבעים יותר בולטים */
+.destination-chip {
+  font-weight: 500 !important;
+  padding: 4px 8px !important;
+  color: #2e7d32 !important; /* צבע ירוק כהה יותר */
+  border-color: #2e7d32 !important;
+  border-width: 2px !important; /* מסגרת עבה יותר */
+  background-color: rgba(46, 125, 50, 0.05) !important; /* רקע ירוק בהיר מאוד */
+}
+
+.destination-chip .MuiChip-icon {
+  color: #2e7d32 !important;
+}
+
+/* הוספת וריאציות צבעוניות לפי האינדקס של היעד */
+.destination-chip:nth-of-type(3n+1) {
+  color: #ff6f00 !important; /* כתום במקום כחול */
+  border-color: #ff6f00 !important;
+  background-color: rgba(255, 111, 0, 0.05) !important;
+}
+
+.destination-chip:nth-of-type(3n+1) .MuiChip-icon {
+  color: #ff6f00 !important;
+}
+
+.destination-chip:nth-of-type(3n+2) {
+  color: #c62828 !important; /* אדום */
+  border-color: #c62828 !important;
+  background-color: rgba(198, 40, 40, 0.05) !important;
+}
+
+.destination-chip:nth-of-type(3n+2) .MuiChip-icon {
+  color: #c62828 !important;
+}
+
+.destination-chip:nth-of-type(3n+3) {
+  color: #6a1b9a !important; /* סגול */
+  border-color: #6a1b9a !important;
+  background-color: rgba(106, 27, 154, 0.05) !important;
+}
+
+.destination-chip:nth-of-type(3n+3) .MuiChip-icon {
+  color: #6a1b9a !important;
+}
+
+/* אפקט הובר משופר */
+.destination-chip:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
 
 /* הוספת סגנונות לאנימציית טעינה */
 .loading-spinner-container {

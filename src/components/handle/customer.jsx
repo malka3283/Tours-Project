@@ -4,51 +4,55 @@ import { loct, setUserId } from "../../redux/slices/user/userSlice";
 import { getAllCustomersThunk } from "../../redux/slices/flight/getAllCustomersThunk";
 import { OrderDetail } from "../orderDetail/orderDetail";
 import { 
-  Box, 
+  Button, 
+  Container, 
+  Typography, 
   Paper, 
   Table, 
   TableBody, 
   TableCell, 
   TableContainer, 
   TableHead, 
-  TableRow, 
-  Typography, 
-  Button, 
-  IconButton, 
-  Dialog, 
-  TextField, 
-  InputAdornment,
+  TableRow,
+  IconButton,
+  Box,
   Tooltip,
-  useTheme,
-  useMediaQuery,
-  Card,
-  CardContent,
-  Divider,
-  Container,
-  Grid
-} from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+  Chip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  InputAdornment
+} from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import PersonIcon from '@mui/icons-material/Person';
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneIcon from '@mui/icons-material/Phone';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
-
-import './customer.css';
+import "./customer.css";
 
 export const Customer = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
-  
+  const dispatch = useDispatch();
   const [ord, setOrd] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
   
-  const dispatch = useDispatch();
   const customers = useSelector(state => state.flights.customers);
-  
+
   useEffect(() => {
+    setLoading(true); // מתחיל טעינה
     dispatch(loct("/customer"));
-    dispatch(getAllCustomersThunk());
+    dispatch(getAllCustomersThunk())
+      .then(() => {
+        // מחכה מעט לפני הסרת הטעינה כדי למנוע הבהוב מהיר
+        setTimeout(() => setLoading(false), 800);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   }, [dispatch]);
 
   // פילטור לקוחות לפי חיפוש
@@ -67,92 +71,163 @@ export const Customer = () => {
 
   // רענון רשימת הלקוחות
   const handleRefresh = () => {
-    dispatch(getAllCustomersThunk());
+    setLoading(true);
+    dispatch(getAllCustomersThunk())
+      .then(() => {
+        setTimeout(() => setLoading(false), 800);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
-  return (
-    <Container maxWidth="xl" className="customer-container">
-      <Box className="customer-header">
-        <Typography variant="h4" component="h1" className="page-title">
-          ניהול לקוחות
-        </Typography>
-        <Box className="header-actions">
-          <TextField
-            variant="outlined"
-            size="small"
-            placeholder="חיפוש לקוח..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-field"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Tooltip title="רענן רשימה">
-            <IconButton onClick={handleRefresh} color="primary">
-              <RefreshIcon />
-            </IconButton>
-          </Tooltip>
-        </Box>
-      </Box>
+  // אם בטעינה, מציג אנימציית טעינה
+  if (loading) {
+    return (
+      <Container className="customer-container">
+        <Paper elevation={3} className="customer-paper">
+          <Box className="customer-header">
+            <Typography variant="h4" component="h1" className="customer-title">
+              ניהול לקוחות
+            </Typography>
+          </Box>
+          <div className="loading-spinner-container">
+            <div className="loading-spinner"></div>
+          </div>
+        </Paper>
+      </Container>
+    );
+  }
 
-      <Card className="customers-card">
-        <CardContent className="card-content">
-          <TableContainer component={Paper} className="table-container">
-            <Table stickyHeader aria-label="טבלת לקוחות">
-              <TableHead>
-                <TableRow>
-                  <TableCell className="table-header">שם פרטי</TableCell>
-                  <TableCell className="table-header">שם משפחה</TableCell>
-                  {!isMobile && <TableCell className="table-header">טלפון</TableCell>}
-                  {!isMobile && <TableCell className="table-header">מייל</TableCell>}
-                  {!isTablet && <TableCell className="table-header">סיסמא</TableCell>}
-                  <TableCell className="table-header" align="center">פעולות</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {filteredCustomers?.length > 0 ? (
-                  filteredCustomers.map((customer) => (
-                    <TableRow key={customer.id} className="table-row">
-                      <TableCell>{customer.firstName}</TableCell>
-                      <TableCell>{customer.lastName}</TableCell>
-                      {!isMobile && <TableCell>{customer.phone}</TableCell>}
-                      {!isMobile && <TableCell>{customer.email}</TableCell>}
-                      {!isTablet && <TableCell>{customer.password}</TableCell>}
-                      <TableCell align="center" className="action-cell">
-                        <Box className="action-buttons">
-                          <Tooltip title="צפה בהזמנות">
-                            <IconButton 
-                              color="primary" 
-                              onClick={() => handleOpenOrders(customer.id)}
-                              size="small"
-                            >
-                              <VisibilityIcon />
-                            </IconButton>
-                          </Tooltip>
-                         
-                        </Box>
-                      </TableCell>
-                    </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell colSpan={isMobile ? 3 : isTablet ? 5 : 6} align="center">
-                      <Typography variant="body1" className="no-data-message">
-                        {customers?.length > 0 ? 'לא נמצאו לקוחות התואמים לחיפוש' : 'אין לקוחות להצגה'}
-                      </Typography>
+  return (
+    <Container className="customer-container">
+      <Paper elevation={3} className="customer-paper content-fade-in">
+        <Box className="customer-header">
+          <Typography variant="h4" component="h1" className="customer-title">
+            ניהול לקוחות
+          </Typography>
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <TextField
+              variant="outlined"
+              size="small"
+              placeholder="חיפוש לקוח..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-field"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Button 
+              variant="outlined" 
+              color="primary" 
+              startIcon={<RefreshIcon />}
+              onClick={handleRefresh}
+              className="add-button"
+            >
+              רענן
+            </Button>
+          </Box>
+        </Box>
+
+        <TableContainer component={Paper} className="table-container">
+          <Table aria-label="customers table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="right" className="table-header">פעולות</TableCell>
+                <TableCell align="right" className="table-header">
+                  <Box className="header-with-icon">
+                    <PersonIcon fontSize="small" />
+                    <span>שם מלא</span>
+                  </Box>
+                </TableCell>
+                <TableCell align="right" className="table-header">
+                  <Box className="header-with-icon">
+                    <PhoneIcon fontSize="small" />
+                    <span>טלפון</span>
+                  </Box>
+                </TableCell>
+                <TableCell align="right" className="table-header">
+                  <Box className="header-with-icon">
+                    <EmailIcon fontSize="small" />
+                    <span>אימייל</span>
+                  </Box>
+                </TableCell>
+                <TableCell align="right" className="table-header">
+                  <Box className="header-with-icon">
+                    <VpnKeyIcon fontSize="small" />
+                    <span>סיסמה</span>
+                  </Box>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredCustomers?.length > 0 ? (
+                filteredCustomers.map((customer) => (
+                  <TableRow key={customer.id} className="table-row">
+                    <TableCell align="right">
+                      <Tooltip title="צפה בהזמנות" arrow>
+                        <IconButton 
+                          color="primary"
+                          onClick={() => handleOpenOrders(customer.id)}
+                          size="small"
+                          className="view-button"
+                        >
+                          <VisibilityIcon />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
+                    <TableCell align="right">
+                      <Chip 
+                        icon={<PersonIcon />} 
+                        label={`${customer.firstName} ${customer.lastName}`}
+                        variant="outlined"
+                        color="primary"
+                        className="customer-chip"
+                      />
+                    </TableCell>
+                    <TableCell align="right">
+                      <Chip 
+                        icon={<PhoneIcon />} 
+                        label={customer.phone}
+                        variant="outlined"
+                        className="phone-chip"
+                      />
+                    </TableCell>
+                    <TableCell align="right">
+                      <Chip 
+                        icon={<EmailIcon />} 
+                        label={customer.email}
+                        variant="outlined"
+                        className="email-chip"
+                      />
+                    </TableCell>
+                    <TableCell align="right">
+                      <Chip 
+                        icon={<VpnKeyIcon />} 
+                        label={customer.password}
+                        variant="outlined"
+                        color="secondary"
+                        className="customer-chip"
+                      />
                     </TableCell>
                   </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </CardContent>
-      </Card>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={5} align="center" className="no-data">
+                    {customers?.length > 0 ? 'לא נמצאו לקוחות התואמים לחיפוש' : 'אין לקוחות להצגה'}
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
 
       {/* דיאלוג פרטי הזמנות */}
       <Dialog 
@@ -160,10 +235,14 @@ export const Customer = () => {
         onClose={() => setOrd(false)} 
         maxWidth="md" 
         fullWidth
-        className="order-dialog"
       >
-        <OrderDetail />
-        <Box className="dialog-actions">
+        <DialogTitle className="dialog-title">
+          <Typography variant="h6">פרטי הזמנות</Typography>
+        </DialogTitle>
+        <DialogContent className="dialog-content">
+          <OrderDetail />
+        </DialogContent>
+        <DialogActions className="dialog-actions">
           <Button 
             variant="contained" 
             color="primary" 
@@ -171,7 +250,7 @@ export const Customer = () => {
           >
             סגור
           </Button>
-        </Box>
+        </DialogActions>
       </Dialog>
     </Container>
   );
