@@ -22,20 +22,14 @@ import {
   TableContainer, 
   TableHead, 
   TableRow,
-  CircularProgress,
-  Fab,
-  Tooltip,
-  useTheme,
-  useMediaQuery,
-  Card,
-  CardContent,
-  Grid,
-  Divider,
   IconButton,
+  Tooltip,
+  Chip,
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions
+  DialogActions,
+  Fab
 } from '@mui/material';
 
 // Icons
@@ -53,10 +47,6 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import './thisFlight.css';
 
 export const ThisFlight = () => {
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    const isTablet = useMediaQuery(theme.breakpoints.down('md'));
-    
     const dispatch = useDispatch();
     const flightsArr = useSelector(state => state.flights.AllThisFlight);
     const oneThisFlight = useSelector(state => state.flights.oneThisFlight);
@@ -135,243 +125,178 @@ export const ThisFlight = () => {
     }, [addCTF, dispatch, response]);
 
     return (
-        <Box className="this-flight-container">
-            <Container maxWidth="xl">
-                <Box className="page-header">
-                    <Typography variant="h4" component="h1" className="page-title">
-                        <FlightTakeoffIcon className="header-icon" />
+        <Container className="this-flight-container">
+            <Paper elevation={3} className="this-flight-paper">
+                <Box className="this-flight-header">
+                    <Typography variant="h4" component="h1" className="this-flight-title">
                         ניהול טיסות ספציפיות
                     </Typography>
-                    <Typography variant="body1" className="page-description">
-                        צפייה, הוספה ועריכה של טיסות ספציפיות במערכת
-                    </Typography>
-                </Box>
-
-                <Box className="action-buttons">
-                    <Button 
-                        variant="contained" 
-                        color="primary" 
-                        startIcon={<AddIcon />}
-                        onClick={() => setAdd(true)}
-                        className="add-button"
-                    >
-                        הוסף טיסה ספציפית
-                    </Button>
-                    <Button 
-                        variant="outlined" 
-                        color="primary" 
-                        startIcon={<RefreshIcon />}
-                        onClick={handleRefresh}
-                        className="refresh-button"
-                    >
-                        רענן נתונים
-                    </Button>
+                    <Box className="action-buttons">
+                        <Button 
+                            variant="contained" 
+                            color="primary" 
+                            startIcon={<AddIcon />}
+                            onClick={() => setAdd(true)}
+                            className="add-button"
+                        >
+                            הוסף טיסה ספציפית
+                        </Button>
+                        <Button 
+                            variant="outlined" 
+                            color="primary" 
+                            startIcon={<RefreshIcon />}
+                            onClick={handleRefresh}
+                            className="refresh-button"
+                        >
+                            רענן נתונים
+                        </Button>
+                    </Box>
                 </Box>
 
                 {loading ? (
-                    <Box className="loading-container">
-                        <CircularProgress />
-                        <Typography variant="body1" className="loading-text">
-                            טוען נתונים...
-                        </Typography>
-                    </Box>
+                    <div className="loading-spinner-container">
+                        <div className="loading-spinner"></div>
+                    </div>
                 ) : (
-                    <>
-                        {isMobile ? (
-                            // Mobile view - cards
-                            <Box className="flights-cards-container">
+                    <TableContainer component={Paper} className="table-container">
+                        <Table aria-label="flights table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align="right" className="table-header">פעולות</TableCell>
+                                    <TableCell align="right" className="table-header">
+                                        <Box className="header-with-icon">
+                                            <FlightTakeoffIcon fontSize="small" />
+                                            <span>מקור</span>
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell align="right" className="table-header">
+                                        <Box className="header-with-icon">
+                                            <FlightLandIcon fontSize="small" />
+                                            <span>יעד</span>
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell align="right" className="table-header">
+                                        <Box className="header-with-icon">
+                                            <DateRangeIcon fontSize="small" />
+                                            <span>תאריך</span>
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell align="right" className="table-header">
+                                        <Box className="header-with-icon">
+                                            <AccessTimeIcon fontSize="small" />
+                                            <span>שעה</span>
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell align="right" className="table-header">
+                                        <Box className="header-with-icon">
+                                            <LuggageIcon fontSize="small" />
+                                            <span>מחיר למשקל עודף</span>
+                                        </Box>
+                                    </TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
                                 {flightsArr?.length > 0 ? (
-                                    <Grid container spacing={2}>
-                                        {flightsArr.map(f => (
-                                            <Grid item xs={12} key={f.id}>
-                                                <Card className="flight-card">
-                                                    <CardContent>
-                                                        <Box className="flight-card-header">
-                                                            <Box className="flight-route">
-                                                                <Typography variant="h6" className="flight-source">
-                                                                    {f.flight.sourceNavigation.destination}
-                                                                </Typography>
-                                                                <Box className="flight-arrow">→</Box>
-                                                                <Typography variant="h6" className="flight-destination">
-                                                                    {f.flight.destinationNavigation.destination}
-                                                                </Typography>
-                                                            </Box>
-                                                            <Box className="flight-actions">
-                                                                <IconButton 
-                                                                    color="primary" 
-                                                                    onClick={() => {
-                                                                        setFlt(f);
-                                                                        setAdd(true);
-                                                                    }}
-                                                                >
-                                                                    <EditIcon />
-                                                                </IconButton>
-                                                                <IconButton 
-                                                                    color="error"
-                                                                    onClick={() => handleDelete(f.id)}
-                                                                >
-                                                                    <DeleteIcon />
-                                                                </IconButton>
-                                                            </Box>
-                                                        </Box>
-                                                        
-                                                        <Divider className="flight-divider" />
-                                                        
-                                                        <Box className="flight-details">
-                                                            <Box className="flight-detail-item">
-                                                                <DateRangeIcon className="detail-icon" />
-                                                                <Typography variant="body1">
-                                                                    {f.date}
-                                                                </Typography>
-                                                            </Box>
-                                                            <Box className="flight-detail-item">
-                                                                <AccessTimeIcon className="detail-icon" />
-                                                                <Typography variant="body1">
-                                                                    {f.time}
-                                                                </Typography>
-                                                            </Box>
-                                                            <Box className="flight-detail-item">
-                                                                <LuggageIcon className="detail-icon" />
-                                                                <Typography variant="body1">
-                                                                    מחיר למשקל עודף: {f.priceToOverLoad} ₪
-                                                                </Typography>
-                                                            </Box>
-                                                        </Box>
-                                                    </CardContent>
-                                                </Card>
-                                            </Grid>
-                                        ))}
-                                    </Grid>
-                                ) : (
-                                    <Box className="no-flights-message">
-                                        <Typography variant="h6">
-                                            לא נמצאו טיסות ספציפיות במערכת
-                                        </Typography>
-                                        <Button 
-                                            variant="contained" 
-                                            color="primary"
-                                            onClick={() => setAdd(true)}
-                                            className="add-first-button"
-                                        >
-                                            הוסף טיסה ראשונה
-                                        </Button>
-                                    </Box>
-                                )}
-                            </Box>
-                        ) : (
-                            // Desktop view - table
-                            <TableContainer component={Paper} className="flights-table-container">
-                                <Table aria-label="טבלת טיסות ספציפיות">
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell align="right">מקור</TableCell>
-                                            <TableCell align="right">יעד</TableCell>
-                                            <TableCell align="right">תאריך</TableCell>
-                                            <TableCell align="right">שעה</TableCell>
-                                            <TableCell align="right">מחיר למשקל עודף</TableCell>
-                                            <TableCell align="center">פעולות</TableCell>
+                                    flightsArr.map((f) => (
+                                        <TableRow key={f.id} className="table-row">
+                                            <TableCell align="right">
+                                                <Box sx={{ display: 'flex', gap: 1 }}>
+                                                    <Tooltip title="ערוך טיסה" arrow>
+                                                        <IconButton 
+                                                            color="primary"
+                                                            onClick={() => {
+                                                                setFlt(f);
+                                                                setAdd(true);
+                                                            }}
+                                                            size="small"
+                                                            className="edit-button"
+                                                        >
+                                                            <EditIcon />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                    <Tooltip title="מחק טיסה" arrow>
+                                                        <IconButton 
+                                                            color="error"
+                                                            onClick={() => handleDelete(f.id)}
+                                                            size="small"
+                                                            className="delete-button"
+                                                        >
+                                                            <DeleteIcon />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </Box>
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                <Chip 
+                                                    icon={<FlightTakeoffIcon />} 
+                                                    label={f.flight.sourceNavigation.destination}
+                                                    variant="outlined"
+                                                    color="primary"
+                                                    className="flight-chip"
+                                                />
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                <Chip 
+                                                    icon={<FlightLandIcon />} 
+                                                    label={f.flight.destinationNavigation.destination}
+                                                    variant="outlined"
+                                                    color="secondary"
+                                                    className="flight-chip"
+                                                />
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                <Chip 
+                                                    icon={<DateRangeIcon />} 
+                                                    label={f.date}
+                                                    variant="outlined"
+                                                    className="flight-chip"
+                                                />
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                <Chip 
+                                                    icon={<AccessTimeIcon />} 
+                                                    label={f.time}
+                                                    variant="outlined"
+                                                    className="time-chip"
+                                                />
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                <Chip 
+                                                    icon={<LuggageIcon />} 
+                                                    label={`${f.priceToOverLoad} ₪`}
+                                                    variant="outlined"
+                                                    className="price-chip"
+                                                />
+                                            </TableCell>
                                         </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {flightsArr?.length > 0 ? (
-                                            flightsArr.map(f => (
-                                                <TableRow key={f.id} className="flight-table-row">
-                                                    <TableCell align="right" className="flight-source-cell">
-                                                        <Box className="cell-with-icon">
-                                                            <FlightTakeoffIcon className="cell-icon" />
-                                                            {f.flight.sourceNavigation.destination}
-                                                        </Box>
-                                                    </TableCell>
-                                                    <TableCell align="right" className="flight-destination-cell">
-                                                        <Box className="cell-with-icon">
-                                                            <FlightLandIcon className="cell-icon" />
-                                                            {f.flight.destinationNavigation.destination}
-                                                        </Box>
-                                                    </TableCell>
-                                                    <TableCell align="right" className="flight-date-cell">
-                                                        <Box className="cell-with-icon">
-                                                            <DateRangeIcon className="cell-icon" />
-                                                            {f.date}
-                                                        </Box>
-                                                    </TableCell>
-                                                    <TableCell align="right" className="flight-time-cell">
-                                                        <Box className="cell-with-icon">
-                                                            <AccessTimeIcon className="cell-icon" />
-                                                            {f.time}
-                                                        </Box>
-                                                    </TableCell>
-                                                    <TableCell align="right" className="flight-price-cell">
-                                                        <Box className="cell-with-icon">
-                                                            <LuggageIcon className="cell-icon" />
-                                                            {f.priceToOverLoad} ₪
-                                                        </Box>
-                                                    </TableCell>
-                                                    <TableCell align="center" className="flight-actions-cell">
-                                                        <Box className="table-actions">
-                                                            <Tooltip title="ערוך טיסה">
-                                                                <IconButton 
-                                                                    color="primary"
-                                                                    onClick={() => {
-                                                                        setFlt(f);
-                                                                        setAdd(true);
-                                                                    }}
-                                                                >
-                                                                    <EditIcon />
-                                                                </IconButton>
-                                                            </Tooltip>
-                                                            <Tooltip title="מחק טיסה">
-                                                                <IconButton 
-                                                                    color="error"
-                                                                    onClick={() => handleDelete(f.id)}
-                                                                >
-                                                                    <DeleteIcon />
-                                                                </IconButton>
-                                                            </Tooltip>
-                                                        </Box>
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))
-                                        ) : (
-                                            <TableRow>
-                                                <TableCell colSpan={6} align="center" className="no-data-cell">
-                                                    <Typography variant="h6">
-                                                        לא נמצאו טיסות ספציפיות במערכת
-                                                    </Typography>
-                                                    <Button 
-                                                        variant="contained" 
-                                                        color="primary"
-                                                        onClick={() => setAdd(true)}
-                                                        className="add-first-button"
-                                                    >
-                                                        הוסף טיסה ראשונה
-                                                    </Button>
-                                                </TableCell>
-                                            </TableRow>
-                                        )}
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
-                        )}
-                    </>
+                                    ))
+                                ) : (
+                                    <TableRow>
+                                        <TableCell colSpan={6} align="center" className="no-data">
+                                            לא נמצאו טיסות ספציפיות. לחץ על "הוסף טיסה ספציפית" כדי להוסיף טיסה חדשה.
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 )}
 
                 {/* Mobile Add Button */}
-                {isMobile && (
-                    <Fab 
-                        color="primary" 
-                        className="mobile-add-button"
-                        onClick={() => setAdd(true)}
-                    >
-                        <AddIcon />
-                    </Fab>
-                )}
+                <Fab 
+                    color="primary" 
+                    className="mobile-add-button"
+                    onClick={() => setAdd(true)}
+                >
+                    <AddIcon />
+                </Fab>
                 {/* Confirmation Dialog */}
                 <Dialog
                     open={confirmDelete !== null}
                     onClose={() => setConfirmDelete(null)}
                     className="delete-dialog"
                 >
-                    <DialogTitle className="dialog-title">
+                    <DialogTitle>
                         אישור מחיקת טיסה
                     </DialogTitle>
                     <DialogContent>
@@ -428,7 +353,7 @@ export const ThisFlight = () => {
                         thisFlt={oneThisFlight} 
                     />
                 }
-            </Container>
-        </Box>
+            </Paper>
+        </Container>
     );
 };

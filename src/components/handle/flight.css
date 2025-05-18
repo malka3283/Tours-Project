@@ -116,3 +116,43 @@
       font-size: 0.75rem !important;
     }
   }
+
+/* הוספת סגנונות לאנימציית טעינה */
+.loading-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  width: 100%;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(25, 118, 210, 0.2);
+  border-radius: 50%;
+  border-top-color: #1976d2;
+  animation: spinner-rotation 1s ease-in-out infinite;
+}
+
+@keyframes spinner-rotation {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* אנימציית הופעה הדרגתית לתוכן */
+.content-fade-in {
+  animation: content-fade-in 0.5s ease-in-out;
+}
+
+@keyframes content-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

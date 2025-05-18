@@ -15,8 +15,20 @@
     color: #1976d2;
   }
   
+  /* עדכון כפתור הסגירה כדי שיהיה גלוי תמיד */
   .close-button {
     margin-right: -12px !important;
+    background-color: rgba(211, 47, 47, 0.1) !important; /* רקע קבוע */
+    color: #d32f2f !important; /* צבע קבוע */
+    border-radius: 50% !important;
+    width: 36px !important;
+    height: 36px !important;
+    transition: all 0.2s !important;
+  }
+  
+  .close-button:hover {
+    background-color: rgba(211, 47, 47, 0.2) !important; /* רקע כהה יותר בהובר */
+    transform: scale(1.05) !important; /* אפקט קל של הגדלה בהובר */
   }
   
   .dialog-content {
@@ -41,6 +53,21 @@
   
   .rtl-input {
     text-align: right;
+  }
+  
+  /* הוספת צבע כשעומדים על האינפוט */
+  .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #1976d2 !important;
+  }
+  
+  /* צבע רקע כשעומדים על האינפוט */
+  .MuiOutlinedInput-root:hover {
+    background-color: rgba(25, 118, 210, 0.04) !important;
+  }
+  
+  /* צבע רקע כשהאינפוט במיקוד */
+  .MuiOutlinedInput-root.Mui-focused {
+    background-color: rgba(25, 118, 210, 0.08) !important;
   }
   
   .autocomplete-field {
@@ -79,5 +106,3 @@
       margin-bottom: 16px;
     }
   }
-  
-  

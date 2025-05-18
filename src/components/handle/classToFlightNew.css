@@ -1,0 +1,8 @@
+/* סגנונות בסיסיים בלבד */
+.class-to-flight-title {
+  color: red !important;
+}
+
+.view-button {
+  border: 2px solid red !important;
+}

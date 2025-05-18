@@ -37,21 +37,46 @@ export const Flight = () => {
     timeOfFlight: "", 
     sold: 0
   });
+  const [loading, setLoading] = useState(true); // מצב טעינה חדש
   const flightsArr = useSelector(state => state.flights.flightsArr);
 
   useEffect(() => {
+    setLoading(true); // מתחיל טעינה
     dispatch(loct("/flights"));
-    dispatch(getAllFlightThunk());
+    dispatch(getAllFlightThunk())
+      .then(() => {
+        // מחכה מעט לפני הסרת הטעינה כדי למנוע הבהוב מהיר
+        setTimeout(() => setLoading(false), 800);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   }, [dispatch]);
 
   const addFlight = (addFlt) => {
-    dispatch(addFlightThunk(addFlt));
-    close();
+    setLoading(true); // מתחיל טעינה בעת הוספה
+    dispatch(addFlightThunk(addFlt))
+      .then(() => {
+        setTimeout(() => setLoading(false), 500);
+        close();
+      })
+      .catch(() => {
+        setLoading(false);
+        close();
+      });
   };
 
   const update = (update) => {
-    dispatch(updateFlightThunk(update));
-    close();
+    setLoading(true); // מתחיל טעינה בעת עדכון
+    dispatch(updateFlightThunk(update))
+      .then(() => {
+        setTimeout(() => setLoading(false), 500);
+        close();
+      })
+      .catch(() => {
+        setLoading(false);
+        close();
+      });
   };
 
   const close = () => {
@@ -65,9 +90,27 @@ export const Flight = () => {
     return `${hours > 0 ? `${hours}ש' ` : ''}${mins}ד'`;
   };
 
+  // אם בטעינה, מציג אנימציית טעינה
+  if (loading) {
+    return (
+      <Container className="flight-container">
+        <Paper elevation={3} className="flight-paper">
+          <Box className="flight-header">
+            <Typography variant="h4" component="h1" className="flight-title">
+              ניהול טיסות
+            </Typography>
+          </Box>
+          <div className="loading-spinner-container">
+            <div className="loading-spinner"></div>
+          </div>
+        </Paper>
+      </Container>
+    );
+  }
+
   return (
     <Container className="flight-container">
-      <Paper elevation={3} className="flight-paper">
+      <Paper elevation={3} className="flight-paper content-fade-in">
         <Box className="flight-header">
           <Typography variant="h4" component="h1" className="flight-title">
             ניהול טיסות

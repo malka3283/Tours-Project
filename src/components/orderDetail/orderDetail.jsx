@@ -42,10 +42,19 @@ export const OrderDetail = () => {
   const [orderDetailOpen, setOrderDetailOpen] = useState(false);
   const [orderDetail, setOrderDetail] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [loading, setLoading] = useState(true); // מצב טעינה חדש
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllOrdersByCustomerThunk(userId));
+    setLoading(true); // מתחיל טעינה
+    dispatch(getAllOrdersByCustomerThunk(userId))
+      .then(() => {
+        // מחכה מעט לפני הסרת הטעינה כדי למנוע הבהוב מהיר
+        setTimeout(() => setLoading(false), 800);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   }, [dispatch, userId]);
 
   const handleOpenDetails = (order) => {
@@ -63,9 +72,25 @@ export const OrderDetail = () => {
     return new Date(dateString).toLocaleDateString('he-IL', options);
   };
 
+  // אם בטעינה, מציג אנימציית טעינה
+  if (loading) {
+    return (
+      <Container className="order-detail-container">
+        <Paper elevation={3} className="order-paper">
+          <Typography variant="h4" component="h1" className="order-title">
+            ההזמנות שלי
+          </Typography>
+          <div className="loading-container">
+            <div className="spinner"></div>
+          </div>
+        </Paper>
+      </Container>
+    );
+  }
+
   return (
     <Container className="order-detail-container">
-      <Paper elevation={3} className="order-paper">
+      <Paper elevation={3} className="order-paper fade-in">
         <Typography variant="h4" component="h1" className="order-title">
           ההזמנות שלי
         </Typography>
@@ -218,7 +243,7 @@ export const OrderDetail = () => {
             </Grid>
           ) : (
             <Typography variant="body1" align="center">
-              אין פרטי הזמנה זמינים
+              אין פרטי הזמנה זמינו
             </Typography>
           )}
         </DialogContent>

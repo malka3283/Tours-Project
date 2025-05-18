@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { loct } from "../../redux/slices/user/userSlice";
-import { getAllThisFlightThunk } from "../../redux/slices/flight/getAllThisFlightThunk";
 import { getAllClassToFlightThunk } from "../../redux/slices/flight/getAllClassToFlightThunk";
 import { AddClassToFlight } from "./addClassToFlight";
 import { updateClassToFlight } from "../../redux/slices/flight/updateClassToFlight";
@@ -18,40 +17,34 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Button,
   IconButton,
   Chip,
-  Card,
-  CardContent,
-  Divider,
   Dialog,
   DialogTitle,
   DialogContent,
   useTheme,
   useMediaQuery,
-  Tooltip,
-  Collapse,
-  Grid
+  Tooltip
 } from '@mui/material';
 
 // Icons
 import EditIcon from '@mui/icons-material/Edit';
 import PeopleIcon from '@mui/icons-material/People';
 import CloseIcon from '@mui/icons-material/Close';
-import FlightIcon from '@mui/icons-material/Flight';
+import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
+import FlightLandIcon from '@mui/icons-material/FlightLand';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import EventIcon from '@mui/icons-material/Event';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import LuggageIcon from '@mui/icons-material/Luggage';
+import AirlineSeatReclineNormalIcon from '@mui/icons-material/AirlineSeatReclineNormal';
 import DiscountIcon from '@mui/icons-material/Discount';
-import RefreshIcon from '@mui/icons-material/Refresh';
 
 import './classToFlight.css';
 
 export const ClassToFlight = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    const isTablet = useMediaQuery(theme.breakpoints.down('md'));
     
     const dispatch = useDispatch();
     const classToFlight = useSelector(state => state.flights.classToFlight);
@@ -61,184 +54,236 @@ export const ClassToFlight = () => {
     const [classToFlightOpen, setClassToFlightOpen] = useState(false);
     const [detail, setDetail] = useState(false);
     const [thisFlt, setThisFlt] = useState({});
+    const [loading, setLoading] = useState(true);
     
     useEffect(() => {
+        setLoading(true); // מתחיל טעינה
         dispatch(loct("/AllClassToFlight"));
-        dispatch(getAllClassToFlightThunk());
-    }, []);
+        dispatch(getAllClassToFlightThunk())
+            .then(() => {
+                // מחכה מעט לפני הסרת הטעינה כדי למנוע הבהוב מהיר
+                setTimeout(() => setLoading(false), 800);
+            })
+            .catch(() => {
+                setLoading(false);
+            });
+    }, [dispatch]);
     
     const addCTFlight = (addctf) => {
-        dispatch(updateClassToFlight(addctf));
-        closeCtf();
+        setLoading(true); // מתחיל טעינה בעת עדכון
+        dispatch(updateClassToFlight(addctf))
+            .then(() => {
+                setTimeout(() => setLoading(false), 500);
+                closeCtf();
+            })
+            .catch(() => {
+                setLoading(false);
+                closeCtf();
+            });
     }
     
     const closeCtf = () => {
         setClassToFlightOpen(false);
     }
-    
-    const handleRefresh = () => {
-        dispatch(getAllClassToFlightThunk());
+
+    // אם בטעינה, מציג אנימציית טעינה
+    if (loading) {
+        return (
+            <Container className="class-to-flight-container">
+                <Paper elevation={3} className="class-to-flight-paper">
+                    <Box className="class-to-flight-header">
+                        <Typography variant="h4" component="h1" className="class-to-flight-title">
+                            ניהול מחלקות לטיסות
+                        </Typography>
+                    </Box>
+                    <div className="loading-spinner-container">
+                        <div className="loading-spinner"></div>
+                    </div>
+                </Paper>
+            </Container>
+        );
     }
 
     return (
-        <Container maxWidth="xl" className="class-to-flight-container">
-            <Box className="page-header">
-                <Box className="title-section">
-                    <Typography variant="h4" component="h1" className="page-title">
-                        <AirplaneTicketIcon className="title-icon" />
+        <Container className="class-to-flight-container">
+            <Paper elevation={3} className="class-to-flight-paper content-fade-in">
+                <Box className="class-to-flight-header">
+                    <Typography variant="h4" component="h1" className="class-to-flight-title">
                         ניהול מחלקות לטיסות
                     </Typography>
-                    <Typography variant="body2" className="page-subtitle">
-                        ניהול מחלקות, מחירים ומושבים לטיסות
-                    </Typography>
                 </Box>
-                
-                <Box className="header-actions">
-                    <Tooltip title="רענן נתונים">
-                        <IconButton color="primary" onClick={handleRefresh}>
-                            <RefreshIcon />
-                        </IconButton>
-                    </Tooltip>
-                </Box>
-            </Box>
 
-            <Card className="main-card">
-                <CardContent className="card-content">
-                    <TableContainer component={Paper} className="table-container">
-                        <Table stickyHeader aria-label="טבלת מחלקות לטיסות">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell className="table-header">מקור</TableCell>
-                                    <TableCell className="table-header">יעד</TableCell>
-                                    <TableCell className="table-header">מחלקה</TableCell>
-                                    {!isMobile && <TableCell className="table-header">תאריך</TableCell>}
-                                    <TableCell className="table-header">מחיר</TableCell>
-                                    {!isMobile && <TableCell className="table-header">מושבים</TableCell>}
-                                    {!isTablet && <TableCell className="table-header">נמכרו</TableCell>}
-                                    {!isTablet && <TableCell className="table-header">משקל</TableCell>}
-                                    {!isTablet && <TableCell className="table-header">הנחה</TableCell>}
-                                    <TableCell className="table-header" align="center">פעולות</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {classToFlight?.length > 0 ? (
-                                    classToFlight.map(f => (
-                                        <TableRow key={f.id} className="table-row">
-                                            <TableCell>{f.thisflight.flight.sourceNavigation.destination}</TableCell>
-                                            <TableCell>{f.thisflight.flight.destinationNavigation.destination}</TableCell>
-                                            <TableCell>
-                                                <Chip 
-                                                    label={f.class.description} 
-                                                    color={
-                                                        f.class.description === 'ראשונה' ? 'success' : 
-                                                        f.class.description === 'עסקים' ? 'primary' : 'default'
-                                                    }
-                                                    size="small"
-                                                    variant="outlined"
-                                                />
-                                            </TableCell>
-                                            {!isMobile && (
-                                                <TableCell>
-                                                    <Box className="date-time-cell">
-                                                        <Typography variant="body2">{f.thisflight.date}</Typography>
-                                                        <Typography variant="caption" color="textSecondary">{f.thisflight.time}</Typography>
-                                                    </Box>
-                                                </TableCell>
-                                            )}
-                                            <TableCell>
-                                                <Typography variant="body2" className="price-text">
-                                                    ₪{f.price}
-                                                </Typography>
-                                            </TableCell>
-                                            {!isMobile && (
-                                                <TableCell>
-                                                    <Typography variant="body2">
-                                                        {f.numberOfSeats}
-                                                    </Typography>
-                                                </TableCell>
-                                            )}
-                                            {!isTablet && (
-                                                <TableCell>
-                                                    <Chip 
-                                                        label={f.sold} 
+                <TableContainer component={Paper} className="table-container">
+                    <Table aria-label="טבלת מחלקות לטיסות">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="right" className="table-header">פעולות</TableCell>
+                                <TableCell align="right" className="table-header">
+                                    <Box className="header-with-icon">
+                                        <FlightTakeoffIcon fontSize="small" />
+                                        <span>מקור</span>
+                                    </Box>
+                                </TableCell>
+                                <TableCell align="right" className="table-header">
+                                    <Box className="header-with-icon">
+                                        <FlightLandIcon fontSize="small" />
+                                        <span>יעד</span>
+                                    </Box>
+                                </TableCell>
+                                <TableCell align="right" className="table-header">
+                                    <Box className="header-with-icon">
+                                        <AirplaneTicketIcon fontSize="small" />
+                                        <span>מחלקה</span>
+                                    </Box>
+                                </TableCell>
+                                <TableCell align="right" className="table-header">
+                                    <Box className="header-with-icon">
+                                        <EventIcon fontSize="small" />
+                                        <span>תאריך</span>
+                                    </Box>
+                                </TableCell>
+                                <TableCell align="right" className="table-header">
+                                    <Box className="header-with-icon">
+                                        <AttachMoneyIcon fontSize="small" />
+                                        <span>מחיר</span>
+                                    </Box>
+                                </TableCell>
+                                <TableCell align="right" className="table-header">
+                                    <Box className="header-with-icon">
+                                        <AirlineSeatReclineNormalIcon fontSize="small" />
+                                        <span>מושבים</span>
+                                    </Box>
+                                </TableCell>
+                                <TableCell align="right" className="table-header">
+                                    <Box className="header-with-icon">
+                                        <AccessTimeIcon fontSize="small" />
+                                        <span>הנחה</span>
+                                    </Box>
+                                </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {classToFlight?.length > 0 ? (
+                                classToFlight.map(f => (
+                                    <TableRow key={f.id} className="table-row">
+                                        <TableCell align="right">
+                                            <Box sx={{ display: 'flex', gap: 1 }}>
+                                                <Tooltip title="ערוך מחלקה" arrow>
+                                                    <IconButton 
+                                                        color="primary"
+                                                        onClick={() => {
+                                                            setCtf(f);
+                                                            setThisFlt(f.thisflight);
+                                                            setClassToFlightOpen(true);
+                                                        }}
                                                         size="small"
-                                                        color={f.sold > 0 ? "primary" : "default"}
-                                                    />
-                                                </TableCell>
-                                            )}
-                                            {!isTablet && (
-                                                <TableCell>
-                                                    <Typography variant="body2">
-                                                        {f.weightLoad} ק"ג
-                                                    </Typography>
-                                                </TableCell>
-                                            )}
-                                            {!isTablet && (
-                                                <TableCell>
-                                                    <Typography variant="body2" className="discount-text">
-                                                        {f.hanacha} ₪
-                                                    </Typography>
-                                                </TableCell>
-                                            )}
-                                            <TableCell align="center">
-                                                <Box className="action-buttons">
-                                                    <Tooltip title="ערוך מחלקה">
-                                                        <IconButton 
-                                                            color="primary" 
-                                                            size="small"
-                                                            onClick={() => {
-                                                                setCtf(f);
-                                                                setThisFlt(f.thisflight);
-                                                                setClassToFlightOpen(true);
-                                                            }}
-                                                        >
-                                                            <EditIcon />
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                    <Tooltip title="לקוחות שהזמינו">
-                                                        <IconButton 
-                                                            color="secondary" 
-                                                            size="small"
-                                                            onClick={() => {
-                                                                dispatch(getOrderDetailByClassToFlightIdThunk(f.id));
-                                                                setDetail(true);
-                                                            }}
-                                                        >
-                                                            <PeopleIcon />
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                </Box>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))
-                                ) : (
-                                    <TableRow>
-                                        <TableCell colSpan={isMobile ? 5 : isTablet ? 7 : 10} align="center">
-                                            <Typography variant="body1" className="no-data-message">
-                                                אין מחלקות לטיסות להצגה
-                                            </Typography>
+                                                        className="edit-button"
+                                                    >
+                                                        <EditIcon />
+                                                    </IconButton>
+                                                </Tooltip>
+                                                <Tooltip title="לקוחות שהזמינו" arrow>
+                                                    <IconButton 
+                                                        color="secondary" 
+                                                        size="small"
+                                                        className="view-button"
+                                                        onClick={() => {
+                                                            dispatch(getOrderDetailByClassToFlightIdThunk(f.id));
+                                                            setDetail(true);
+                                                        }}
+                                                    >
+                                                        <PeopleIcon fontSize="small" />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </Box>
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            <Chip 
+                                                icon={<FlightTakeoffIcon />} 
+                                                label={f.thisflight.flight.sourceNavigation.destination}
+                                                variant="outlined"
+                                                color="primary"
+                                                className="flight-chip"
+                                            />
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            <Chip 
+                                                icon={<FlightLandIcon />} 
+                                                label={f.thisflight.flight.destinationNavigation.destination}
+                                                variant="outlined"
+                                                color="secondary"
+                                                className="flight-chip"
+                                            />
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            <Chip 
+                                                icon={<AirplaneTicketIcon />}
+                                                label={f.class.description}
+                                                variant="outlined"
+                                                color={
+                                                    f.class.description === 'ראשונה' ? 'success' : 
+                                                    f.class.description === 'עסקים' ? 'primary' : 'default'
+                                                }
+                                                className="class-chip"
+                                            />
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            <Chip 
+                                                icon={<EventIcon />} 
+                                                label={f.thisflight.date}
+                                                variant="outlined"
+                                                className="flight-chip"
+                                            />
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            <Chip 
+                                                icon={<AttachMoneyIcon />} 
+                                                label={`₪${f.price}`}
+                                                variant="outlined"
+                                                className="price-chip"
+                                            />
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            <Chip 
+                                                icon={<AirlineSeatReclineNormalIcon />} 
+                                                label={`${f.numberOfSeats} (נמכרו: ${f.sold})`}
+                                                variant="outlined"
+                                                className="seats-chip"
+                                            />
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            <Chip 
+                                                icon={<DiscountIcon />} 
+                                                label={`₪${f.hanacha}`}
+                                                variant="outlined"
+                                                className="discount-chip"
+                                            />
                                         </TableCell>
                                     </TableRow>
-                                )}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </CardContent>
-            </Card>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell colSpan={8} align="center" className="no-data">
+                                        לא נמצאו מחלקות לטיסות במערכת.
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Paper>
 
-            {/* טבלת לקוחות שהזמינו */}
+            {/* דיאלוג לקוחות שהזמינו */}
             <Dialog 
                 open={detail} 
                 onClose={() => setDetail(false)}
                 maxWidth="md"
                 fullWidth
                 className="customers-dialog"
-                dir="rtl"
             >
                 <DialogTitle className="dialog-title">
                     <Box className="dialog-title-content">
                         <Typography variant="h6">
-                            <PeopleIcon className="dialog-title-icon" />
                             לקוחות שהזמינו טיסה
                         </Typography>
                         <IconButton 
@@ -275,23 +320,25 @@ export const ClassToFlight = () => {
                                                 {!isMobile && <TableCell align="right">{o.idCustomerNavigation.email}</TableCell>}
                                                 <TableCell align="right">
                                                     <Chip 
-                                                        label={od.countTickets} 
-                                                        color="primary"
+                                                        icon={<AirplaneTicketIcon />} 
+                                                        label={od.countTickets}
                                                         size="small"
+                                                        variant="outlined"
+                                                        color="primary"
                                                     />
                                                 </TableCell>
                                                 {!isMobile && (
                                                     <TableCell align="right">
                                                         {od.countOverLoad > 0 ? (
                                                             <Chip 
+                                                                icon={<AttachMoneyIcon />} 
                                                                 label={`${od.countOverLoad} ק"ג`}
-                                                                color="secondary"
                                                                 size="small"
+                                                                variant="outlined"
+                                                                color="secondary"
                                                             />
                                                         ) : (
-                                                            <Typography variant="body2" color="textSecondary">
-                                                                אין
-                                                            </Typography>
+                                                            'אין'
                                                         )}
                                                     </TableCell>
                                                 )}
@@ -300,10 +347,8 @@ export const ClassToFlight = () => {
                                     )
                                 ) : (
                                     <TableRow>
-                                        <TableCell colSpan={isMobile ? 3 : 5} align="center">
-                                            <Typography variant="body1" className="no-data-message">
-                                                אין לקוחות שהזמינו טיסה זו
-                                            </Typography>
+                                        <TableCell colSpan={isMobile ? 3 : 5} align="center" className="no-data">
+                                            אין לקוחות שהזמינו טיסה זו
                                         </TableCell>
                                     </TableRow>
                                 )}
@@ -326,4 +371,3 @@ export const ClassToFlight = () => {
         </Container>
     );
 };
-

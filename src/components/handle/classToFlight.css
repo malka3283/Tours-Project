@@ -1,162 +1,170 @@
 כללי
+/* סגנונות בסיסיים */
 .class-to-flight-container {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     direction: rtl;
-    padding: 24px;
-    min-height: 100vh;
-    background-color: #f5f7fa;
   }
   
-  /* כותרת ופעולות */
-  .page-header {
+  .class-to-flight-paper {
+    padding: 2rem;
+    border-radius: 8px !important;
+  }
+  
+  .class-to-flight-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-    gap: 16px;
+    margin-bottom: 1.5rem;
   }
   
-  .title-section {
-    display: flex;
-    flex-direction: column;
+  .class-to-flight-title {
+    font-weight: 600 !important;
+    color: #1976d2;
   }
   
-  .page-title {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 4px;
+  .add-button {
+    border-radius: 20px !important;
+    padding: 8px 20px !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
   }
   
-  .title-icon {
-    color: #2196f3;
-  }
-  
-  .page-subtitle {
-    color: #666;
-  }
-  
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  
-  /* כרטיס ראשי */
-  .main-card {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    margin-bottom: 24px;
-  }
-  
-  .card-content {
-    padding: 0;
-  }
-  
-  /* טבלה */
   .table-container {
-    overflow-x: auto;
-    border-radius: 12px;
+    margin-top: 1rem;
+    box-shadow: none !important;
+    border-radius: 8px !important;
+    overflow: hidden;
   }
   
   .table-header {
-    background-color: #f0f4f8;
-    font-weight: 700;
-    color: #333;
-    white-space: nowrap;
+    font-weight: 600 !important;
+    background-color: #f5f8ff;
+    font-size: 0.95rem !important;
+    padding: 16px !important;
   }
   
-  .table-row {
-    transition: background-color 0.2s;
-  }
-  
-  .table-row:hover {
-    background-color: #f5f7fa;
-  }
-  
-  .date-time-cell {
+  .header-with-icon {
     display: flex;
-    flex-direction: column;
-  }
-  
-  .price-text {
-    font-weight: 600;
-    color: #2e7d32;
-  }
-  
-  .discount-text {
-    font-weight: 600;
-    color: #d32f2f;
-  }
-  
-  .action-buttons {
-    display: flex;
-    justify-content: center;
+    align-items: center;
     gap: 8px;
   }
   
-  .no-data-message {
-    padding: 24px;
-    color: #666;
+  .table-row:hover {
+    background-color: #f9f9f9;
   }
   
-  /* דיאלוג לקוחות */
-  .customers-dialog {
-    z-index: 1300;
+  .edit-button {
+    transition: transform 0.2s;
   }
   
-  .dialog-title-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row-reverse; /* שינוי כיוון האלמנטים בכותרת */
+  .edit-button:hover {
+    transform: scale(1.1);
   }
   
-  .dialog-title-icon {
-    margin-left: 8px;
-    color: #2196f3;
+  /* כפתור לקוחות שהזמינו - קטן */
+  .view-button {
+    transition: transform 0.2s;
+    padding: 4px !important;
   }
   
-  .dialog-content {
-    padding: 16px;
+  .view-button:hover {
+    transform: scale(1.1);
   }
   
-  .customers-table-container {
-    overflow-x: auto;
-    border-radius: 8px;
+  .flight-chip {
+    font-weight: 500 !important;
+    padding: 4px 8px !important;
   }
   
-  /* התאמות למובייל */
-  @media (max-width: 600px) {
-    .class-to-flight-container {
-      padding: 16px;
-    }
-    
-    .page-header {
+  .time-chip {
+    font-weight: 500 !important;
+    padding: 4px 8px !important;
+    color: #ff6d00;
+    border-color: #ff6d00;
+  }
+  
+  .no-data {
+    padding: 2rem !important;
+    color: #757575;
+    font-style: italic;
+  }
+  
+  /* For responsive design */
+  @media (max-width: 768px) {
+    .class-to-flight-header {
       flex-direction: column;
       align-items: flex-start;
+      gap: 1rem;
     }
     
-    .header-actions {
-      width: 100%;
-      justify-content: flex-end;
+    .class-to-flight-title {
+      font-size: 1.5rem !important;
     }
     
-    .action-buttons {
-      flex-wrap: wrap;
+    .table-header {
+      padding: 12px !important;
+      font-size: 0.85rem !important;
     }
     
-    .dialog-content {
-      padding: 8px;
+    .class-to-flight-paper {
+      padding: 1.5rem;
     }
   }
   
-  /* התאמות לטאבלט */
-  @media (max-width: 960px) {
-    .action-buttons {
-      flex-direction: row;
+  @media (max-width: 600px) {
+    .class-to-flight-paper {
+      padding: 1rem;
+    }
+    
+    .class-to-flight-title {
+      font-size: 1.25rem !important;
+    }
+    
+    .table-container {
+      overflow-x: auto;
+    }
+    
+    .flight-chip, .time-chip {
+      font-size: 0.75rem !important;
     }
   }
+
+/* הוספת סגנונות לאנימציית טעינה */
+.loading-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  width: 100%;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(25, 118, 210, 0.2);
+  border-radius: 50%;
+  border-top-color: #1976d2;
+  animation: spinner-rotation 1s ease-in-out infinite;
+}
+
+@keyframes spinner-rotation {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* אנימציית הופעה הדרגתית לתוכן */
+.content-fade-in {
+  animation: content-fade-in 0.5s ease-in-out;
+}
+
+@keyframes content-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

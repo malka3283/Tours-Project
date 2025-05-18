@@ -27,21 +27,46 @@ export const Destnation = () => {
   const dispatch = useDispatch();
   const [add, setAdd] = useState(false);
   const [des, setDes] = useState({ path: "", destination: "" });
+  const [loading, setLoading] = useState(true); // מצב טעינה חדש
   const destinitions = useSelector(state => state.flights.destinitions);
 
   useEffect(() => {
+    setLoading(true); // מתחיל טעינה
     dispatch(loct("/destnation"));
-    dispatch(getAllDestinationThunk());
+    dispatch(getAllDestinationThunk())
+      .then(() => {
+        // מחכה מעט לפני הסרת הטעינה כדי למנוע הבהוב מהיר
+        setTimeout(() => setLoading(false), 800);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   }, [dispatch]);
 
   const addDes = (addDes) => {
-    dispatch(addDestantionThunk(addDes));
-    close();
+    setLoading(true); // מתחיל טעינה בעת הוספה
+    dispatch(addDestantionThunk(addDes))
+      .then(() => {
+        setTimeout(() => setLoading(false), 500);
+        close();
+      })
+      .catch(() => {
+        setLoading(false);
+        close();
+      });
   };
 
   const updateDes = (updateDes) => {
-    dispatch(updateDestinationThunk(updateDes));
-    close();
+    setLoading(true); // מתחיל טעינה בעת עדכון
+    dispatch(updateDestinationThunk(updateDes))
+      .then(() => {
+        setTimeout(() => setLoading(false), 500);
+        close();
+      })
+      .catch(() => {
+        setLoading(false);
+        close();
+      });
   };
 
   const close = () => {
@@ -49,9 +74,27 @@ export const Destnation = () => {
     setAdd(false);
   };
 
+  // אם בטעינה, מציג אנימציית טעינה
+  if (loading) {
+    return (
+      <Container className="destination-container">
+        <Paper elevation={3} className="destination-paper">
+          <Box className="destination-header">
+            <Typography variant="h4" component="h1" className="destination-title">
+              יעדים
+            </Typography>
+          </Box>
+          <div className="loading-spinner-container">
+            <div className="loading-spinner"></div>
+          </div>
+        </Paper>
+      </Container>
+    );
+  }
+
   return (
     <Container className="destination-container">
-      <Paper elevation={3} className="destination-paper">
+      <Paper elevation={3} className="destination-paper content-fade-in">
         <Box className="destination-header">
           <Typography variant="h4" component="h1" className="destination-title">
             יעדים

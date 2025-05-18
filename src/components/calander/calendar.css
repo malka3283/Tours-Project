@@ -39,7 +39,7 @@
   }
   
   .current-month-btn {
-    font-weight: 600 !important;
+    font-weight: 400 !important;
     border-radius: 8px !important;
     padding: 8px 16px !important;
   }
@@ -161,3 +161,212 @@
       height: 20px !important;
     }
   }
+  /* עדכון לצ'יפים של אירועים/טיסות */
+.flight-chip {
+  font-size: 12px !important;
+  height: 24px !important;
+  border-radius: 12px !important;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  margin-bottom: 4px;
+}
+
+/* אפקט הקטנה בעת מעבר עכבר */
+.flight-chip:hover {
+  transform: scale(0.95); /* הקטנה של הצ'יפ */
+  background-color: rgba(25, 118, 210, 0.15);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 95%; /* מאפשר לראות יותר מהטקסט */
+  z-index: 2; /* מעל אלמנטים אחרים */
+}
+
+/* אפקט לחיצה */
+.flight-chip:active {
+  transform: scale(0.9);
+}
+/* עדכון לכפתורי הניווט (החיצים) */
+.nav-button {
+  background-color: #f5f5f5 !important;
+  border-radius: 4px !important; /* פינות מעוגלות קלות במקום עיגול מלא */
+  transition: all 0.2s ease;
+}
+
+/* אפקט מעבר עכבר מרובע */
+.nav-button:hover {
+  background-color: #e0e0e0 !important;
+  border-radius: 0 !important; /* הופך למרובע בעת מעבר עכבר */
+  transform: scale(1.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* אפקט לחיצה */
+.nav-button:active {
+  background-color: #d5d5d5 !important;
+  transform: scale(0.98);
+}
+
+/* אם יש קלאס ספציפי לכפתורי הניווט בקרוסלת היעדים */
+.carousel-control {
+  border-radius: 4px !important;
+  transition: all 0.2s ease;
+}
+
+.carousel-control:hover {
+  border-radius: 0 !important; /* הופך למרובע בעת מעבר עכבר */
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+/* הקטנת גודל הטקסט באירועים */
+.flight-chip {
+  font-size: 10px !important; /* הקטנת גודל הפונט מ-12px ל-10px */
+  height: 22px !important; /* הקטנת גובה הצ'יפ */
+  border-radius: 11px !important;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  margin-bottom: 3px;
+  padding: 0 8px !important; /* הקטנת הפדינג בצדדים */
+}
+
+/* אפשרות להציג את כל הטקסט בעת מעבר עכבר */
+.flight-chip:hover {
+  max-width: 95%;
+  z-index: 10;
+  font-size: 10px !important; /* שמירה על גודל פונט קבוע גם בהובר */
+}
+
+/* התאמה לתוכן בתוך הצ'יפ */
+.flight-chip .MuiChip-label {
+  padding: 0 4px !important;
+  font-weight: 400;
+}
+
+/* התאמה לאייקונים בתוך הצ'יפ אם יש כאלה */
+.flight-chip .MuiChip-icon {
+  font-size: 10px !important;
+  margin-left: 3px !important;
+}
+/* הגדלת האירועים בקלנדר */
+.flight-chip {
+  font-size: 11px !important; /* גודל פונט נוח לקריאה */
+  height: 26px !important; /* הגדלת גובה הצ'יפ */
+  line-height: 26px !important; /* התאמת גובה השורה */
+  border-radius: 13px !important;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  margin-bottom: 4px;
+  padding: 0 10px !important; /* פדינג נוח בצדדים */
+  box-sizing: border-box;
+}
+
+/* אפקט מעבר עכבר */
+.flight-chip:hover {
+  transform: scale(1.02); /* הגדלה קלה בעת מעבר עכבר */
+  background-color: rgba(25, 118, 210, 0.15);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 98%; /* מאפשר לראות יותר מהטקסט */
+  z-index: 2; /* מעל אלמנטים אחרים */
+}
+
+/* התאמה לתוכן בתוך הצ'יפ */
+.flight-chip .MuiChip-label {
+  padding: 0 6px !important;
+  font-weight: 500; /* פונט מודגש קלות לקריאות טובה יותר */
+}
+
+/* התאמה לאייקונים בתוך הצ'יפ אם יש כאלה */
+.flight-chip .MuiChip-icon {
+  font-size: 14px !important;
+  margin-left: 4px !important;
+}
+
+/* הגדלת מכולת האירועים */
+.flights-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: auto;
+  overflow-y: auto;
+  max-height: 75%; /* הגדלת האזור המוקצה לאירועים */
+  padding: 2px;
+}
+
+/* התאמה לתאי הקלנדר כדי לאפשר אירועים גדולים יותר */
+.calendar-day {
+  width: 14.28% !important;
+  aspect-ratio: 1;
+  border: 1px solid #e0e0e0;
+  position: relative;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  padding: 2px; /* פדינג קטן יותר לתא */
+}
+
+.day-content {
+  height: 100%;
+  padding: 6px; /* פדינג קטן יותר לתוכן */
+  display: flex;
+  flex-direction: column;
+}
+
+.day-number {
+  font-size: 13px !important; /* הקטנת מספר היום */
+  margin-bottom: 3px !important;
+  font-weight: 500;
+}
+/* שינוי מיקום מכולת האירועים - העלאה למעלה */
+.flights-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 5px; /* מרווח קטן יותר מהחלק העליון */
+  overflow-y: auto;
+  max-height: 80%; /* הגדלת האזור המוקצה לאירועים */
+  padding: 2px;
+}
+
+/* התאמת מבנה תוכן היום */
+.day-content {
+  height: 100%;
+  padding: 6px; /* פדינג קטן יותר לתוכן */
+  display: flex;
+  flex-direction: column;
+}
+
+/* הקטנת המרווח בין מספר היום לאירועים */
+.day-number {
+  font-size: 13px !important;
+  margin-bottom: 2px !important; /* מרווח קטן יותר */
+  font-weight: 500;
+}
+
+/* התאמת גובה האירועים */
+.flight-chip {
+  font-size: 11px !important;
+  height: 24px !important; /* גובה מעט קטן יותר */
+  line-height: 24px !important;
+  border-radius: 12px !important;
+  margin-bottom: 3px; /* מרווח קטן יותר בין אירועים */
+  padding: 0 10px !important;
+}
+
+/* הגדלת הפדינג העליון של תא היום */
+.calendar-day {
+  width: 14.28% !important;
+  aspect-ratio: 1;
+  border: 1px solid #e0e0e0;
+  position: relative;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  padding-top: 1px; /* פדינג עליון קטן יותר */
+}

@@ -1,0 +1,74 @@
+.full-flight-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.flight-header {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.flight-route {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 10px 20px;
+    border-radius: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.flight-route:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+}
+
+.flight-city {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    position: relative;
+}
+
+.flight-arrow {
+    margin: 0 15px;
+    color: #4a90e2;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.source {
+    color: #2c3e50;
+}
+
+.destination {
+    color: #3498db;
+}
+
+.divOfCalendar {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* תמיכה במסכים קטנים */
+@media (max-width: 600px) {
+    .flight-route {
+        padding: 8px 15px;
+        flex-direction: column;
+    }
+    
+    .flight-city {
+        font-size: 18px;
+    }
+    
+    .flight-arrow {
+        margin: 8px 0;
+        transform: rotate(90deg);
+    }
+}

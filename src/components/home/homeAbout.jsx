@@ -47,6 +47,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import './HomeAbout.css';
 import { useNavigate } from 'react-router-dom';
 
+
 // פונקציה ליצירת תמונות מקומיות עם צבע ואות ראשונה
 const placeholderImage = (name, color) => {
   // יוצר SVG פשוט עם האות הראשונה של השם על רקע צבעוני
@@ -97,7 +98,7 @@ export const HomeAbout = () => {
     {
       city: "פריז",
       country: "צרפת",
-      image: "", // מסלול מקומי לתמונה
+      image: "/תמונות מדינות/צרפת.png",
       description: "עיר האורות, הרומנטיקה והאמנות",
       price: "החל מ-499€",
       rating: 4.8,
@@ -107,7 +108,7 @@ export const HomeAbout = () => {
     {
       city: "טוקיו",
       country: "יפן",
-      image: "/images/destinations/tokyo.jpg",
+      image:"/תמונות מדינות/סין.png",
       description: "שילוב מושלם של מסורת וטכנולוגיה",
       price: "החל מ-799€",
       rating: 4.9,
@@ -117,42 +118,132 @@ export const HomeAbout = () => {
     {
       city: "ניו יורק",
       country: "ארה״ב",
-      image: "/images/destinations/newyork.jpg",
+      image: "/תמונות מדינות/ארצות הברית.png",
       description: "העיר שאף פעם לא ישנה",
       price: "החל מ-599€",
       rating: 4.7,
       tags: ["קניות", "אורבני", "תרבות"],
       color: "#ff9800"
     },
-    {
-      city: "ברצלונה",
-      country: "ספרד",
-      image: "/images/destinations/barcelona.jpg",
-      description: "אדריכלות, חופים וטאפאס",
-      price: "החל מ-349€",
-      rating: 4.6,
-      tags: ["חופים", "אוכל", "אדריכלות"],
-      color: "#009688"
-    },
-    {
-      city: "בנגקוק",
-      country: "תאילנד",
-      image: "/images/destinations/bangkok.jpg",
-      description: "מקדשים, שווקים ואוכל רחוב מדהים",
-      price: "החל מ-649€",
-      rating: 4.5,
-      tags: ["אסיה", "אוכל", "תרבות"],
-      color: "#673ab7"
-    },
+    // {
+    //   city: "ברצלונה",
+    //   country: "ספרד",
+    //   image: "/תמונות מדינות/צרפת.png",
+    //   description: "אדריכלות, חופים וטאפאס",
+    //   price: "החל מ-349€",
+    //   rating: 4.6,
+    //   tags: ["חופים", "אוכל", "אדריכלות"],
+    //   color: "#009688"
+    // },
+    // {
+    //   city: "בנגקוק",
+    //   country: "תאילנד",
+    //   image: "יון.png",
+    //   description: "מקדשים, שווקים ואוכל רחוב מדהים",
+    //   price: "החל מ-649€",
+    //   rating: 4.5,
+    //   tags: ["אסיה", "אוכל", "תרבות"],
+    //   color: "#673ab7"
+    // },
     {
       city: "רומא",
       country: "איטליה",
-      image: "/images/destinations/rome.jpg",
+      image: "/תמונות מדינות/איטליה.png",
       description: "עיר נצחית עם היסטוריה עשירה",
       price: "החל מ-399€",
       rating: 4.7,
       tags: ["היסטוריה", "אוכל", "אמנות"],
       color: "#4caf50"
+    },
+    {
+      city: "אתונה",
+      country: "יוון",
+      image: "/תמונות מדינות/יון.png",
+      description: "ערש התרבות המערבית עם היסטוריה עשירה ונופים מרהיבים",
+      price: "החל מ-379€",
+      rating: 4.6,
+      tags: ["היסטוריה", "איים", "ים"],
+      color: "#2196f3"
+    },
+    {
+      city: "תל אביב",
+      country: "ישראל",
+      image: "/תמונות מדינות/ישראל.png",
+      description: "עיר ללא הפסקה עם חופים מדהימים ותרבות תוססת",
+      price: "החל מ-299€",
+      rating: 4.7,
+      tags: ["חופים", "קולינריה", "מורשת"],
+      color: "#9c27b0"
+    },
+    {
+      city: "קהיר",
+      country: "מצרים",
+      image: "/תמונות מדינות/מצרים.png",
+      description: "בירת מצרים העתיקה, בית לפירמידות ולאוצרות היסטוריים",
+      price: "החל מ-329€",
+      rating: 4.5,
+      tags: ["היסטוריה", "פירמידות", "תרבות עתיקה"],
+      color: "#ff5722"
+    },
+    {
+      city: "ציריך",
+      country: "שוויץ",
+      image: "/תמונות מדינות/שוויץ.png",
+      description: "שילוב מושלם של נופי אלפים, אגמים ותרבות אירופאית",
+      price: "החל מ-449€",
+      rating: 4.8,
+      tags: ["הרים", "טבע", "שוקולד"],
+      color: "#795548"
+    },
+    {
+      city: "תחנת המחקר",
+      country: "אנטארקטיקה",
+      image: "/תמונות מדינות/אנטרטיקה.png",
+      description: "חוויה ייחודית ביבשת הקפואה, פינגווינים ונופי קרח מרהיבים",
+      price: "החל מ-4999€",
+      rating: 4.9,
+      tags: ["הרפתקה", "טבע פראי", "קרח"],
+      color: "#607d8b"
+    },
+    {
+      city: "וינה",
+      country: "אוסטריה",
+      image: "/תמונות מדינות/אוסטריה.png",
+      description: "עיר המוזיקה הקלאסית, ארמונות מפוארים ותרבות קפה עשירה",
+      price: "החל מ-389€",
+      rating: 4.7,
+      tags: ["מוזיקה", "ארכיטקטורה", "תרבות"],
+      color: "#e53935"
+    },
+    {
+      city: "לונדון",
+      country: "אנגליה",
+      image: "/תמונות מדינות/אנגליה.png",
+      description: "בירה קוסמופוליטית עם היסטוריה עשירה, מוזיאונים ותרבות תוססת",
+      price: "החל מ-359€",
+      rating: 4.6,
+      tags: ["היסטוריה", "תרבות", "קניות"],
+      color: "#1e88e5"
+    },
+    {
+      city: "אמסטרדם",
+      country: "הולנד",
+      image: "/תמונות מדינות/הולנד.png",
+      description: "עיר התעלות, האופניים והמוזיאונים המפורסמים בעולם",
+      price: "החל מ-329€",
+      rating: 4.7,
+      tags: ["תעלות", "אופניים", "אמנות"],
+      color: "#fb8c00"
+    },
+    {
+      city: "ונציה",
+      country: "איטליה",
+      image: "/תמונות מדינות/וינציה.png",
+      description: "עיר התעלות הרומנטית, גונדולות ואדריכלות איטלקית מרהיבה",
+      price: "החל מ-369€",
+      rating: 4.8,
+      tags: ["רומנטיקה", "תעלות", "אדריכלות"],
+      color: "#26a69a"
     }
   ];
   
@@ -559,7 +650,8 @@ const navigate = useNavigate();
                       <CardMedia
                         component="img"
                         height="220"
-                       
+                         image={destination.image} // הוספת ה-image prop שחסר
+                        alt={destination.city}
                         className="destination-image"
                       />
                       <Box 
