@@ -46,6 +46,7 @@ export const OrderDetail = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+
     setLoading(true); // מתחיל טעינה
     dispatch(getAllOrdersByCustomerThunk(userId))
       .then(() => {
@@ -90,6 +91,7 @@ export const OrderDetail = () => {
 
   return (
     <Container className="order-detail-container">
+
       <Paper elevation={3} className="order-paper fade-in">
         <Typography variant="h4" component="h1" className="order-title">
           ההזמנות שלי
@@ -243,6 +245,7 @@ export const OrderDetail = () => {
             </Grid>
           ) : (
             <Typography variant="body1" align="center">
+
               אין פרטי הזמנה זמינו
             </Typography>
           )}

@@ -62,7 +62,8 @@ export const ClassToFlight = () => {
         dispatch(getAllClassToFlightThunk())
             .then(() => {
                 // מחכה מעט לפני הסרת הטעינה כדי למנוע הבהוב מהיר
-                setTimeout(() => setLoading(false), 800);
+                // setTimeout(() => setLoading(false), 800);
+                setLoading(false)
             })
             .catch(() => {
                 setLoading(false);
@@ -73,7 +74,8 @@ export const ClassToFlight = () => {
         setLoading(true); // מתחיל טעינה בעת עדכון
         dispatch(updateClassToFlight(addctf))
             .then(() => {
-                setTimeout(() => setLoading(false), 500);
+                // setTimeout(() => setLoading(false), 500);
+                setLoading(false)
                 closeCtf();
             })
             .catch(() => {

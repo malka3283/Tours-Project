@@ -58,10 +58,10 @@ export const Classes = () => {
     setSelectedClass(classType);
     setAnimateOut(true);
     
-    setTimeout(() => {
+    // setTimeout(() => {
       dispatch(chooseClass(classType));
       navigate('/flights');
-    }, 800);
+    // }, 800);
   };
 
   const classOptions = [

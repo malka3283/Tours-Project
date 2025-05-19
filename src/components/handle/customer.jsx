@@ -48,7 +48,8 @@ export const Customer = () => {
     dispatch(getAllCustomersThunk())
       .then(() => {
         // מחכה מעט לפני הסרת הטעינה כדי למנוע הבהוב מהיר
-        setTimeout(() => setLoading(false), 800);
+        // (() => setLoading(false), 800);
+        setLoading(false)
       })
       .catch(() => {
         setLoading(false);
@@ -74,7 +75,8 @@ export const Customer = () => {
     setLoading(true);
     dispatch(getAllCustomersThunk())
       .then(() => {
-        setTimeout(() => setLoading(false), 800);
+        // (() => setLoading(false), 800);
+        setLoading(false)
       })
       .catch(() => {
         setLoading(false);

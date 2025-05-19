@@ -46,7 +46,8 @@ export const Flight = () => {
     dispatch(getAllFlightThunk())
       .then(() => {
         // מחכה מעט לפני הסרת הטעינה כדי למנוע הבהוב מהיר
-        setTimeout(() => setLoading(false), 800);
+        // setTimeout(() => setLoading(false), 800);
+        setLoading(false)
       })
       .catch(() => {
         setLoading(false);
@@ -57,7 +58,8 @@ export const Flight = () => {
     setLoading(true); // מתחיל טעינה בעת הוספה
     dispatch(addFlightThunk(addFlt))
       .then(() => {
-        setTimeout(() => setLoading(false), 500);
+        // setTimeout(() => setLoading(false), 500);
+        setLoading(false)
         close();
       })
       .catch(() => {
@@ -70,7 +72,8 @@ export const Flight = () => {
     setLoading(true); // מתחיל טעינה בעת עדכון
     dispatch(updateFlightThunk(update))
       .then(() => {
-        setTimeout(() => setLoading(false), 500);
+        // setTimeout(() => setLoading(false), 500);
+        setLoading(false)
         close();
       })
       .catch(() => {
