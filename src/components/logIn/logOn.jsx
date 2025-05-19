@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUserThunk } from "../../redux/slices/user/addUserThunk";
+
+
 import './logOn.css';
 
 // MUI imports
@@ -41,6 +43,7 @@ import {
   ArrowForward as ArrowForwardIcon,
   CheckCircle as CheckCircleIcon
 } from '@mui/icons-material';
+import { signOut } from "../../redux/slices/user/userSlice";
 
 export const LogOn = () => {
     const navigate = useNavigate();
@@ -425,9 +428,10 @@ export const LogOn = () => {
                                 
 
                                     <Box className="login-link">
-                                        <Typography variant="body2">
+                                        <Button variant="body2" onClick={() => {dispatch(signOut()); navigate(`/logIn`);}}>
                                             כבר יש לך חשבון?
-                                        </Typography>
+                                        </Button>
+                                        
                                         <Button 
                                             color="primary" 
                                             onClick={() => navigate(`/logIn`)}

@@ -59,6 +59,7 @@ export const Find = () => {
     }, []);
 
     useEffect(() => {
+        if(classes.length === 0)
         dispatch(getAllClassThunk())
     }, [classes, dispatch, destinitions]);
     

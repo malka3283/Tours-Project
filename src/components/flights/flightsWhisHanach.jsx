@@ -87,9 +87,11 @@
     
         useEffect(() => {
             dispatch(loct(`/flightsWhisHanach`));
+            debugger
+            if (flightsWhisHanachaArr.length === 0) {
             dispatch(getAllFlightsWhisHanacahThunk())
                 .then(() => setLoading(false))
-                .catch(() => setLoading(false));
+                .catch(() => setLoading(false));}
         }, [dispatch]);
     
         // Toggle favorite
@@ -613,7 +615,7 @@
                                                         />
                                                     </Box>
                                                 </CardContent>
-                                                
+                                        
                                                 <CardActions className="deal-actions">
                                                     <Button 
                                                         variant="contained" 

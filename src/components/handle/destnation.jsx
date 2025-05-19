@@ -36,21 +36,24 @@ export const Destnation = () => {
   useEffect(() => {
     setLoading(true); // מתחיל טעינה
     dispatch(loct("/destnation"));
+    if (destinitions.length === 0){
     dispatch(getAllDestinationThunk())
       .then(() => {
         // מחכה מעט לפני הסרת הטעינה כדי למנוע הבהוב מהיר
-        setTimeout(() => setLoading(false), 800);
+        // setTimeout(() => setLoading(false), 800);
+        setLoading(false)
       })
       .catch(() => {
         setLoading(false);
-      });
+      });}
   }, [dispatch]);
 
   const addDes = (addDes) => {
     setLoading(true); // מתחיל טעינה בעת הוספה
     dispatch(addDestantionThunk(addDes))
       .then(() => {
-        setTimeout(() => setLoading(false), 500);
+        // setTimeout(() => setLoading(false), 500);
+        setLoading(false)
         close();
       })
       .catch(() => {
@@ -63,7 +66,8 @@ export const Destnation = () => {
     setLoading(true); // מתחיל טעינה בעת עדכון
     dispatch(updateDestinationThunk(updateDes))
       .then(() => {
-        setTimeout(() => setLoading(false), 500);
+        // setTimeout(() => setLoading(false), 500);
+        setLoading(false)
         close();
       })
       .catch(() => {

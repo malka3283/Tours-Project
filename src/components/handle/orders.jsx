@@ -48,9 +48,10 @@ export const Orders = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      await dispatch(getAllOrdersThunk());
+      if(ordersFromServer.length === 0){
+        await dispatch(getAllOrdersThunk());
       setLoading(false);
-    };
+    };}
     fetchOrders();
   }, [dispatch]);
 

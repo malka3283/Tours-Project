@@ -88,54 +88,109 @@
     background-color: rgba(25, 118, 210, 0.2) !important;
 }
 
-/* פרטי לקוח */
+/* עיצוב כללי לקולונה השמאלית */
+.left-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* פרטי לקוח - קיצור משמעותי */
 .customer-card {
-    margin-bottom: 20px;
+  margin-bottom: 16px;
+  flex: 0 0 auto; /* גודל קבוע, לא מתרחב */
 }
 
 .customer-details {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .detail-item {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
 }
 
 .detail-icon {
-    margin-left: 10px;
-    color: #1976d2;
+  margin-left: 6px;
+  color: #1976d2;
+  font-size: 1rem !important;
 }
 
 .detail-text {
-    font-size: 1.1rem !important;
+  font-size: 0.85rem !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* סיכום הזמנה */
+/* התאמת הכותרת של הכרטיס */
+.customer-card .card-title {
+  font-size: 1.1rem !important;
+  margin-bottom: 8px !important;
+}
+
+.customer-card .card-divider {
+  margin-bottom: 8px !important;
+}
+
+/* התאמת הריפוד של תוכן הכרטיס */
+.customer-card .MuiCardContent-root {
+  padding: 12px !important;
+}
+
+/* סיכום הזמנה - מילוי שאר הגובה */
+.summary-card {
+  flex: 1 1 auto; /* מתרחב למלא את שאר הגובה */
+  display: flex;
+  flex-direction: column;
+  min-height: 200px; /* גובה מינימלי כדי להבטיח שהתוכן יהיה גלוי */
+}
+
+.summary-card .MuiCardContent-root {
+  padding: 16px !important;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* מילוי כל הגובה */
+}
+
 .summary-details {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* מילוי המרחב הזמין */
+}
+
+.summary-items {
+  margin-bottom: 16px; /* מרווח קבוע מתחת לפריטים */
 }
 
 .summary-item {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.1rem !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  margin-bottom: 8px; /* מרווח בין פריטים */
+}
+
+.summary-item > :first-child {
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+.summary-item > :last-child {
+  text-align: left;
+  font-weight: 600;
 }
 
 .summary-divider {
-    margin: 16px 0 !important;
-    background-color: rgba(25, 118, 210, 0.2) !important;
+  margin: 12px 0 !important;
 }
 
 .total-price-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
+  margin-top: 16px; /* מרווח קבוע מעל הסיכום */
+  padding-top: 12px;
 }
 
 .total-label {
@@ -151,15 +206,23 @@
 
 /* פרטי טיסות - עם גלילה אנכית */
 .flights-card {
+    height: 100%; /* מילוי כל הגובה */
     display: flex;
     flex-direction: column;
 }
 
+.flights-card .MuiCardContent-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px !important;
+}
+
 .flights-list-container {
-    max-height: 500px;
-    overflow-y: auto;
-    padding-right: 5px;
-    margin-right: -5px;
+  flex: 1; /* מילוי המרחב הזמין */
+  overflow-y: auto;
+  padding-right: 5px;
+  margin-right: -5px;
 }
 
 /* מותאם לסגנון גלילה מודרני */

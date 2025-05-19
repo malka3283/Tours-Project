@@ -10,7 +10,8 @@ import {
     Grid, 
     Card, 
     CardContent, 
-    Divider 
+    Divider,
+    Chip
 } from "@mui/material";
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import PersonIcon from '@mui/icons-material/Person';
@@ -23,6 +24,7 @@ import EventIcon from '@mui/icons-material/Event';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import LuggageIcon from '@mui/icons-material/Luggage';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import PrintIcon from '@mui/icons-material/Print';
 import "./order.css";
 
 export const Order = () => {
@@ -154,7 +156,7 @@ export const Order = () => {
     return (
         <Container maxWidth="lg" className="order-container">
             {/* כותרת עם לוגו */}
-            <Box className="order-header">
+            <Paper elevation={3} className="order-header content-fade-in">
                 <Box className="logo-container">
                     <img src="/logo.png" alt="טורס לוגו" className="order-logo" 
                          onError={(e) => {e.target.src = 'https://via.placeholder.com/150x60?text=TOURS'; e.target.onerror = null;}} />
@@ -166,92 +168,98 @@ export const Order = () => {
                     תודה שבחרת לטוס איתנו! להלן פרטי ההזמנה שלך
                 </Typography>
                 <CheckCircleIcon className="success-icon" />
-            </Box>
+            </Paper>
 
             <Grid container spacing={4} className="order-content">
-                {/* פרטי לקוח */}
-                <Grid item xs={12} md={5}>
-                    <Card className="order-card customer-card">
-                        <CardContent>
-                            <Typography variant="h5" component="h2" className="card-title">
-                                <PersonIcon className="card-icon" />
-                                פרטי לקוח
-                            </Typography>
-                            <Divider className="card-divider" />
-                            
-                            <Box className="customer-details">
-                                <Box className="detail-item">
-                                    <PersonIcon className="detail-icon" />
-                                    <Typography variant="body1" className="detail-text">
-                                        <strong>שם מלא:</strong> {user?.firstName || ''} {user?.lastName || ''}
-                                    </Typography>
-                                </Box>
+                {/* פרטי לקוח וסיכום הזמנה */}
+                <Grid item xs={12} md={4}>
+                    <Box className="left-column">
+                        {/* פרטי לקוח */}
+                        <Card className="order-card customer-card">
+                            <CardContent>
+                                <Typography variant="h6" component="h2" className="card-title">
+                                    <PersonIcon className="card-icon" />
+                                    פרטי לקוח
+                                </Typography>
+                                <Divider className="card-divider" />
                                 
-                                <Box className="detail-item">
-                                    <EmailIcon className="detail-icon" />
-                                    <Typography variant="body1" className="detail-text">
-                                        <strong>אימייל:</strong> {user?.email || ''}
-                                    </Typography>
+                                <Box className="customer-details">
+                                    {/* שילוב שם מלא וטלפון בשורה אחת */}
+                                    <Box className="detail-item">
+                                        <PersonIcon className="detail-icon" />
+                                        <Typography variant="body2" className="detail-text">
+                                            <strong>שם:</strong> {user?.firstName || ''} {user?.lastName || ''}
+                                        </Typography>
+                                    </Box>
+                                    
+                                    <Box className="detail-item">
+                                        <PhoneIcon className="detail-icon" />
+                                        <Typography variant="body2" className="detail-text">
+                                            <strong>טל:</strong> {user?.phone || ''}
+                                        </Typography>
+                                    </Box>
+                                    
+                                    {/* אימייל בשורה נפרדת */}
+                                    <Box className="detail-item">
+                                        <EmailIcon className="detail-icon" />
+                                        <Typography variant="body2" className="detail-text">
+                                            <strong>אימייל:</strong> {user?.email || ''}
+                                        </Typography>
+                                    </Box>
                                 </Box>
+                            </CardContent>
+                        </Card>
+                        
+                        {/* סיכום הזמנה */}
+                        <Card className="order-card summary-card">
+                            <CardContent>
+                                <Typography variant="h6" component="h2" className="card-title">
+                                    <PaymentIcon className="card-icon" />
+                                    סיכום הזמנה
+                                </Typography>
+                                <Divider className="card-divider" />
                                 
-                                <Box className="detail-item">
-                                    <PhoneIcon className="detail-icon" />
-                                    <Typography variant="body1" className="detail-text">
-                                        <strong>טלפון:</strong> {user?.phone || ''}
-                                    </Typography>
+                                <Box className="summary-details">
+                                    <Box className="summary-items">
+                                        <Box className="summary-item">
+                                            <Typography variant="body1">מספר פריטים:</Typography>
+                                            <Typography variant="body1">{orders.length}</Typography>
+                                        </Box>
+                                        
+                                        <Box className="summary-item">
+                                            <Typography variant="body1">סה"כ כרטיסים:</Typography>
+                                            <Typography variant="body1">
+                                                {orders.reduce((sum, item) => sum + item.nOS, 0)}
+                                            </Typography>
+                                        </Box>
+                                        
+                                        <Box className="summary-item">
+                                            <Typography variant="body1">סה"כ משקל עודף:</Typography>
+                                            <Typography variant="body1">
+                                                {orders.reduce((sum, item) => sum + item.overWight, 0)} ק"ג
+                                            </Typography>
+                                        </Box>
+                                    </Box>
+                                    
+                                    <Divider className="summary-divider" />
+                                    
+                                    <Box className="total-price-container">
+                                        <Typography variant="h5" component="p" className="total-label">
+                                            סה"כ לתשלום:
+                                        </Typography>
+                                        <Typography variant="h4" component="p" className="total-price">
+                                            ₪{price}
+                                        </Typography>
+                                    </Box>
                                 </Box>
-                            </Box>
-                        </CardContent>
-                    </Card>
-                    
-                    
-                    {/* סיכום הזמנה */}
-                    <Card className="order-card summary-card">
-                        <CardContent>
-                            <Typography variant="h5" component="h2" className="card-title">
-                                <PaymentIcon className="card-icon" />
-                                סיכום הזמנה
-                            </Typography>
-                            <Divider className="card-divider" />
-                            
-                            <Box className="summary-details">
-                                <Box className="summary-item">
-                                    <Typography variant="body1">מספר פריטים:</Typography>
-                                    <Typography variant="body1">{orders.length}</Typography>
-                                </Box>
-                                
-                                <Box className="summary-item">
-                                    <Typography variant="body1">סה"כ כרטיסים:</Typography>
-                                    <Typography variant="body1">
-                                        {orders.reduce((sum, item) => sum + item.nOS, 0)}
-                                    </Typography>
-                                </Box>
-                                
-                                <Box className="summary-item">
-                                    <Typography variant="body1">סה"כ משקל עודף:</Typography>
-                                    <Typography variant="body1">
-                                        {orders.reduce((sum, item) => sum + item.overWight, 0)} ק"ג
-                                    </Typography>
-                                </Box>
-                                
-                                <Divider className="summary-divider" />
-                                
-                                <Box className="total-price-container">
-                                    <Typography variant="h5" component="p" className="total-label">
-                                        סה"כ לתשלום:
-                                    </Typography>
-                                    <Typography variant="h4" component="p" className="total-price">
-                                        ₪{price}
-                                    </Typography>
-                                </Box>
-                            </Box>
-                        </CardContent>
-                    </Card>
+                            </CardContent>
+                        </Card>
+                    </Box>
                 </Grid>
                 
                 {/* פרטי הזמנה */}
-                <Grid item xs={12} md={7}>
-                    <Card className="order-card flights-card">
+                <Grid item xs={12} md={8}>
+                    <Card className="order-card flights-card content-fade-in">
                         <CardContent>
                             <Typography variant="h5" component="h2" className="card-title">
                                 <ConfirmationNumberIcon className="card-icon" />
@@ -268,9 +276,12 @@ export const Order = () => {
                                                     <FlightTakeoffIcon className="route-icon" />
                                                     {item.fromCity || item.src} - {item.toCity || item.des}
                                                 </Typography>
-                                                <Typography variant="body2" className="flight-number">
-                                                    מספר טיסה: {Math.floor(Math.random() * 10000).toString().padStart(4, '0')}
-                                                </Typography>
+                                                <Chip 
+                                                    label={`מספר טיסה: ${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`}
+                                                    size="small"
+                                                    color="primary"
+                                                    variant="outlined"
+                                                />
                                             </Box>
                                             
                                             <Grid container spacing={2} className="flight-details">
@@ -310,12 +321,20 @@ export const Order = () => {
                                             </Grid>
                                             
                                             <Box className="flight-footer">
-                                                <Typography variant="body2" className="flight-class">
-                                                    מחלקה: <span className="class-value">{item.classs}</span>
-                                                </Typography>
-                                                <Typography variant="body2" className="flight-time">
-                                                    שעה: <span className="time-value">{item.time}</span>
-                                                </Typography>
+                                                <Chip 
+                                                    icon={<AirplaneTicketIcon />}
+                                                    label={`מחלקה: ${item.classs}`}
+                                                    size="small"
+                                                    color="primary"
+                                                    variant="outlined"
+                                                />
+                                                <Chip 
+                                                    icon={<EventIcon />}
+                                                    label={`שעה: ${item.time}`}
+                                                    size="small"
+                                                    color="secondary"
+                                                    variant="outlined"
+                                                />
                                             </Box>
                                             
                                             {index < orders.length - 1 && <Divider className="flight-divider" />}
@@ -348,20 +367,21 @@ export const Order = () => {
                     onClick={() => window.print()}
                     size="large"
                     className="print-button"
+                    startIcon={<PrintIcon />}
                 >
                     הדפס הזמנה
                 </Button>
             </Box>
             
             {/* פרטי תחתית */}
-            <Box className="order-footer">
+            <Paper elevation={1} className="order-footer">
                 <Typography variant="body2" className="footer-text">
                     תודה שבחרת לטוס עם טורס! לשאלות וברורים ניתן לפנות לשירות הלקוחות בטלפון 03-1234567
                 </Typography>
                 <Typography variant="body2" className="footer-text">
                     © {new Date().getFullYear()} טורס - כל הזכויות שמורות
                 </Typography>
-            </Box>
+            </Paper>
         </Container>
     );
 };
