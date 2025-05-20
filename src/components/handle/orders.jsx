@@ -48,10 +48,10 @@ export const Orders = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      if(ordersFromServer.length === 0){
+     
         await dispatch(getAllOrdersThunk());
       setLoading(false);
-    };}
+    };
     fetchOrders();
   }, [dispatch]);
 
@@ -79,12 +79,12 @@ export const Orders = () => {
         <Divider className="orders-divider" />
 
         {loading ? (
-          <Box className="loading-container">
-            <CircularProgress />
-            <Typography variant="body1" className="loading-text">
-              טוען הזמנות...
-            </Typography>
-          </Box>
+              <Container className="class-to-flight-container">
+                      
+                      <div className="loading-spinner-container">
+                          <div className="loading-spinner"></div>
+                      </div>
+              </Container>
         ) : (
           <TableContainer component={Paper} className="table-container">
             <Table aria-label="orders table">

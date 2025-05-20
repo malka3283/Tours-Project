@@ -293,3 +293,147 @@
     padding-left: 6px !important;
     padding-right: 6px !important;
 }
+
+/* סגנונות לדיאלוג לקוחות שהזמינו */
+.customers-dialog .MuiDialog-paper {
+  border-radius: 12px !important;
+  overflow: hidden;
+  direction: rtl;
+}
+
+.dialog-title {
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
+  color: white;
+  padding: 16px !important;
+}
+
+.dialog-title-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dialog-content {
+  padding: 20px !important;
+}
+
+.customers-table-container {
+  margin-top: 10px;
+  border-radius: 8px !important;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* עיצוב טבלת לקוחות */
+.customers-table-container .MuiTableHead-root .MuiTableCell-root {
+  background-color: #f5f8ff;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  padding: 16px !important;
+  color: #1976d2;
+}
+
+.customers-table-container .MuiTableBody-root .MuiTableRow-root:hover {
+  background-color: #f9f9f9;
+}
+
+.customers-table-container .MuiTableBody-root .MuiTableCell-root {
+  padding: 12px 16px !important;
+}
+
+/* אנימציית טעינה מעגלית */
+.customers-loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  width: 100%;
+}
+
+.customers-loading-spinner {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.customers-loading-spinner:before,
+.customers-loading-spinner:after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+
+.customers-loading-spinner:before {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, transparent 0%, #1976d2 100%);
+  animation: spin 1.5s linear infinite;
+}
+
+.customers-loading-spinner:after {
+  width: 85%;
+  height: 85%;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* אנימציית הופעה הדרגתית לתוכן */
+.customers-fade-in {
+  animation: customers-fade-in 0.5s ease-in-out;
+}
+
+@keyframes customers-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* עיצוב צ'יפים בטבלת לקוחות */
+.customers-table-container .MuiChip-root {
+  height: 24px !important;
+  font-size: 0.75rem !important;
+}
+
+.customers-table-container .MuiChip-icon {
+  font-size: 14px !important;
+  margin-left: 4px !important;
+}
+
+.customers-table-container .MuiChip-label {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+}
+
+/* התאמה למסכים קטנים */
+@media (max-width: 600px) {
+  .dialog-title {
+    padding: 12px !important;
+  }
+  
+  .dialog-content {
+    padding: 12px !important;
+  }
+  
+  .customers-table-container .MuiTableHead-root .MuiTableCell-root {
+    padding: 10px !important;
+    font-size: 0.85rem !important;
+  }
+  
+  .customers-table-container .MuiTableBody-root .MuiTableCell-root {
+    padding: 8px 10px !important;
+    font-size: 0.8rem !important;
+  }
+}

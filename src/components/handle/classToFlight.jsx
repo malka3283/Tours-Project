@@ -190,8 +190,15 @@ export const ClassToFlight = () => {
                                                         size="small"
                                                         className="view-button"
                                                         onClick={() => {
-                                                            dispatch(getOrderDetailByClassToFlightIdThunk(f.id));
-                                                            setDetail(true);
+                                                            setLoading(true); // מתחיל טעינה
+                                                            setDetail(true); // פותח את הדיאלוג
+                                                            dispatch(getOrderDetailByClassToFlightIdThunk(f.id))
+                                                                .then(() => {
+                                                                    setLoading(false); // מסיים טעינה כשהנתונים מגיעים
+                                                                })
+                                                                .catch(() => {
+                                                                    setLoading(false); // מסיים טעינה גם במקרה של שגיאה
+                                                                });
                                                         }}
                                                     >
                                                         <PeopleIcon fontSize="small" />
@@ -299,64 +306,73 @@ export const ClassToFlight = () => {
                     </Box>
                 </DialogTitle>
                 <DialogContent dividers className="dialog-content">
-                    <TableContainer component={Paper} className="customers-table-container">
-                        <Table stickyHeader aria-label="טבלת לקוחות">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell className="table-header" align="right">שם</TableCell>
-                                    <TableCell className="table-header" align="right">טלפון</TableCell>
-                                    {!isMobile && <TableCell className="table-header" align="right">מייל</TableCell>}
-                                    <TableCell className="table-header" align="right">כרטיסים</TableCell>
-                                    {!isMobile && <TableCell className="table-header" align="right">משקל עודף</TableCell>}
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {orderDetailByClassToFlight?.length > 0 ? (
-                                    orderDetailByClassToFlight.map(o => 
-                                        o.ordersDetails?.map(od => (
-                                            <TableRow key={od.id} className="table-row">
-                                                <TableCell align="right">
-                                                    {o.idCustomerNavigation.firstName} {o.idCustomerNavigation.lastName}
-                                                </TableCell>
-                                                <TableCell align="right">{o.idCustomerNavigation.phone}</TableCell>
-                                                {!isMobile && <TableCell align="right">{o.idCustomerNavigation.email}</TableCell>}
-                                                <TableCell align="right">
-                                                    <Chip 
-                                                        icon={<AirplaneTicketIcon />} 
-                                                        label={od.countTickets}
-                                                        size="small"
-                                                        variant="outlined"
-                                                        color="primary"
-                                                    />
-                                                </TableCell>
-                                                {!isMobile && (
-                                                    <TableCell align="right">
-                                                        {od.countOverLoad > 0 ? (
-                                                            <Chip 
-                                                                icon={<AttachMoneyIcon />} 
-                                                                label={`${od.countOverLoad} ק"ג`}
-                                                                size="small"
-                                                                variant="outlined"
-                                                                color="secondary"
-                                                            />
-                                                        ) : (
-                                                            'אין'
-                                                        )}
-                                                    </TableCell>
-                                                )}
-                                            </TableRow>
-                                        ))
-                                    )
-                                ) : (
+                    {/* אנימציית טעינה */}
+                    {loading ? (
+                        <Box className="customers-loading-container">
+                            <Box className="customers-loading-spinner"></Box>
+                        </Box>
+                    ) : (
+                        <TableContainer component={Paper} className="customers-table-container customers-fade-in">
+                            <Table stickyHeader aria-label="טבלת לקוחות">
+                                <TableHead>
                                     <TableRow>
-                                        <TableCell colSpan={isMobile ? 3 : 5} align="center" className="no-data">
-                                            אין לקוחות שהזמינו טיסה זו
-                                        </TableCell>
+                                        <TableCell className="table-header" align="right">שם</TableCell>
+                                        <TableCell className="table-header" align="right">טלפון</TableCell>
+                                        {!isMobile && <TableCell className="table-header" align="right">מייל</TableCell>}
+                                        <TableCell className="table-header" align="right">כרטיסים</TableCell>
+                                        {!isMobile && <TableCell className="table-header" align="right">משקל עודף</TableCell>}
                                     </TableRow>
-                                )}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                                </TableHead>
+                                <TableBody>
+                                    {orderDetailByClassToFlight?.length > 0 ? (
+                                        orderDetailByClassToFlight.map(o => 
+                                            o.ordersDetails?.map(od => (
+                                                <TableRow key={od.id} className="table-row">
+                                                    <TableCell align="right">
+                                                        {o.idCustomerNavigation.firstName} {o.idCustomerNavigation.lastName}
+                                                    </TableCell>
+                                                    <TableCell align="right">{o.idCustomerNavigation.phone}</TableCell>
+                                                    {!isMobile && <TableCell align="right">{o.idCustomerNavigation.email}</TableCell>}
+                                                    <TableCell align="right">
+                                                        <Chip 
+                                                            icon={<AirplaneTicketIcon />} 
+                                                            label={od.countTickets}
+                                                            size="small"
+                                                            variant="outlined"
+                                                            color="primary"
+                                                            className="flight-chip"
+                                                        />
+                                                    </TableCell>
+                                                    {!isMobile && (
+                                                        <TableCell align="right">
+                                                            {od.countOverLoad > 0 ? (
+                                                                <Chip 
+                                                                    icon={<AttachMoneyIcon />} 
+                                                                    label={`${od.countOverLoad} ק"ג`}
+                                                                    size="small"
+                                                                    variant="outlined"
+                                                                    color="secondary"
+                                                                    className="weight-chip"
+                                                                />
+                                                            ) : (
+                                                                'אין'
+                                                            )}
+                                                        </TableCell>
+                                                    )}
+                                                </TableRow>
+                                            ))
+                                        )
+                                    ) : (
+                                        <TableRow>
+                                            <TableCell colSpan={isMobile ? 3 : 5} align="center" className="no-data">
+                                                אין לקוחות שהזמינו טיסה זו
+                                            </TableCell>
+                                        </TableRow>
+                                    )}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    )}
                 </DialogContent>
             </Dialog>
 

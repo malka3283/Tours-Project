@@ -22,6 +22,7 @@ import { Pay } from "../cart/pay"
 import { Customer } from "../handle/customer"
 import { Orders } from "../handle/orders"
 import { Order } from "../cart/order"
+import NotFound from "../NotFound/NotFound"
 
 
 export const Routing = () => {
@@ -50,7 +51,7 @@ export const Routing = () => {
         <Route path={'/customer'} element={<Customer/>}></Route>
         <Route path={'/orders'} element={<Orders/>}></Route>
         <Route path={'/orderAfterPay'} element={<Order/>}></Route>
-
+        <Route path="*" element={<NotFound />} />
 
 
 
