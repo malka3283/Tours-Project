@@ -36,7 +36,6 @@ export const Destnation = () => {
   useEffect(() => {
     setLoading(true); // מתחיל טעינה
     dispatch(loct("/destnation"));
-    if (destinitions.length === 0){
     dispatch(getAllDestinationThunk())
       .then(() => {
         // מחכה מעט לפני הסרת הטעינה כדי למנוע הבהוב מהיר
@@ -45,7 +44,7 @@ export const Destnation = () => {
       })
       .catch(() => {
         setLoading(false);
-      });}
+      });
   }, [dispatch]);
 
   const addDes = (addDes) => {

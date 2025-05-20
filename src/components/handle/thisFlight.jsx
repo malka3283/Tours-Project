@@ -105,9 +105,9 @@ export const ThisFlight = () => {
 
     useEffect(() => {
         dispatch(loct("/AllThisFlight"));
-        if (flightsArr.length === 0) {
+       
         dispatch(getAllThisFlightThunk())
-            .then(() => setLoading(false));}
+            .then(() => setLoading(false));
     }, []);
 
     useEffect(() => {

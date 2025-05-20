@@ -1,0 +1,194 @@
+not-found-container {
+    direction: rtl;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.not-found-paper {
+    width: 100%;
+    max-width: 700px;
+    padding: 40px;
+    text-align: center;
+    border-radius: 16px !important;
+    background: linear-gradient(135deg, #ffffff, #f5f7fa) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden;
+    position: relative;
+}
+
+.not-found-content {
+    position: relative;
+    z-index: 2;
+}
+
+.not-found-icon-container {
+    position: relative;
+    margin-bottom: 20px;
+    height: 120px;
+}
+
+.not-found-icon {
+    font-size: 80px !important;
+    color: #1976d2;
+    opacity: 0.8;
+}
+
+/* אנימציה של מטוס */
+.plane-animation {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    animation: flyPlane 8s infinite linear;
+    width: 100%;
+}
+
+.plane-icon {
+    font-size: 40px !important;
+    color: #f50057;
+    transform: rotate(45deg);
+}
+
+@keyframes flyPlane {
+    0% {
+        left: -10%;
+        transform: translateY(-50%) rotate(0);
+    }
+    25% {
+        transform: translateY(-80%) rotate(0);
+    }
+    50% {
+        transform: translateY(-20%) rotate(0);
+    }
+    75% {
+        transform: translateY(-60%) rotate(0);
+    }
+    100% {
+        left: 110%;
+        transform: translateY(-50%) rotate(0);
+    }
+}
+
+.not-found-title {
+    font-size: 120px !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    background: linear-gradient(45deg, #1976d2, #f50057);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1 !important;
+}
+
+.not-found-subtitle {
+    font-weight: 600 !important;
+    margin-bottom: 20px !important;
+    color: #333;
+}
+
+.not-found-message {
+    color: #666;
+    margin-bottom: 30px !important;
+    font-size: 1.1rem !important;
+    line-height: 1.6 !important;
+}
+
+.not-found-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.home-button {
+    background-color: #1976d2 !important;
+    color: white !important;
+    padding: 10px 20px !important;
+    font-weight: 600 !important;
+    border-radius: 30px !important;
+    text-transform: none !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.25) !important;
+}
+
+.home-button:hover {
+    background-color: #0d47a1 !important;
+    box-shadow: 0 8px 16px rgba(25, 118, 210, 0.35) !important;
+    transform: translateY(-2px);
+}
+
+.flights-button {
+    border-color: #1976d2 !important;
+    color: #1976d2 !important;
+    padding: 10px 20px !important;
+    font-weight: 600 !important;
+    border-radius: 30px !important;
+    text-transform: none !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.flights-button:hover {
+    background-color: rgba(25, 118, 210, 0.05) !important;
+    transform: translateY(-2px);
+}
+
+/* רקע מעוצב */
+.not-found-paper::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: rgba(25, 118, 210, 0.05);
+    z-index: 1;
+}
+
+.not-found-paper::after {
+    content: "";
+    position: absolute;
+    bottom: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: rgba(245, 0, 87, 0.05);
+    z-index: 1;
+}
+
+/* התאמה למסכים קטנים */
+@media (max-width: 600px) {
+    .not-found-container {
+        padding: 20px;
+    }
+    
+    .not-found-paper {
+        padding: 30px 20px;
+    }
+    
+    .not-found-title {
+        font-size: 80px !important;
+    }
+    
+    .not-found-subtitle {
+        font-size: 1.5rem !important;
+    }
+    
+    .not-found-message {
+        font-size: 1rem !important;
+    }
+    
+    .not-found-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .home-button, .flights-button {
+        width: 100%;
+    }
+}

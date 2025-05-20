@@ -35,7 +35,8 @@ import {
   AirplaneTicket,
   Person,
   Search,
-  AccessTime
+  AccessTime,
+  AirplanemodeActive
 } from '@mui/icons-material';
 import { getAllClassThunk } from '../../redux/slices/class/getAllClassThunk';
 
@@ -201,6 +202,7 @@ export const Find = () => {
             {thisFlightsArr?.length > 0 && (
                 <Box className="results-container">
                     <Typography variant="h5" className="results-title">
+                        <FlightTakeoff className="results-title-icon" />
                         תוצאות חיפוש
                     </Typography>
                     <Divider className="results-divider" />
@@ -211,7 +213,7 @@ export const Find = () => {
                                 <Card className="flight-card">
                                     <CardContent>
                                         <Box className="flight-time">
-                                            <AccessTime color="primary" />
+                                            <AccessTime />
                                             <Typography variant="h6" component="span">
                                                 {f.time}
                                             </Typography>
@@ -222,14 +224,19 @@ export const Find = () => {
                                                 label={flt.src || "מקור"} 
                                                 icon={<FlightTakeoff />} 
                                                 variant="outlined" 
-                                                className="flight-chip"
+                                                className="flight-chip flight-chip-source"
                                             />
+                                            
+                                            {/* איקון מטוס מעופף בין המקור ליעד */}
+                                            <AirplanemodeActive className="flight-route-icon" />
+                                            
                                             <Divider orientation="vertical" flexItem className="flight-divider" />
+                                            
                                             <Chip 
                                                 label={flt.des || "יעד"} 
                                                 icon={<FlightLand />} 
                                                 variant="outlined" 
-                                                className="flight-chip"
+                                                className="flight-chip flight-chip-destination"
                                             />
                                         </Box>
                                         

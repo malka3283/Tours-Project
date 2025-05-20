@@ -1,185 +1,291 @@
-
-/* Main container */
-.find-container {
-    padding: 24px;
-    max-width: 1200px;
-    margin: 0 auto;
-    direction: rtl;
-  }
-  
-  /* Search paper */
-  .search-paper {
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 32px;
-  }
-  
-  /* Search header */
-  .search-header {
-    background: linear-gradient(135deg, #1976d2, #0d47a1);
-    color: white;
-    padding: 24px;
-    text-align: center;
-  }
-  
-  .search-title {
-    font-weight: 700 !important;
-    margin-bottom: 8px !important;
-  }
-  
-  .search-subtitle {
-    opacity: 0.9;
-  }
-  
-  /* Search form */
-  .search-form {
-    padding: 24px;
-  }
-  
-  .search-button {
-    padding: 12px !important;
-    font-weight: 600 !important;
-    text-transform: none !important;
-    margin-top: 8px !important;
-  }
-  
-  /* No results */
-  .no-results {
-    padding: 24px;
-    text-align: center;
-    margin-top: 16px;
-  }
-  
-  /* Results container */
-  .results-container {
-    margin-top: 32px;
-  }
-  
-  .results-title {
-    margin-bottom: 16px !important;
-    font-weight: 600 !important;
-  }
-  
-  .results-divider {
-    margin-bottom: 24px !important;
-  }
-  
-  /* Flight card */
-  .flight-card {
-    transition: transform 0.3s, box-shadow 0.3s;
-    height: 100%;
-  }
-  
-  .flight-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
-  }
-  
-  .flight-time {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-  
-  .flight-details {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-    padding: 8px 0;
-  }
-  
-  .flight-chip {
-    flex: 1;
-  }
-  
-  .flight-divider {
-    margin: 0 8px !important;
-  }
-  
-  .select-button {
-    text-transform: none !important;
-    margin-top: 8px !important;
-  }
-  
-  /* RTL specific adjustments */
-  .MuiInputAdornment-root {
-    margin-right: 0 !important;
-    margin-left: 8px !important;
-  }
-  
-  .MuiButton-startIcon {
-    margin-right: 0 !important;
-    margin-left: 8px !important;
-  }
-  
-  /* Responsive styles */
-  @media (max-width: 960px) {
-    .find-container {
-      padding: 16px;
+  /* Main container */
+  .find-container {
+      padding: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      direction: rtl;
     }
-    
+  
+    /* Search paper */
+    .search-paper {
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+  
+    /* Search header */
     .search-header {
-      padding: 20px;
+      background: linear-gradient(135deg, #1976d2, #0d47a1);
+      color: white;
+      padding: 24px;
+      text-align: center;
     }
-    
-    .search-title {
-      font-size: 1.8rem !important;
-    }
-    
-    .search-form {
-      padding: 20px;
-    }
-  }
   
-  @media (max-width: 600px) {
-    .find-container {
-      padding: 12px;
-    }
-    
-    .search-header {
-      padding: 16px;
-    }
-    
     .search-title {
-      font-size: 1.5rem !important;
+      font-weight: 700 !important;
+      margin-bottom: 8px !important;
     }
-    
+  
     .search-subtitle {
-      font-size: 0.9rem !important;
+      opacity: 0.9;
     }
-    
+  
+    /* Search form */
     .search-form {
+      padding: 24px;
+    }
+  
+    .search-button {
+      padding: 12px !important;
+      font-weight: 600 !important;
+      text-transform: none !important;
+      margin-top: 8px !important;
+    }
+  
+    /* No results */
+    .no-results {
+      padding: 24px;
+      text-align: center;
+      margin-top: 16px;
+    }
+  
+    /* תוצאות חיפוש - עיצוב משופר */
+    .results-container {
+      margin-top: 32px;
+      animation: fadeIn 0.5s ease-out;
       padding: 16px;
+      background-color: rgba(245, 247, 250, 0.7);
+      border-radius: 12px;
     }
-    
+  
+    .results-title {
+      margin-bottom: 16px !important;
+      font-weight: 600 !important;
+      color: #1976d2;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  
+    .results-title-icon {
+      font-size: 1.8rem !important;
+      color: #1976d2;
+    }
+  
+    .results-divider {
+      margin-bottom: 24px !important;
+      background-color: rgba(25, 118, 210, 0.2) !important;
+    }
+  
+    /* כרטיס טיסה - עיצוב משופר */
+    .flight-card {
+      transition: transform 0.3s, box-shadow 0.3s;
+      height: 100%;
+      border-radius: 12px !important;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(25, 118, 210, 0.1);
+    }
+  
+    .flight-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+    }
+  
+    .flight-card .MuiCardContent-root {
+      padding: 16px !important;
+    }
+  
+    /* זמן טיסה */
+    .flight-time {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      background-color: rgba(25, 118, 210, 0.05);
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+  
+    .flight-time .MuiSvgIcon-root {
+      color: #ff6d00;
+    }
+  
+    .flight-time .MuiTypography-root {
+      font-weight: 600 !important;
+      color: #333;
+    }
+  
+    /* פרטי טיסה */
     .flight-details {
-      flex-direction: column;
-      gap: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding: 8px 0;
+      position: relative;
     }
-    
+  
+    /* איקון מטוס מעופף בין המקור ליעד */
+    .flight-route-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #1976d2;
+      font-size: 1.5rem !important;
+      z-index: 1;
+      background-color: white;
+      border-radius: 50%;
+      padding: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  
     .flight-divider {
-      display: none;
+      margin: 0 8px !important;
     }
-    
+  
     .flight-chip {
-      width: 100%;
+      flex: 1;
+      font-weight: 500 !important;
     }
-  }
   
-  /* Animation */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
+    .flight-chip-source {
+      border-color: #1976d2 !important;
+      color: #1976d2 !important;
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
   
-  .search-paper, .no-results, .results-container {
-    animation: fadeIn 0.5s ease-out;
-  }
+    .flight-chip-destination {
+      border-color: #f50057 !important;
+      color: #f50057 !important;
+    }
+  
+    /* כפתור בחירה */
+    .select-button {
+      text-transform: none !important;
+      margin-top: 8px !important;
+      padding: 10px !important;
+      font-weight: 600 !important;
+      border-radius: 8px !important;
+      background: linear-gradient(135deg, #1976d2, #0d47a1) !important;
+      transition: all 0.3s ease !important;
+    }
+  
+    .select-button:hover {
+      box-shadow: 0 4px 8px rgba(25, 118, 210, 0.4) !important;
+      transform: translateY(-2px);
+    }
+  
+    /* אנימציית הופעה הדרגתית לכרטיסים */
+    .flight-results .MuiGrid-item {
+      animation: cardFadeIn 0.5s ease-out;
+      animation-fill-mode: both;
+    }
+  
+    @keyframes cardFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  
+    /* דחיית אנימציה לכל כרטיס בנפרד */
+    .flight-results .MuiGrid-item:nth-child(1) { animation-delay: 0.1s; }
+    .flight-results .MuiGrid-item:nth-child(2) { animation-delay: 0.2s; }
+    .flight-results .MuiGrid-item:nth-child(3) { animation-delay: 0.3s; }
+    .flight-results .MuiGrid-item:nth-child(4) { animation-delay: 0.4s; }
+    .flight-results .MuiGrid-item:nth-child(5) { animation-delay: 0.5s; }
+    .flight-results .MuiGrid-item:nth-child(6) { animation-delay: 0.6s; }
+  
+    /* RTL specific adjustments */
+    .MuiInputAdornment-root {
+      margin-right: 0 !important;
+      margin-left: 8px !important;
+    }
+  
+    .MuiButton-startIcon {
+      margin-right: 0 !important;
+      margin-left: 8px !important;
+    }
+  
+    /* Responsive styles */
+    @media (max-width: 960px) {
+      .find-container {
+        padding: 16px;
+      }
+    
+      .search-header {
+        padding: 20px;
+      }
+    
+      .search-title {
+        font-size: 1.8rem !important;
+      }
+    
+      .search-form {
+        padding: 20px;
+      }
+    }
+  
+    @media (max-width: 600px) {
+      .find-container {
+        padding: 12px;
+      }
+    
+      .search-header {
+        padding: 16px;
+      }
+    
+      .search-title {
+        font-size: 1.5rem !important;
+      }
+    
+      .search-subtitle {
+        font-size: 0.9rem !important;
+      }
+    
+      .search-form {
+        padding: 16px;
+      }
+    
+      .flight-details {
+        flex-direction: column;
+        gap: 16px;
+      }
+    
+      .flight-divider {
+        display: none;
+      }
+    
+      .flight-chip {
+        width: 100%;
+      }
+    
+      .flight-route-icon {
+        position: static;
+        transform: none;
+        display: block;
+        margin: 8px auto;
+        font-size: 1.8rem !important;
+      }
+    }
+  
+    /* Animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  
+    .search-paper, .no-results, .results-container {
+      animation: fadeIn 0.5s ease-out;
+    }
