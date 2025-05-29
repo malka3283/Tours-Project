@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
+import { useEffect, useState } from "react";
 import { 
     Button, 
     Box, 
@@ -11,7 +12,8 @@ import {
     Card, 
     CardContent, 
     Divider,
-    Chip
+    Chip,
+    Fade
 } from "@mui/material";
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import PersonIcon from '@mui/icons-material/Person';
@@ -25,132 +27,168 @@ import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import LuggageIcon from '@mui/icons-material/Luggage';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PrintIcon from '@mui/icons-material/Print';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import "./order.css";
 
 export const Order = () => {
     const orders = useSelector(state => state.flights.ordersToPdf);
     const price = useSelector(state => state.flights.price);
     const user = useSelector(state => state.users.user);
+    
+    // מצב לאינדיקטור גלילה
+    const [showScrollIndicator, setShowScrollIndicator] = useState(false);
 
-    const generateOrderPDF = () => {
-        // יצירת מסמך PDF חדש
+    // בדיקת אם יש צורך בגלילה
+    useEffect(() => {
+        const flightsList = document.querySelector('.flights-list');
+        if (flightsList) {
+            const hasScroll = flightsList.scrollHeight > flightsList.clientHeight;
+            setShowScrollIndicator(hasScroll);
+            
+            // מאזין לגלילה להסתרת האינדיקטור
+            const handleScroll = () => {
+                const { scrollTop, scrollHeight, clientHeight } = flightsList;
+                const isNearBottom = scrollTop + clientHeight >= scrollHeight - 50;
+                setShowScrollIndicator(hasScroll && !isNearBottom);
+            };
+            
+            flightsList.addEventListener('scroll', handleScroll);
+            return () => flightsList.removeEventListener('scroll', handleScroll);
+        }
+    }, [orders]);
+
+    const generateHebrewPDF = () => {
         const doc = new jsPDF();
         
-        // הגדרת צבעי מותג
-        const primaryColor = [25, 118, 210]; // כחול של האתר
+        // צבעי מותג
+        const primaryColor = [25, 118, 210];
+        const accentColor = [255, 152, 0];
         
-        // הוספת רקע לכותרת
+        // רקע כותרת
         doc.setFillColor(...primaryColor);
-        doc.rect(0, 0, 210, 40, 'F');
+        doc.rect(0, 0, 210, 45, 'F');
         
-        // כותרת ראשית - בצבע לבן על רקע כחול
+        // כותרת בעברית
         doc.setTextColor(255, 255, 255);
-        doc.setFontSize(22);
-        doc.text("פרטי הזמנה", 105, 20, { align: "center" });
+        doc.setFontSize(24);
+        doc.text("אישור הזמנת טיסה", 105, 20, { align: "center" });
+        
+        doc.setFontSize(14);
+        doc.text("חברת טורס - הטיסות שלכם בידיים טובות", 105, 32, { align: "center" });
         
         // מספר הזמנה
-        const orderNumber = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
-        doc.setFontSize(12);
-        doc.text(`הזמנה מספר #: ${orderNumber}`, 105, 30, { align: "center" });
+        const orderNumber = `TR-${Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`;
+        const currentDate = new Date().toLocaleDateString('he-IL');
         
-        // תאריך נוכחי
-        const today = new Date();
-        const formattedDate = today.toLocaleDateString('en-US');
+        doc.setFontSize(12);
+        doc.text(`מספר הזמנה: ${orderNumber}`, 105, 40, { align: "center" });
         
         // פרטי לקוח
-        doc.setTextColor(0, 0, 0);
-        doc.setFillColor(245, 245, 245);
-        doc.roundedRect(15, 50, 180, 40, 3, 3, 'F');
+        doc.setFillColor(248, 249, 250);
+        doc.roundedRect(15, 55, 180, 45, 3, 3, 'F');
         
         doc.setTextColor(...primaryColor);
-        doc.setFontSize(14);
-        doc.text("Customer Details:", 20, 60);
+        doc.setFontSize(16);
+        doc.text("פרטי הלקוח", 190, 70, { align: "right" });
         
         doc.setTextColor(0, 0, 0);
         doc.setFontSize(12);
-        doc.text(`Name: ${user?.firstName || ''} ${user?.lastName || ''}`, 20, 70);
-        doc.text(`Email: ${user?.email || ''}`, 20, 80);
+        doc.text(`שם מלא: ${user?.firstName || ''} ${user?.lastName || ''}`, 190, 80, { align: "right" });
+        doc.text(`אימייל: ${user?.email || ''}`, 190, 87, { align: "right" });
+        doc.text(`טלפון: ${user?.phone || 'לא צוין'}`, 190, 94, { align: "right" });
         
-        // טבלת פרטי הזמנה
-        const tableColumn = ["Price", "Weight", "Tickets", "Date", "Destination", "Origin"];
-        const tableRows = [];
+        // תאריך
+        doc.setTextColor(...accentColor);
+        doc.text(`תאריך הזמנה: ${currentDate}`, 25, 80, { align: "left" });
+        doc.text("סטטוס: אושר ושולם", 25, 87, { align: "left" });
         
-        orders.forEach(item => {
-            const itemData = [
-                `₪${item.price * item.nOS + item.overWight * item.priceToOverLoad}`,
-                `${item.overWight} kg`,
-                item.nOS,
-                item.date || formattedDate,
-                item.des || item.toCity,
-                item.src || item.fromCity
-            ];
-            tableRows.push(itemData);
+        // טבלת טיסות
+        const tableData = [];
+        
+        orders.forEach((item) => {
+            const totalPrice = item.price * item.nOS + item.overWight * (item.priceToOverLoad || 50);
+            tableData.push([
+                item.classs || 'תיירים',
+                item.fromCity || item.src,
+                item.toCity || item.des,
+                item.date || currentDate,
+                item.nOS.toString(),
+                `${item.overWight} ק"ג`,
+                `₪${totalPrice.toLocaleString('he-IL')}`
+            ]);
         });
         
-        // עיצוב מודרני לטבלה
         autoTable(doc, {
-            head: [tableColumn],
-            body: tableRows,
-            startY: 100,
-            theme: 'grid',
+            head: [['מחלקה', 'מוצא', 'יעד', 'תאריך', 'נוסעים', 'משקל עודף', 'מחיר כולל']],
+            body: tableData,
+            startY: 110,
             styles: { 
-                halign: 'left',
                 fontSize: 10,
-                cellPadding: 6
+                cellPadding: 5,
+                halign: 'center'
             },
             headStyles: { 
-                fillColor: primaryColor, 
+                fillColor: primaryColor,
                 textColor: 255,
                 fontStyle: 'bold'
             },
             alternateRowStyles: {
-                fillColor: [250, 250, 250]
+                fillColor: [248, 250, 252]
             },
             margin: { right: 15, left: 15 }
         });
         
-        // סיכום מחיר
         const finalY = doc.lastAutoTable.finalY + 20;
         
-        // מסגרת לסיכום מחיר
-        doc.setDrawColor(...primaryColor);
-        doc.setFillColor(245, 245, 245);
-        doc.roundedRect(15, finalY, 90, 30, 3, 3, 'FD');
+        // סיכום מחיר
+        doc.setFillColor(76, 175, 80);
+        doc.roundedRect(15, finalY, 90, 35, 3, 3, 'F');
         
-        // סה"כ לתשלום
-        doc.setTextColor(...primaryColor);
-        doc.setFontSize(16);
-        doc.text("Total Payment:", 20, finalY + 15);
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(14);
+        doc.text("סה\"כ לתשלום:", 100, finalY + 15, { align: "right" });
         
         doc.setFontSize(18);
-        doc.text(`₪${price}`, 80, finalY + 15, { align: "right" });
+        doc.text(`₪${price.toLocaleString('he-IL')}`, 100, finalY + 28, { align: "right" });
         
-        // הערות והנחיות
-        const notesY = finalY + 40;
-        doc.setDrawColor(...primaryColor);
-        doc.setFillColor(255, 255, 255);
-        doc.roundedRect(15, notesY, 180, 50, 3, 3, 'FD');
+        // הוראות חשובות
+        const instructionsY = finalY + 45;
+        doc.setFillColor(255, 248, 225);
+        doc.roundedRect(15, instructionsY, 180, 50, 3, 3, 'F');
         
         doc.setTextColor(...primaryColor);
         doc.setFontSize(14);
-        doc.text("Important Notes:", 20, notesY + 15);
+        doc.text("הוראות חשובות:", 190, instructionsY + 15, { align: "right" });
         
-        doc.setTextColor(80, 80, 80);
+        doc.setTextColor(0, 0, 0);
         doc.setFontSize(10);
-        doc.text("• This document is an official order confirmation", 20, notesY + 25);
-        doc.text("• Please present this document when arriving for your flight", 20, notesY + 35);
-        doc.text("• For questions and inquiries: 03-1234567", 20, notesY + 45);
+        
+        const instructions = [
+            "• מסמך זה מהווה אישור רשמי להזמנתכם",
+            "• נדרש להגיע 2-3 שעות לפני המראה",
+            "• צ'ק-אין אונליין זמין 24 שעות לפני",
+            "• יש להציג תעודת זהות + אישור זה",
+            "• לשאלות: 03-1234567"
+        ];
+        
+        instructions.forEach((instruction, index) => {
+            doc.text(instruction, 190, instructionsY + 25 + (index * 7), { align: "right" });
+        });
         
         // פוטר
         doc.setFillColor(...primaryColor);
-        doc.rect(0, 280, 210, 17, 'F');
+        doc.rect(0, 270, 210, 27, 'F');
         
         doc.setTextColor(255, 255, 255);
-        doc.setFontSize(10);
-        doc.text("חברה - גלובוס | טלפון: 03-1234567 | www.globus.com", 105, 290, { align: "center" });
+        doc.setFontSize(12);
+        doc.text("חברת טורס בע\"מ", 105, 280, { align: "center" });
         
-        // שמירת המסמך
-        doc.save(`Order-${orderNumber}-${formattedDate}.pdf`);
+        doc.setFontSize(9);
+        doc.text("רחוב התעופה 123, תל אביב | טל: 03-1234567", 105, 287, { align: "center" });
+        doc.text("רישיון תעופה: IL-2024-001", 105, 293, { align: "center" });
+        
+        // שמירה
+        doc.save(`אישור-הזמנה-${orderNumber}.pdf`);
     };
 
     return (
@@ -184,7 +222,6 @@ export const Order = () => {
                                 <Divider className="card-divider" />
                                 
                                 <Box className="customer-details">
-                                    {/* שילוב שם מלא וטלפון בשורה אחת */}
                                     <Box className="detail-item">
                                         <PersonIcon className="detail-icon" />
                                         <Typography variant="body2" className="detail-text">
@@ -199,7 +236,6 @@ export const Order = () => {
                                         </Typography>
                                     </Box>
                                     
-                                    {/* אימייל בשורה נפרדת */}
                                     <Box className="detail-item">
                                         <EmailIcon className="detail-icon" />
                                         <Typography variant="body2" className="detail-text">
@@ -257,27 +293,37 @@ export const Order = () => {
                     </Box>
                 </Grid>
                 
-                {/* פרטי הזמנה */}
+                {/* פרטי הזמנה עם גלילה */}
                 <Grid item xs={12} md={8}>
                     <Card className="order-card flights-card content-fade-in">
                         <CardContent>
-                            <Typography variant="h5" component="h2" className="card-title">
-                                <ConfirmationNumberIcon className="card-icon" />
-                                פרטי הטיסות
-                            </Typography>
+                            <Box className="flights-header">
+                                <Box className="flights-title-section">
+                                    <FlightTakeoffIcon className="flights-icon" />
+                                    <Typography variant="h5" component="h2" className="flights-title">
+                                        פרטי הטיסות שלך
+                                    </Typography>
+                                </Box>
+                                <Typography variant="body2" color="textSecondary">
+                                    {orders.length} טיסות
+                                </Typography>
+                            </Box>
+                            
                             <Divider className="card-divider" />
                             
-                            <Box className="flights-list-container">
+                            <Box className="flights-list-container" style={{ position: 'relative' }}>
                                 <Box className="flights-list">
                                     {orders.map((item, index) => (
                                         <Paper key={index} elevation={0} className="flight-item">
                                             <Box className="flight-header">
-                                                <Typography variant="h6" className="flight-route">
-                                                    <FlightTakeoffIcon className="route-icon" />
-                                                    {item.fromCity || item.src} - {item.toCity || item.des}
-                                                </Typography>
+                                                <Box className="route-section">
+                                                    <Typography variant="h6" className="flight-route">
+                                                        <FlightTakeoffIcon className="route-icon" />
+                                                        {item.fromCity || item.src} → {item.toCity || item.des}
+                                                    </Typography>
+                                                </Box>
                                                 <Chip 
-                                                    label={`מספר טיסה: ${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`}
+                                                    label={`טיסה #${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`}
                                                     size="small"
                                                     color="primary"
                                                     variant="outlined"
@@ -341,20 +387,27 @@ export const Order = () => {
                                         </Paper>
                                     ))}
                                 </Box>
+                                
+                                {/* אינדיקטור גלילה */}
+                                <Fade in={showScrollIndicator}>
+                                    <Box className={`scroll-indicator ${!showScrollIndicator ? 'hidden' : ''}`}>
+                                        <KeyboardArrowDownIcon style={{ fontSize: '1rem', marginLeft: '5px' }} />
+                                        גלול למטה לעוד טיסות
+                                    </Box>
+                                </Fade>
                             </Box>
                         </CardContent>
                     </Card>
                 </Grid>
             </Grid>
 
-            
             {/* כפתורים */}
             <Box className="order-actions">
                 <Button 
                     variant="contained" 
                     color="primary" 
                     startIcon={<PictureAsPdfIcon />}
-                    onClick={generateOrderPDF}
+                    onClick={generateHebrewPDF}
                     size="large"
                     className="pdf-button"
                 >

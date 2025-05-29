@@ -55,10 +55,13 @@ export const ClassToFlight = () => {
     const [detail, setDetail] = useState(false);
     const [thisFlt, setThisFlt] = useState({});
     const [loading, setLoading] = useState(true);
+    const [saveId, setSaveId] = useState(0);
+
     
     useEffect(() => {
         setLoading(true); // מתחיל טעינה
         dispatch(loct("/AllClassToFlight"));
+        
         dispatch(getAllClassToFlightThunk())
             .then(() => {
                 // מחכה מעט לפני הסרת הטעינה כדי למנוע הבהוב מהיר
@@ -192,6 +195,7 @@ export const ClassToFlight = () => {
                                                         onClick={() => {
                                                             setLoading(true); // מתחיל טעינה
                                                             setDetail(true); // פותח את הדיאלוג
+                                                            setSaveId(f.id); 
                                                             dispatch(getOrderDetailByClassToFlightIdThunk(f.id))
                                                                 .then(() => {
                                                                     setLoading(false); // מסיים טעינה כשהנתונים מגיעים
@@ -326,7 +330,7 @@ export const ClassToFlight = () => {
                                 <TableBody>
                                     {orderDetailByClassToFlight?.length > 0 ? (
                                         orderDetailByClassToFlight.map(o => 
-                                            o.ordersDetails?.map(od => (
+                                            o.ordersDetails?.filter(od => od.idClassToFlight === saveId)?.map(od => (
                                                 <TableRow key={od.id} className="table-row">
                                                     <TableCell align="right">
                                                         {o.idCustomerNavigation.firstName} {o.idCustomerNavigation.lastName}
@@ -359,8 +363,8 @@ export const ClassToFlight = () => {
                                                             )}
                                                         </TableCell>
                                                     )}
-                                                </TableRow>
-                                            ))
+                                                </TableRow>)
+                                          )
                                         )
                                     ) : (
                                         <TableRow>

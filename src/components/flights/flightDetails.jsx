@@ -71,7 +71,6 @@ export const FlightDetails = () => {
             if(element.id === yourClassToFlight.id)
                 flag = true;
         });
-        debugger
         if(!flag) {
             var flt = {
                 src: yourClassToFlight.thisflight.flight.sourceNavigation.destination, 

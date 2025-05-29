@@ -66,7 +66,7 @@ export const Cart = () => {
     }, [order]);
     
     const updateNOs = (o, value) => {
-        debugger
+
        dispatch(changeNOS({ id: o.id, nOS: parseInt(value) }));
         setSnackbarMessage("כמות הכרטיסים עודכנה");
         setSnackbarOpen(true);

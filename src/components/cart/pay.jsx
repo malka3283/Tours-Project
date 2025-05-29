@@ -104,7 +104,6 @@ export const Pay = () => {
             setIsProcessing(false);
             setSnackbarOpen(true);
             // Redirect after showing success message
-            debugger
             setTimeout(() => navigate("/orderAfterPay"), 1500);
         }, 1500);
     };

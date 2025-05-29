@@ -168,7 +168,7 @@ export const flightsSlice = createSlice({
             })
 
             builder.addCase(addFlightThunk.fulfilled, (state, action) => {
-                state.AllThisFlight = action.payload
+                state.flightsArr = action.payload
             })
 
             builder.addCase(addFlightThunk.rejected, (state) => {
@@ -262,6 +262,7 @@ export const flightsSlice = createSlice({
             })
 
             builder.addCase(addThisFlightThunk.fulfilled, (state, action) => {
+                state.AllThisFlight = action.payload;
                 state.oneThisFlight = action.payload;
             })
 
